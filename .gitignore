@@ -1,0 +1,9 @@
+node_modules
+dist
+home-*.png
+home-*.check.png
+homepage-snapshots/
+.DS_Store
+.env
+.env.*
+*.log

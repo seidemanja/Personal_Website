@@ -1,0 +1,365 @@
+.page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  padding: 22px 0 0;
+}
+
+.heroGrid {
+  width: min(calc(100vw - 120px), 1320px);
+  margin: clamp(150px, 20vh, 250px) auto 0;
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) minmax(520px, 1fr);
+  align-items: center;
+  gap: clamp(72px, 7vw, 120px);
+}
+
+.portraitWrap {
+  width: clamp(300px, 33vw, 380px);
+  aspect-ratio: 1;
+  justify-self: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 43%, rgba(255, 255, 255, 0) 44%, #f3f3ec 45%),
+    #f7f6ef;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 18px 40px rgba(0, 0, 0, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+  transform: translateY(-3px);
+}
+
+.portrait {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 50% 43%;
+  transform: scale(1.02);
+}
+
+.content {
+  max-width: 780px;
+}
+
+.header {
+  text-align: left;
+}
+
+.title {
+  margin: 0;
+  color: #141414;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(4rem, 5.1vw, 6.35rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  margin: 28px 0 0;
+  color: #404040;
+  font-size: clamp(1.92rem, 2.65vw, 3.05rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.rule {
+  width: 70px;
+  height: 2px;
+  margin-top: 34px;
+  background: #b8b8b0;
+}
+
+.profileLinks {
+  margin: 48px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+}
+
+.profileLinkItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dividerItem {
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+}
+
+.divider {
+  width: 1px;
+  height: 28px;
+  background: #d7d7d0;
+}
+
+.profileLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0;
+  color: #3f3f3f;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.profileLink svg {
+  width: 32px;
+  height: 32px;
+  display: block;
+  flex: 0 0 auto;
+}
+
+.linkIcon {
+  width: 32px;
+  height: 32px;
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.emailLabel,
+.socialLabel {
+  line-height: 1;
+}
+
+.emailLabel {
+  font-size: 1.57rem;
+  font-weight: 400;
+}
+
+.socialLabel {
+  font-size: 1.57rem;
+  font-weight: 400;
+}
+
+.profileLink:hover,
+.profileLink:focus-visible {
+  color: #181818;
+  outline: none;
+}
+
+.emailMenu {
+  min-width: 248px;
+  min-height: 46px;
+  padding: 8px 9px 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 10;
+  border-radius: 6px;
+  background: #f5f5f3;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.emailMenu::before {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: -6px;
+  left: 26px;
+  background: #f5f5f3;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.emailAddress {
+  color: #111;
+  font-size: 1.57rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.copyButton {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: #111;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    transform 150ms ease;
+}
+
+.copyButton:hover,
+.copyButton:focus-visible {
+  background: rgba(0, 0, 0, 0.09);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.copyButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.copyMessage {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 8px;
+  padding: 6px 9px;
+  color: #111;
+  border-radius: 4px;
+  background: #f5f5f3;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.82rem;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
+  white-space: nowrap;
+}
+
+.copyMessageVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 980px) {
+  .heroGrid {
+    width: min(calc(100vw - 56px), 1320px);
+    grid-template-columns: 1fr;
+    justify-items: center;
+    margin-top: 120px;
+    gap: 48px;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .header {
+    text-align: center;
+  }
+
+  .rule {
+    margin: 34px auto 0;
+  }
+
+  .profileLinks {
+    justify-content: center;
+  }
+
+  .emailMenu {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .emailMenu::before {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 18px;
+  }
+
+  .heroGrid {
+    width: min(calc(100vw - 32px), 1320px);
+    margin-top: 88px;
+  }
+
+  .portraitWrap {
+    width: min(76vw, 320px);
+  }
+
+  .title {
+    font-size: clamp(2.9rem, 11vw, 3.9rem);
+  }
+
+  .subtitle {
+    margin-top: 18px;
+    font-size: 1.28rem;
+  }
+
+  .rule {
+    margin-top: 28px;
+  }
+
+  .profileLinks {
+    margin-top: 38px;
+    justify-content: center;
+  }
+
+  .profileLink {
+    gap: 12px;
+  }
+
+  .dividerItem {
+    padding: 0 14px;
+  }
+
+  .emailMenu {
+    min-width: 230px;
+  }
+}
+
+@media (max-width: 420px) {
+  .heroGrid {
+    margin-top: 72px;
+  }
+
+  .title {
+    font-size: clamp(2.4rem, 10vw, 3.02rem);
+  }
+
+  .subtitle {
+    font-size: 1.12rem;
+  }
+
+  .profileLinks {
+    row-gap: 10px;
+  }
+
+  .profileLink {
+    gap: 10px;
+  }
+
+  .profileLink svg,
+  .linkIcon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .emailLabel {
+    font-size: 1.57rem;
+  }
+
+  .socialLabel {
+    font-size: 1.57rem;
+  }
+}
