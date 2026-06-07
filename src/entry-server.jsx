@@ -2,7 +2,9 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server.js';
 import HomePage from './pages/HomePage.jsx';
-import ResumeLayout from './pages/ResumeLayout.jsx';
+import ResumeLayout, {
+  ResumePageSkeleton,
+} from './pages/ResumeLayout.jsx';
 import SelectedProjectsPage from './pages/SelectedProjectsPage.jsx';
 
 function renderPage(location, page) {
@@ -18,7 +20,12 @@ export function renderHomePage() {
 }
 
 export function renderResumePage() {
-  return renderPage('/resume', <ResumeLayout />);
+  return renderPage(
+    '/resume',
+    <ResumeLayout>
+      <ResumePageSkeleton />
+    </ResumeLayout>,
+  );
 }
 
 export function renderProjectsPage() {

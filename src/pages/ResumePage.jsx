@@ -4,10 +4,48 @@ import DocumentContext from 'react-pdf/dist/DocumentContext.js';
 import LinkService from 'react-pdf/dist/LinkService.js';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import { preloadResumePdf } from '../resumePdfAsset.js';
+import {
+  getLoadedResumePdf,
+  getMeasuredResumeViewerWidth,
+  preloadResumePdf,
+} from '../resumePdfAsset.js';
 import styles from './ResumePage.module.css';
 
 const MAX_PAGE_WIDTH = 1840;
+
+function FirstResumePdfPage({ documentContext, pageWidth, pdf }) {
+  const [isCanvasRendered, setIsCanvasRendered] = useState(false);
+  const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 1.25);
+
+  return (
+    <article className={styles.pageShell}>
+      {pdf && documentContext && pageWidth ? (
+        <DocumentContext.Provider value={documentContext}>
+          <Page
+            canvasBackground="#ffffff"
+            className={styles.pdfPage}
+            devicePixelRatio={devicePixelRatio}
+            loading={null}
+            onRenderSuccess={() => setIsCanvasRendered(true)}
+            pageNumber={1}
+            pdf={pdf}
+            renderAnnotationLayer={isCanvasRendered}
+            renderTextLayer={isCanvasRendered}
+            width={pageWidth}
+          />
+        </DocumentContext.Provider>
+      ) : null}
+
+      {!isCanvasRendered ? (
+        <div
+          className={styles.canvasPlaceholder}
+          aria-label="Loading resume"
+          role="status"
+        />
+      ) : null}
+    </article>
+  );
+}
 
 function ResumePdfPage({ pageNumber, pageWidth, pdf }) {
   const shellRef = useRef(null);
@@ -42,9 +80,7 @@ function ResumePdfPage({ pageNumber, pageWidth, pdf }) {
 
   return (
     <article
-      className={`${styles.pageShell} ${
-        isCanvasRendered ? styles.pageShellReady : ''
-      }`}
+      className={styles.pageShell}
       ref={shellRef}
       style={{ width: `${pageWidth}px` }}
     >
@@ -75,9 +111,13 @@ function ResumePdfPage({ pageNumber, pageWidth, pdf }) {
 
 function ResumePage() {
   const viewerRef = useRef(null);
-  const [availableWidth, setAvailableWidth] = useState(0);
-  const [pdfDocument, setPdfDocument] = useState(null);
-  const [status, setStatus] = useState('loading');
+  const [availableWidth, setAvailableWidth] = useState(
+    () => getMeasuredResumeViewerWidth() ?? 0,
+  );
+  const [pdfDocument, setPdfDocument] = useState(() => getLoadedResumePdf());
+  const [status, setStatus] = useState(() =>
+    getLoadedResumePdf() ? 'ready' : 'loading',
+  );
 
   useEffect(() => {
     let active = true;
@@ -109,7 +149,13 @@ function ResumePage() {
     }
 
     const updateWidth = () => {
-      setAvailableWidth(Math.floor(node.getBoundingClientRect().width));
+      const nextWidth = Math.floor(node.getBoundingClientRect().width);
+
+      if (nextWidth > 0) {
+        setAvailableWidth((currentWidth) =>
+          currentWidth === nextWidth ? currentWidth : nextWidth,
+        );
+      }
     };
 
     updateWidth();
@@ -126,7 +172,7 @@ function ResumePage() {
   }, []);
 
   const pageWidth =
-    availableWidth > 0 ? Math.min(availableWidth, MAX_PAGE_WIDTH) : MAX_PAGE_WIDTH;
+    availableWidth > 0 ? Math.min(availableWidth, MAX_PAGE_WIDTH) : null;
   const documentContext = useMemo(() => {
     if (!pdfDocument) {
       return null;
@@ -155,16 +201,27 @@ function ResumePage() {
         </p>
       ) : null}
 
-      {pdfDocument && documentContext ? (
+      {status !== 'error' ? (
+        <FirstResumePdfPage
+          documentContext={documentContext}
+          pageWidth={pageWidth}
+          pdf={pdfDocument}
+        />
+      ) : null}
+
+      {pdfDocument && documentContext && pageWidth ? (
         <DocumentContext.Provider value={documentContext}>
-          {Array.from({ length: pdfDocument.numPages }, (_, index) => (
-            <ResumePdfPage
-              key={index + 1}
-              pageNumber={index + 1}
-              pageWidth={pageWidth}
-              pdf={pdfDocument}
-            />
-          ))}
+          {Array.from(
+            { length: Math.max(pdfDocument.numPages - 1, 0) },
+            (_, index) => (
+              <ResumePdfPage
+                key={index + 2}
+                pageNumber={index + 2}
+                pageWidth={pageWidth}
+                pdf={pdfDocument}
+              />
+            ),
+          )}
         </DocumentContext.Provider>
       ) : null}
     </div>

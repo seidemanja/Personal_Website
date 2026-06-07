@@ -3,9 +3,27 @@ import Navigation from '../components/Navigation.jsx';
 import { RESUME_PDF_URL } from '../resumeConstants.js';
 import styles from './ResumePage.module.css';
 
-function ResumeLayout({ children = null }) {
+export function ResumePageSkeleton() {
   return (
-    <main className={styles.page} id="resume">
+    <div className={styles.viewer}>
+      <article className={styles.pageShell}>
+        <div
+          className={styles.canvasPlaceholder}
+          aria-label="Loading resume"
+          role="status"
+        />
+      </article>
+    </div>
+  );
+}
+
+function ResumeLayout({ children = null, isVisible = true }) {
+  return (
+    <main
+      aria-hidden={!isVisible}
+      className={`${styles.page} ${isVisible ? '' : styles.hidden}`}
+      id="resume"
+    >
       <Navigation variant="resume" />
 
       <section className={styles.content} aria-labelledby="resume-title">

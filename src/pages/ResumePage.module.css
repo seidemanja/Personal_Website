@@ -4,6 +4,10 @@
   padding-top: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .content {
   width: min(calc(100vw - 36px), 1700px);
   margin: 0 auto;
@@ -17,7 +21,7 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  right: 24px;
+  right: 44px;
   bottom: 28px;
   z-index: 30;
   color: #171717;
@@ -73,14 +77,11 @@
 }
 
 .pageShell {
+  width: min(100%, 1840px);
   margin: 0 0 18px;
   aspect-ratio: 0.773 / 1;
   position: relative;
   overflow: hidden;
-  background: transparent;
-}
-
-.pageShellReady {
   background: #fff;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.08),
@@ -162,7 +163,7 @@
   .downloadButton {
     width: 66px;
     height: 66px;
-    right: 16px;
+    right: 32px;
     bottom: 20px;
   }
 

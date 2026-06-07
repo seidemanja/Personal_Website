@@ -33,6 +33,29 @@ function HomePage() {
   const emailMenuRef = useRef(null);
 
   useEffect(() => {
+    const preload = async () => {
+      try {
+        const { measureResumeViewerWidth, preloadResumePdf } = await import(
+          '../resumePdfAsset.js'
+        );
+        const preloadPromise = preloadResumePdf();
+        measureResumeViewerWidth();
+        await preloadPromise;
+      } catch {
+        // The resume page will retry if background preloading fails.
+      }
+    };
+
+    if ('requestIdleCallback' in window) {
+      const handle = window.requestIdleCallback(preload);
+      return () => window.cancelIdleCallback(handle);
+    }
+
+    const id = window.setTimeout(preload, 1000);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
     if (!isEmailOpen) {
       return undefined;
     }
