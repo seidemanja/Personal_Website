@@ -2,6 +2,8 @@ node_modules
 dist
 home-*.png
 home-*.check.png
+resume-*.png
+projects-*.png
 homepage-snapshots/
 .DS_Store
 .env

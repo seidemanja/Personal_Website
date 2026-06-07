@@ -1,0 +1,27 @@
+{
+  "headers": [
+    {
+      "source": "/pdfs/Joshua_Seideman_Resume_05232026.pdf",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/resume",
+      "destination": "/resume/index.html"
+    },
+    {
+      "source": "/projects",
+      "destination": "/projects/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -16,7 +16,7 @@ const profileLinks = [
     href: 'https://www.linkedin.com/in/joshua-a-seideman/',
     label: 'LinkedIn profile',
     text: 'LinkedIn',
-    icon: '/images/LinkedIn_icon.svg.png',
+    icon: '/images/LinkedIn_icon_64.png',
   },
   {
     href: 'https://scholar.google.com/citations?user=_dN3kXQAAAAJ&hl=en&oi=ao',
@@ -81,14 +81,19 @@ function HomePage() {
   return (
     <main className={styles.page} id="home">
       <section className={styles.hero} aria-labelledby="home-title">
-        <Navigation />
+        <Navigation variant="home" />
 
         <div className={styles.heroGrid}>
           <div className={styles.portraitWrap}>
             <img
               className={styles.portrait}
-              src="/images/Josh_Headshot.jpg"
+              src="/images/Josh_Headshot_760.jpg"
               alt="Joshua Seideman"
+              decoding="sync"
+              fetchpriority="high"
+              loading="eager"
+              width="743"
+              height="760"
             />
           </div>
 
@@ -163,7 +168,16 @@ function HomePage() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <img className={styles.linkIcon} src={Icon} alt="" aria-hidden="true" />
+                        <img
+                          className={styles.linkIcon}
+                          src={Icon}
+                          alt=""
+                          aria-hidden="true"
+                          decoding="sync"
+                          loading="eager"
+                          width="32"
+                          height="32"
+                        />
                         <span className={styles.socialLabel}>{text}</span>
                       </a>
                     )}

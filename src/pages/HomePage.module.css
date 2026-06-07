@@ -6,7 +6,7 @@
 .hero {
   width: 100%;
   min-height: 100vh;
-  padding: 22px 0 0;
+  padding: 0;
 }
 
 .heroGrid {
@@ -285,7 +285,7 @@
 
 @media (max-width: 720px) {
   .hero {
-    padding-top: 18px;
+    padding-top: 0;
   }
 
   .heroGrid {
@@ -361,5 +361,11 @@
 
   .socialLabel {
     font-size: 1.57rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroGrid {
+    transition: none;
   }
 }
