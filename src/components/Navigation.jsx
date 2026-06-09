@@ -1,17 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { loadResumePage } from '../routes.js';
 import styles from './Navigation.module.css';
 
 const rightItems = [
   { label: 'Resume', to: '/resume' },
   { label: 'Selected Projects', to: '/projects' },
 ];
-
-function prefetchRoute(to) {
-  if (to === '/resume') {
-    void loadResumePage();
-  }
-}
 
 function Navigation({ variant = 'home' }) {
   const isInteriorPage = variant !== 'home';
@@ -43,9 +36,6 @@ function Navigation({ variant = 'home' }) {
                   isActive ? `${styles.link} ${styles.active}` : styles.link
                 }
                 to={item.to}
-                onFocus={() => prefetchRoute(item.to)}
-                onMouseEnter={() => prefetchRoute(item.to)}
-                onTouchStart={() => prefetchRoute(item.to)}
               >
                 {item.label}
               </NavLink>

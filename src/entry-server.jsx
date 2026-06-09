@@ -1,33 +1,26 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server.js';
-import HomePage from './pages/HomePage.jsx';
-import ResumeLayout, {
-  ResumePageSkeleton,
-} from './pages/ResumeLayout.jsx';
-import SelectedProjectsPage from './pages/SelectedProjectsPage.jsx';
+import App from './App.jsx';
 
-function renderPage(location, page) {
+function renderPage(location) {
   return renderToString(
     <React.StrictMode>
-      <StaticRouter location={location}>{page}</StaticRouter>
+      <StaticRouter location={location}>
+        <App />
+      </StaticRouter>
     </React.StrictMode>,
   );
 }
 
 export function renderHomePage() {
-  return renderPage('/', <HomePage />);
+  return renderPage('/');
 }
 
 export function renderResumePage() {
-  return renderPage(
-    '/resume',
-    <ResumeLayout>
-      <ResumePageSkeleton />
-    </ResumeLayout>,
-  );
+  return renderPage('/resume');
 }
 
 export function renderProjectsPage() {
-  return renderPage('/projects', <SelectedProjectsPage />);
+  return renderPage('/projects');
 }

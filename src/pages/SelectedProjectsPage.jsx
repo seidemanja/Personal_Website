@@ -1,5 +1,9 @@
+import { useEffect } from 'react';
 import Navigation from '../components/Navigation.jsx';
 import styles from './SelectedProjectsPage.module.css';
+
+const INSTAGRAM_POST_URL =
+  'https://www.instagram.com/p/DWb8ne5jr17/?utm_source=ig_embed&utm_campaign=loading';
 
 const projects = [
   {
@@ -18,7 +22,7 @@ const projects = [
   {
     description:
       'Built an end-to-end system that generates AI-powered content, posts to Instagram, and engages with relevant accounts - no manual intervention. Grew to 2,000+ followers.',
-    imageLabel: 'Image 2',
+    instagramEmbed: true,
     technologies: ['Python', 'Selenium', 'OpenAI API', 'Gemini API', 'GCP'],
     title: 'Automated Instagram Engagement System with AI-Powered Content Generation',
   },
@@ -30,6 +34,45 @@ const projects = [
     title: 'Automated Twitter Engagement System',
   },
 ];
+
+function InstagramPostEmbed() {
+  useEffect(() => {
+    const processEmbed = () => {
+      window.instgrm?.Embeds.process();
+    };
+    const existingScript = document.getElementById('instagram-embed-script');
+
+    if (existingScript) {
+      processEmbed();
+      existingScript.addEventListener('load', processEmbed, { once: true });
+      return () => existingScript.removeEventListener('load', processEmbed);
+    }
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.id = 'instagram-embed-script';
+    script.src = 'https://www.instagram.com/embed.js';
+    script.addEventListener('load', processEmbed, { once: true });
+    document.body.appendChild(script);
+
+    return () => script.removeEventListener('load', processEmbed);
+  }, []);
+
+  return (
+    <div className={styles.instagramEmbed}>
+      <blockquote
+        className="instagram-media"
+        data-instgrm-captioned
+        data-instgrm-permalink={INSTAGRAM_POST_URL}
+        data-instgrm-version="14"
+      >
+        <a href={INSTAGRAM_POST_URL} rel="noreferrer" target="_blank">
+          View this post on Instagram
+        </a>
+      </blockquote>
+    </div>
+  );
+}
 
 function SelectedProjectsPage() {
   return (
@@ -53,9 +96,13 @@ function SelectedProjectsPage() {
               className={styles.card}
               key={project.title}
             >
-              <div className={styles.imagePlaceholder} aria-hidden="true">
-                {project.imageLabel}
-              </div>
+              {project.instagramEmbed ? (
+                <InstagramPostEmbed />
+              ) : (
+                <div className={styles.imagePlaceholder} aria-hidden="true">
+                  {project.imageLabel}
+                </div>
+              )}
 
               <div className={styles.cardContent}>
                 <h2 className={styles.cardTitle}>{project.title}</h2>

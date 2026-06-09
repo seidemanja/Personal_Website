@@ -9,20 +9,20 @@
 }
 
 .content {
-  width: min(calc(100vw - 36px), 1700px);
+  width: 902px;
   margin: 0 auto;
-  padding: 34px 0 88px;
+  padding: 26px 0 67px;
 }
 
 .downloadButton {
-  width: 88px;
-  height: 88px;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  right: 44px;
-  bottom: 28px;
+  right: 34px;
+  bottom: 22px;
   z-index: 30;
   color: #171717;
   border: 1px solid rgba(0, 0, 0, 0.22);
@@ -53,8 +53,8 @@
 }
 
 .downloadButton svg {
-  width: 40px;
-  height: 40px;
+  width: 22px;
+  height: 22px;
   flex: 0 0 auto;
 }
 
@@ -77,8 +77,8 @@
 }
 
 .pageShell {
-  width: min(100%, 1840px);
-  margin: 0 0 18px;
+  width: 836px;
+  margin: 0 0 14px;
   aspect-ratio: 0.773 / 1;
   position: relative;
   overflow: hidden;
@@ -88,64 +88,216 @@
     0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.placeholderPage {
-  width: 100%;
-  aspect-ratio: 0.773 / 1;
-  background: #fff;
-}
-
-.canvasPlaceholder {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  background: #fff;
-  pointer-events: none;
-}
-
 .pageShell:last-child {
   margin-bottom: 0;
 }
 
-.pdfPage {
-  background: #fff;
+.resumeDocument:nth-child(-n + 2) {
+  aspect-ratio: 0.815044 / 1;
 }
 
-.pdfPage :global(canvas) {
-  display: block;
+.resumeDocument {
+  box-sizing: border-box;
+  padding: 65px 73px;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15.4px;
+  line-height: 1.2;
 }
 
-.pdfPage :global(.react-pdf__Page__textContent) {
-  inset: 0;
-  overflow: hidden;
+.resumeDocument a {
+  color: #0000ee;
+  text-decoration-color: #0000ee;
+  text-decoration-thickness: 1.1px;
+  text-underline-offset: 1.1px;
 }
 
-.pdfPage :global(.react-pdf__Page__annotations) {
-  inset: 0;
+.resumeHeader {
+  margin: 0 0 30px;
 }
 
-.pdfPage
-  :global(
-    .annotationLayer
-      :is(.linkAnnotation, .buttonWidgetAnnotation.pushButton)
-      > a:hover
-  ) {
-  opacity: 1 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.status {
-  margin: 100px 0;
-  color: #50504b;
-  font-size: 1rem;
-  line-height: 1.4;
+.resumeHeader h1 {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2.181818em;
+  font-weight: 400;
+  line-height: 1;
   text-align: center;
+}
+
+.resumeSection {
+  margin-top: 2.25em;
+}
+
+.resumeDocument > .resumeSection:first-child {
+  margin-top: 0;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 17px;
+  margin: 0 0 0.72em;
+  padding-bottom: 0.12em;
+  border-bottom: 1.1px solid #000;
+}
+
+.sectionHeading h2 {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.272727em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sectionEmail {
+  color: #000 !important;
+  font-size: 1em;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.resumeSection > :not(.sectionHeading),
+.resumeDocument > .citationList {
+  margin-left: 12px;
+  margin-right: 4px;
+}
+
+.entry + .entry {
+  margin-top: 1.55em;
+}
+
+.entryHeading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 15px;
+}
+
+.entryHeading h3,
+.entryHeading p {
+  margin: 0;
+}
+
+.entryHeading h3 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1em;
+  line-height: 1.2;
+}
+
+.entryHeading p {
+  font-size: 1em;
+}
+
+.date {
+  color: #000;
+  font-size: 1em;
+  white-space: nowrap;
+}
+
+.role {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1em;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.bulletList {
+  margin: 0.45em 0 0;
+  padding-left: 29px;
+  color: #000;
+}
+
+.bulletList li {
+  margin: 0;
+  padding-left: 0;
+  color: #000;
+  font-size: 1em;
+}
+
+.bulletList li + li {
+  margin-top: 0.2em;
+}
+
+.bulletList li::marker {
+  color: #666;
+  font-size: 0.82em;
+}
+
+.skillsList {
+  display: grid;
+  gap: 0.8em;
+  margin: 0;
+}
+
+.skillsList > div {
+  display: block;
+  font-size: 1em;
+}
+
+.skillsList dt {
+  display: inline;
+  font-weight: 700;
+}
+
+.skillsList dd {
+  display: inline;
+  margin: 0;
+}
+
+.compactList {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.compactList li + li {
+  margin-top: 0.85em;
+}
+
+.compactList li {
+  position: relative;
+  padding-left: 17px;
+  font-size: 1em;
+}
+
+.compactList li::before {
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  color: #000;
+  content: "♦";
+  font-size: 1.0098em;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.educationList,
+.awardsList {
+  display: grid;
+  gap: 0.8em;
+}
+
+.citationList {
+  display: grid;
+  gap: 1.2em;
+}
+
+.citationList p {
+  margin: 0;
+  font-size: 1em;
+}
+
+.citationList cite {
+  font-family: "Times New Roman", Times, serif;
 }
 
 @media (max-width: 980px) {
   .content {
-    width: min(calc(100vw - 28px), 1700px);
-    padding-bottom: 72px;
+    width: 902px;
+    padding-bottom: 79px;
   }
 }
 
@@ -155,25 +307,24 @@
   }
 
   .content {
-    width: min(calc(100vw - 32px), 1320px);
-    padding-top: 24px;
-    padding-bottom: 56px;
+    width: 902px;
+    padding-top: 26px;
+    padding-bottom: 62px;
   }
 
   .downloadButton {
-    width: 66px;
-    height: 66px;
-    right: 32px;
-    bottom: 20px;
+    right: 35px;
+    bottom: 22px;
   }
 
   .pageShell {
-    margin-bottom: 14px;
+    margin-bottom: 15px;
   }
+
 }
 
 @media (max-width: 420px) {
   .content {
-    width: min(calc(100vw - 18px), 1320px);
+    width: 902px;
   }
 }

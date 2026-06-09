@@ -3,20 +3,6 @@ import Navigation from '../components/Navigation.jsx';
 import { RESUME_PDF_URL } from '../resumeConstants.js';
 import styles from './ResumePage.module.css';
 
-export function ResumePageSkeleton() {
-  return (
-    <div className={styles.viewer}>
-      <article className={styles.pageShell}>
-        <div
-          className={styles.canvasPlaceholder}
-          aria-label="Loading resume"
-          role="status"
-        />
-      </article>
-    </div>
-  );
-}
-
 function ResumeLayout({ children = null, isVisible = true }) {
   return (
     <main

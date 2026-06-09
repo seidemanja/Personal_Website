@@ -10,16 +10,16 @@
 }
 
 .heroGrid {
-  width: min(calc(100vw - 120px), 1320px);
-  margin: clamp(150px, 20vh, 250px) auto 0;
+  width: max-content;
+  margin: 99px auto 0;
   display: grid;
-  grid-template-columns: minmax(280px, 420px) minmax(520px, 1fr);
+  grid-template-columns: 180px max-content;
   align-items: center;
-  gap: clamp(72px, 7vw, 120px);
+  gap: 54px;
 }
 
 .portraitWrap {
-  width: clamp(300px, 33vw, 380px);
+  width: 180px;
   aspect-ratio: 1;
   justify-self: center;
   position: relative;
@@ -47,7 +47,7 @@
 }
 
 .content {
-  max-width: 780px;
+  width: max-content;
 }
 
 .header {
@@ -58,30 +58,31 @@
   margin: 0;
   color: #141414;
   font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(4rem, 5.1vw, 6.35rem);
+  font-size: 2.064rem;
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .subtitle {
-  margin: 28px 0 0;
+  margin: 14px 0 0;
   color: #404040;
-  font-size: clamp(1.92rem, 2.65vw, 3.05rem);
+  font-size: 0.991rem;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0;
 }
 
 .rule {
-  width: 70px;
+  width: 41px;
   height: 2px;
-  margin-top: 34px;
+  margin-top: 19px;
   background: #b8b8b0;
 }
 
 .profileLinks {
-  margin: 48px 0 0;
+  margin: 26px 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -99,19 +100,19 @@
 .dividerItem {
   display: flex;
   align-items: center;
-  padding: 0 22px;
+  padding: 0 13px;
 }
 
 .divider {
   width: 1px;
-  height: 28px;
+  height: 16px;
   background: #d7d7d0;
 }
 
 .profileLink {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 7px;
   padding: 0;
   color: #3f3f3f;
   border: 0;
@@ -123,15 +124,15 @@
 }
 
 .profileLink svg {
-  width: 32px;
-  height: 32px;
+  width: 18px;
+  height: 18px;
   display: block;
   flex: 0 0 auto;
 }
 
 .linkIcon {
-  width: 32px;
-  height: 32px;
+  width: 18px;
+  height: 18px;
   display: block;
   flex: 0 0 auto;
   object-fit: contain;
@@ -143,12 +144,12 @@
 }
 
 .emailLabel {
-  font-size: 1.57rem;
+  font-size: 0.81rem;
   font-weight: 400;
 }
 
 .socialLabel {
-  font-size: 1.57rem;
+  font-size: 0.81rem;
   font-weight: 400;
 }
 
@@ -159,14 +160,14 @@
 }
 
 .emailMenu {
-  min-width: 248px;
-  min-height: 46px;
-  padding: 8px 9px 8px 14px;
+  min-width: 182px;
+  min-height: 34px;
+  padding: 5px 6px 5px 11px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 8px);
   left: 0;
   z-index: 10;
   border-radius: 6px;
@@ -177,11 +178,11 @@
 }
 
 .emailMenu::before {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   position: absolute;
-  top: -6px;
-  left: 26px;
+  top: -4px;
+  left: 19px;
   background: #f5f5f3;
   content: "";
   transform: rotate(45deg);
@@ -189,14 +190,14 @@
 
 .emailAddress {
   color: #111;
-  font-size: 1.57rem;
+  font-size: 0.81rem;
   line-height: 1;
   white-space: nowrap;
 }
 
 .copyButton {
-  width: 32px;
-  height: 32px;
+  width: 23px;
+  height: 23px;
   display: inline-grid;
   flex: 0 0 auto;
   place-items: center;
@@ -218,20 +219,20 @@
 }
 
 .copyButton svg {
-  width: 18px;
-  height: 18px;
+  width: 13px;
+  height: 13px;
 }
 
 .copyMessage {
   position: absolute;
   top: calc(100% + 8px);
   right: 8px;
-  padding: 6px 9px;
+  padding: 4px 6px;
   color: #111;
   border-radius: 4px;
   background: #f5f5f3;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  font-size: 0.82rem;
+  font-size: 0.6rem;
   line-height: 1;
   opacity: 0;
   pointer-events: none;
@@ -249,15 +250,15 @@
 
 @media (max-width: 980px) {
   .heroGrid {
-    width: min(calc(100vw - 56px), 1320px);
+    width: 486px;
     grid-template-columns: 1fr;
     justify-items: center;
-    margin-top: 120px;
-    gap: 48px;
+    margin-top: 81px;
+    gap: 43px;
   }
 
   .content {
-    max-width: 100%;
+    width: 486px;
   }
 
   .header {
@@ -289,21 +290,21 @@
   }
 
   .heroGrid {
-    width: min(calc(100vw - 32px), 1320px);
+    width: calc(100% - 32px);
     margin-top: 88px;
   }
 
   .portraitWrap {
-    width: min(76vw, 320px);
+    width: 180px;
   }
 
   .title {
-    font-size: clamp(2.9rem, 11vw, 3.9rem);
+    font-size: 2.064rem;
   }
 
   .subtitle {
-    margin-top: 18px;
-    font-size: 1.28rem;
+    margin-top: 16px;
+    font-size: 0.991rem;
   }
 
   .rule {
@@ -333,34 +334,12 @@
     margin-top: 72px;
   }
 
-  .title {
-    font-size: clamp(2.4rem, 10vw, 3.02rem);
-  }
-
-  .subtitle {
-    font-size: 1.12rem;
-  }
-
   .profileLinks {
     row-gap: 10px;
   }
 
   .profileLink {
     gap: 10px;
-  }
-
-  .profileLink svg,
-  .linkIcon {
-    width: 26px;
-    height: 26px;
-  }
-
-  .emailLabel {
-    font-size: 1.57rem;
-  }
-
-  .socialLabel {
-    font-size: 1.57rem;
   }
 }
 
