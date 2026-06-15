@@ -1,4 +1,29 @@
+import { useEffect, useState } from 'react';
+import {
+  getNIHGrantUrl,
+  NIH_GRANT_FALLBACK_URL,
+  refreshNIHGrantUrl,
+  subscribeToNIHGrantUrl,
+} from '../nihGrant.js';
 import styles from './ResumePage.module.css';
+
+function NIHGrantLink({ children }) {
+  const [grantUrl, setGrantUrl] = useState(NIH_GRANT_FALLBACK_URL);
+
+  useEffect(() => {
+    setGrantUrl(getNIHGrantUrl());
+    const unsubscribe = subscribeToNIHGrantUrl(setGrantUrl);
+    void refreshNIHGrantUrl().then(setGrantUrl);
+
+    return unsubscribe;
+  }, []);
+
+  return (
+    <a href={grantUrl} rel="noreferrer" target="_blank">
+      {children}
+    </a>
+  );
+}
 
 const workExperience = [
   {
@@ -82,13 +107,7 @@ const workExperience = [
       'Designed and conducted cognitive and computational neuroscience experiments',
       <>
         Wrote{' '}
-        <a
-          href="https://reporter.nih.gov/search/H9GF6nmuOUimK-lxNod9mw/project-details/9541718"
-          rel="noreferrer"
-          target="_blank"
-        >
-          federally-funded research grant proposal
-        </a>{' '}
+        <NIHGrantLink>federally-funded research grant proposal</NIHGrantLink>{' '}
         – defined scope, methods, KPIs, timeline, and budget
       </>,
       <>

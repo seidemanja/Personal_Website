@@ -6,6 +6,10 @@ const projectsOutputPath = new URL(
   '../dist/projects/index.html',
   import.meta.url,
 );
+const neuroscienceProjectOutputPath = new URL(
+  '../dist/projects/neuroscience-research/index.html',
+  import.meta.url,
+);
 const assetsPath = new URL('../dist/assets/', import.meta.url);
 const serverBundlePath = new URL(
   '../.prerender/entry-server.js',
@@ -13,9 +17,12 @@ const serverBundlePath = new URL(
 );
 
 try {
-  const { renderHomePage, renderProjectsPage, renderResumePage } = await import(
-    serverBundlePath.href
-  );
+  const {
+    renderHomePage,
+    renderNeuroscienceProjectPage,
+    renderProjectsPage,
+    renderResumePage,
+  } = await import(serverBundlePath.href);
   const html = await readFile(outputPath, 'utf8');
   const stylesheetMatch = html.match(
     /<link rel="stylesheet"[^>]+href="([^"]*\/assets\/index-[^"]+\.css)">/,
@@ -64,14 +71,28 @@ try {
     '<div id="root"></div>',
     `<div id="root">${renderProjectsPage()}</div>`,
   );
+  const renderedNeuroscienceProjectHtml = htmlWithCriticalCss.replace(
+    '<div id="root"></div>',
+    `<div id="root">${renderNeuroscienceProjectPage()}</div>`,
+  );
 
   await mkdir(new URL('../dist/resume/', import.meta.url), { recursive: true });
   await mkdir(new URL('../dist/projects/', import.meta.url), {
     recursive: true,
   });
+  await mkdir(
+    new URL('../dist/projects/neuroscience-research/', import.meta.url),
+    {
+      recursive: true,
+    },
+  );
   await writeFile(outputPath, renderedHomeHtml);
   await writeFile(resumeOutputPath, renderedResumeHtml);
   await writeFile(projectsOutputPath, renderedProjectsHtml);
+  await writeFile(
+    neuroscienceProjectOutputPath,
+    renderedNeuroscienceProjectHtml,
+  );
 } finally {
   await rm(new URL('../.prerender', import.meta.url), {
     force: true,

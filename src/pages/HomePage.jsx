@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Check, Clipboard, Mail } from 'lucide-react';
 import Navigation from '../components/Navigation.jsx';
+import { refreshNIHGrantUrl } from '../nihGrant.js';
 import styles from './HomePage.module.css';
 
 const EMAIL_ADDRESS = 'josh.seideman@me.com';
@@ -31,6 +32,10 @@ function HomePage() {
   const [isCopied, setIsCopied] = useState(false);
   const emailButtonRef = useRef(null);
   const emailMenuRef = useRef(null);
+
+  useEffect(() => {
+    void refreshNIHGrantUrl({ force: true });
+  }, []);
 
   useEffect(() => {
     if (!isEmailOpen) {

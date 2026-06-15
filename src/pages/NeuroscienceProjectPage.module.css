@@ -1,0 +1,396 @@
+.page {
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #fff;
+}
+
+.content {
+  width: 900px;
+  margin: 0 auto;
+  padding: 28px 0 68px;
+  color: #20201e;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  color: #858580;
+  font-size: 0.76rem;
+}
+
+.breadcrumbs a {
+  color: #6f6f6a;
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 90, 86, 0.45);
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 3px;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible {
+  color: #292927;
+  text-decoration-color: currentColor;
+}
+
+.hero {
+  display: block;
+}
+
+.heroCopy {
+  max-width: 760px;
+  padding-top: 2px;
+}
+
+.metaRow {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #858580;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.metaDivider {
+  color: rgba(120, 120, 116, 0.9);
+}
+
+.heroCopy h1 {
+  margin: 0;
+  color: #171717;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 2.38rem;
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.years {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.affiliation {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.affiliation a {
+  color: #165da8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.affiliation a:hover,
+.affiliation a:focus-visible {
+  color: #0d467f;
+}
+
+.intro {
+  margin: 20px 0 0;
+  color: #444440;
+  font-size: 0.86rem;
+  line-height: 1.72;
+}
+
+.section {
+  margin-top: 28px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  color: #171717;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.sectionHeader p {
+  margin: 8px 0 0;
+  color: #666662;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.scopeList {
+  margin-top: 12px;
+}
+
+.scopeItem {
+  position: relative;
+  padding: 15px 0 13px;
+}
+
+.scopeItem + .scopeItem {
+  border-top: none;
+}
+
+.scopeItem + .scopeItem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.scopeItem:last-child {
+  padding-bottom: 0;
+}
+
+.scopeCopy {
+  min-width: 0;
+}
+
+.scopeCopy h3 {
+  margin: 0;
+  color: #20201e;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.12rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.scopeCopy p {
+  max-width: 760px;
+  margin: 8px 0 0;
+  color: #3f3f3c;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.publicationList {
+  margin-top: 22px;
+  display: grid;
+  gap: 14px;
+}
+
+.publicationCard {
+  padding: 20px 22px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  color: inherit;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow:
+    2px 4px 12px rgba(0, 0, 0, 0.07),
+    4px 8px 24px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+.cardLinkIcon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  color: #777773;
+  border: 0.5px solid rgba(0, 0, 0, 0.14);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+}
+
+.cardLinkIcon svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 1.7;
+}
+
+.publicationCard:hover .cardLinkIcon,
+.publicationCard:focus-visible .cardLinkIcon,
+.fundingCard:hover .cardLinkIcon,
+.fundingCard:focus-visible .cardLinkIcon {
+  color: #292927;
+  border-color: rgba(0, 0, 0, 0.24);
+}
+
+.publicationCard:hover,
+.publicationCard:focus-visible {
+  background: #f9f9f9;
+  box-shadow:
+    3px 6px 18px rgba(0, 0, 0, 0.1),
+    6px 12px 32px rgba(0, 0, 0, 0.06);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.publicationCard h3 {
+  margin: 0;
+  color: #242422;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.publicationCard p {
+  margin: 8px 0 0;
+  color: #555550;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.publicationCard .journal {
+  margin-top: 5px;
+  color: #858580;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+}
+
+.scholarLink {
+  width: fit-content;
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #4a4a46;
+  font-size: 0.76rem;
+  text-decoration: none;
+}
+
+.scholarLink img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.scholarLink:hover span,
+.scholarLink:focus-visible span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fundingCard {
+  margin-top: 18px;
+  padding: 18px 22px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: inherit;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow:
+    2px 4px 12px rgba(0, 0, 0, 0.07),
+    4px 8px 24px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+.fundingCard:hover,
+.fundingCard:focus-visible {
+  background: #f9f9f9;
+  box-shadow:
+    3px 6px 18px rgba(0, 0, 0, 0.1),
+    6px 12px 32px rgba(0, 0, 0, 0.06);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.fundingCard h3 {
+  margin: 0;
+  color: #242422;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.fundingCard p {
+  margin: 7px 0 0;
+  color: #555550;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.researchInfo {
+  margin: 20px 0 0;
+  color: #444440;
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.researchInfo a {
+  color: #165da8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.researchInfo a:hover,
+.researchInfo a:focus-visible {
+  color: #0d467f;
+}
+
+@media (max-width: 980px) {
+  .content {
+    width: calc(100% - 64px);
+  }
+
+}
+
+@media (max-width: 720px) {
+  .content {
+    width: calc(100% - 32px);
+    padding-top: 24px;
+  }
+
+  .heroCopy h1 {
+    font-size: 2.05rem;
+  }
+
+  .scopeItem {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .publicationCard {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    width: calc(100% - 20px);
+  }
+
+  .publicationCard {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .fundingCard {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .publicationCard,
+  .fundingCard {
+    transition: none;
+  }
+}

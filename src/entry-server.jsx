@@ -24,3 +24,7 @@ export function renderResumePage() {
 export function renderProjectsPage() {
   return renderPage('/projects');
 }
+
+export function renderNeuroscienceProjectPage() {
+  return renderPage('/projects/neuroscience-research');
+}

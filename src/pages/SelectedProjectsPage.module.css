@@ -43,6 +43,7 @@
 .card {
   min-height: 162px;
   height: 162px;
+  position: relative;
   display: grid;
   grid-template-columns: 162px minmax(0, 1fr);
   overflow: hidden;
@@ -58,6 +59,33 @@
     background-color 200ms ease,
     box-shadow 200ms ease,
     transform 200ms ease;
+}
+
+.cardLinkIcon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  color: #777773;
+  border: 0.5px solid rgba(0, 0, 0, 0.14);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  pointer-events: none;
+}
+
+.cardLinkIcon svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 1.7;
+}
+
+.card:hover .cardLinkIcon,
+.card:focus-visible .cardLinkIcon {
+  color: #292927;
+  border-color: rgba(0, 0, 0, 0.24);
 }
 
 .card:hover {
@@ -79,42 +107,6 @@
   border-right: 0.5px solid rgba(0, 0, 0, 0.1);
   background: #f2f2f2;
   font-size: 0.8rem;
-}
-
-.instagramEmbed {
-  aspect-ratio: 1 / 1;
-  width: 162px;
-  height: 162px;
-  position: relative;
-  overflow: hidden;
-  border-right: 0.5px solid rgba(0, 0, 0, 0.1);
-  background: #fff;
-}
-
-.instagramEmbed :global(.instagram-media) {
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
-  margin: 0 !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-.instagramEmbed :global(iframe) {
-  width: 100% !important;
-  min-width: 0 !important;
-  margin: 0 !important;
-  border: 0 !important;
-}
-
-.instagramEmbed > blockquote > a {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: #555;
-  font-size: 0.665rem;
-  text-decoration: none;
 }
 
 .cardContent {
@@ -189,8 +181,7 @@
     grid-template-rows: auto 1fr;
   }
 
-  .imagePlaceholder,
-  .instagramEmbed {
+  .imagePlaceholder {
     width: 100%;
     height: auto;
     border-right: 0;

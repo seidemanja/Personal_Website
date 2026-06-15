@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import nihGrantHandler from './api/nih-grant.js';
 
 function prerenderRoutesInDevelopment() {
   let developmentServer;
@@ -9,6 +10,24 @@ function prerenderRoutesInDevelopment() {
     apply: 'serve',
     configureServer(server) {
       developmentServer = server;
+
+      server.middlewares.use('/api/nih-grant', async (request, response) => {
+        const apiResponse = {
+          setHeader(name, value) {
+            response.setHeader(name, value);
+          },
+          status(statusCode) {
+            response.statusCode = statusCode;
+            return this;
+          },
+          json(body) {
+            response.setHeader('Content-Type', 'application/json');
+            response.end(JSON.stringify(body));
+          },
+        };
+
+        await nihGrantHandler(request, apiResponse);
+      });
     },
     transformIndexHtml: {
       order: 'pre',
@@ -18,21 +37,39 @@ function prerenderRoutesInDevelopment() {
           'http://localhost',
         ).pathname;
 
-        if (!['/', '/projects', '/resume'].includes(pathname) || !developmentServer) {
+        if (
+          ![
+            '/',
+            '/projects',
+            '/projects/neuroscience-research',
+            '/resume',
+          ].includes(pathname) ||
+          !developmentServer
+        ) {
           return html;
         }
 
-        const { renderHomePage, renderProjectsPage, renderResumePage } =
-          await developmentServer.ssrLoadModule('/src/entry-server.jsx');
+        const {
+          renderHomePage,
+          renderNeuroscienceProjectPage,
+          renderProjectsPage,
+          renderResumePage,
+        } = await developmentServer.ssrLoadModule('/src/entry-server.jsx');
         const isResume = pathname === '/resume';
         const isProjects = pathname === '/projects';
+        const isNeuroscienceProject =
+          pathname === '/projects/neuroscience-research';
         const renderedPage = isResume
           ? renderResumePage()
+          : isNeuroscienceProject
+            ? renderNeuroscienceProjectPage()
           : isProjects
             ? renderProjectsPage()
             : renderHomePage();
         const pageStylesheet = isResume
           ? '/src/pages/ResumePage.module.css?direct'
+          : isNeuroscienceProject
+            ? '/src/pages/NeuroscienceProjectPage.module.css?direct'
           : isProjects
             ? '/src/pages/SelectedProjectsPage.module.css?direct'
             : '/src/pages/HomePage.module.css?direct';
