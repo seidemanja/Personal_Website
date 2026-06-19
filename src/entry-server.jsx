@@ -25,6 +25,10 @@ export function renderProjectsPage() {
   return renderPage('/projects');
 }
 
+export function renderInstagramProjectPage() {
+  return renderPage('/projects/instagram-automation');
+}
+
 export function renderNeuroscienceProjectPage() {
   return renderPage('/projects/neuroscience-research');
 }

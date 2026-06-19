@@ -24,6 +24,7 @@ const projects = [
     imageLabel: 'Image 2',
     technologies: ['Python', 'Selenium', 'OpenAI API', 'Gemini API', 'GCP'],
     title: 'Automated Instagram Engagement System with AI-Powered Content Generation',
+    to: '/projects/instagram-automation',
   },
   {
     description:

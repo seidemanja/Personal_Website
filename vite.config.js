@@ -41,6 +41,7 @@ function prerenderRoutesInDevelopment() {
           ![
             '/',
             '/projects',
+            '/projects/instagram-automation',
             '/projects/neuroscience-research',
             '/resume',
           ].includes(pathname) ||
@@ -51,16 +52,21 @@ function prerenderRoutesInDevelopment() {
 
         const {
           renderHomePage,
+          renderInstagramProjectPage,
           renderNeuroscienceProjectPage,
           renderProjectsPage,
           renderResumePage,
         } = await developmentServer.ssrLoadModule('/src/entry-server.jsx');
         const isResume = pathname === '/resume';
         const isProjects = pathname === '/projects';
+        const isInstagramProject =
+          pathname === '/projects/instagram-automation';
         const isNeuroscienceProject =
           pathname === '/projects/neuroscience-research';
         const renderedPage = isResume
           ? renderResumePage()
+          : isInstagramProject
+            ? renderInstagramProjectPage()
           : isNeuroscienceProject
             ? renderNeuroscienceProjectPage()
           : isProjects
@@ -68,6 +74,8 @@ function prerenderRoutesInDevelopment() {
             : renderHomePage();
         const pageStylesheet = isResume
           ? '/src/pages/ResumePage.module.css?direct'
+          : isInstagramProject
+            ? '/src/pages/InstagramProjectPage.module.css?direct'
           : isNeuroscienceProject
             ? '/src/pages/NeuroscienceProjectPage.module.css?direct'
           : isProjects
