@@ -7,7 +7,7 @@ const projects = [
   {
     description:
       'Designed and built a real-time research software platform for multimodal data acquisition and experimental control. Designed and conducted experiments investigating how the brain uses sensory evidence to inform perceptual decisions under time pressure.',
-    imageLabel: 'Image 1',
+    imageSrc: '/images/CS_Task_Saccade.png',
     technologies: [
       'MATLAB',
       'Eye Tracking',
@@ -21,7 +21,7 @@ const projects = [
   {
     description:
       'Built an end-to-end system that generates AI-powered content, posts to Instagram, and engages with relevant accounts - no manual intervention. Grew to 2,000+ followers.',
-    imageLabel: 'Image 2',
+    imageSrc: '/images/puppy_pic_cropped.png',
     technologies: ['Python', 'Selenium', 'OpenAI API', 'Gemini API', 'GCP'],
     title: 'Automated Instagram Engagement System with AI-Powered Content Generation',
     to: '/projects/instagram-automation',
@@ -54,9 +54,17 @@ function SelectedProjectsPage() {
         <div className={styles.projectList}>
           {projects.map((project) => {
             const cardContent = (
-              <>
+                <>
                 <div className={styles.imagePlaceholder} aria-hidden="true">
-                  {project.imageLabel}
+                  {project.imageSrc ? (
+                    <img
+                      className={styles.cardImage}
+                      src={project.imageSrc}
+                      alt=""
+                    />
+                  ) : (
+                    project.imageLabel
+                  )}
                 </div>
 
                 <div className={styles.cardContent}>

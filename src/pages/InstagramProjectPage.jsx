@@ -1,5 +1,5 @@
-import { Volume2, VolumeX } from 'lucide-react';
-import { useMemo, useRef, useState } from 'react';
+import { ExternalLink, Volume2, VolumeX } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
 import styles from './InstagramProjectPage.module.css';
@@ -27,41 +27,34 @@ const technologies = ['Python', 'Selenium', 'OpenAI', 'Gemini', 'GCP'];
 
 const examplePosts = [
   {
+    mediaType: 'video',
+    src: '/videos/video_cat_walking_w_music_instagram.mp4',
+    caption: 'Pause, stretch, settle. Tiny tabby perfection.',
+    href: 'https://www.instagram.com/p/DWea2UaCXdE/',
+  },
+  {
+    mediaType: 'image',
+    src: '/images/Golden_retriever_laying_on_couch_instagram.jpg',
+    caption: 'Living for the snuggles!',
+    href: 'https://www.instagram.com/p/DVG9NOZjq_-/',
+  },
+  {
     mediaType: 'image',
     src: '/images/Cat_in_bag_instagram.jpg',
-    caption: "Run like nobody's watching",
+    caption: 'Ambition entered the bag first, dignity got stuck behind.',
     href: 'https://www.instagram.com/p/DWrRaoTDm0K/',
   },
   {
     mediaType: 'image',
     src: '/images/Kitten_jumping_on_bed_instagram.jpg',
-    caption: 'Double the purrs, double the love',
+    caption: 'Soaking up the snuggles!',
     href: 'https://www.instagram.com/p/DUvyECpjhF-/',
-  },
-  {
-    mediaType: 'image',
-    src: '/images/Golden_retriever_laying_on_couch_instagram.jpg',
-    caption: 'Corgi zoomies = instant happiness',
-    href: 'https://www.instagram.com/p/DVG9NOZjq_-/',
-  },
-  {
-    mediaType: 'video',
-    src: '/videos/video_cat_walking_w_music_instagram.mp4',
-    caption: 'Cozy mood: activated',
-    href: 'https://www.instagram.com/p/DWea2UaCXdE/',
   },
 ];
 
 function InstagramProjectPage() {
   const [videoMuted, setVideoMuted] = useState(true);
   const videoRef = useRef(null);
-  const heroCaption = useMemo(
-    () => ({
-      username: 'cute_kitties_and_puppies',
-      text: 'Happy Friday! 🐾',
-    }),
-    [],
-  );
 
   return (
     <main className={styles.page}>
@@ -92,30 +85,19 @@ function InstagramProjectPage() {
               image-based classification to identify relevant accounts and
               enable targeted engagement. Deployed and operated the system on
               Google Cloud Platform (GCP) with scheduled execution, enabling
-              continuous, unattended operation. Grew account to 2,000+
+              continuous, unattended operation. Grew{' '}
+              <a
+                href="https://www.instagram.com/cute_kitties_and_puppies/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                account
+              </a>{' '}
+              to 2,000+
               followers with fully automated content generation and engagement
               workflows.
             </p>
           </div>
-
-          <figure className={styles.heroPost}>
-            <div className={styles.postFrame}>
-              <div className={styles.postMedia}>
-                <img
-                  src="/images/Cat_in_bag_instagram.jpg"
-                  alt="Example AI-generated Instagram cat post"
-                />
-              </div>
-              <div className={styles.postBody}>
-                <p className={styles.postCaption}>
-                  <strong>{heroCaption.username}</strong> {heroCaption.text}
-                </p>
-              </div>
-            </div>
-            <figcaption>
-              Example AI-generated post from the account
-            </figcaption>
-          </figure>
         </section>
 
         <section className={styles.metrics} aria-label="Project highlights">
@@ -141,53 +123,73 @@ function InstagramProjectPage() {
               <svg
                 aria-hidden="true"
                 className={styles.connectorLayer}
-                viewBox="0 0 900 455"
+                viewBox="0 0 900 484"
               >
-                <line x1="450" y1="96" x2="450" y2="160" />
-                <line x1="260" y1="220" x2="289" y2="220" />
-                <line x1="611" y1="220" x2="640" y2="220" />
-                <line x1="450" y1="274" x2="450" y2="335" />
+                <line x1="450" y1="172" x2="450" y2="202" />
+                <line x1="286" y1="265" x2="328" y2="265" />
+                <line x1="572" y1="265" x2="630" y2="265" />
+                <line x1="450" y1="328" x2="450" y2="358" />
               </svg>
 
               <div className={`${styles.archBox} ${styles.contentGeneration}`}>
                 <h3>Content Generation</h3>
-                <p className={styles.boxAccent}>OpenAI / Gemini API</p>
-                <p>Images, Videos, Music, Captions</p>
+                <div className={styles.archItems}>
+                  <p>Images</p>
+                  <p>Videos</p>
+                  <p>Music</p>
+                  <p>Captions</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Generates content for posting
+                </p>
               </div>
 
               <article className={`${styles.archBox} ${styles.accountBox}`}>
                 <h3>Account Discovery &amp; Filtering</h3>
-                <ul>
-                  <li>Computer Vision</li>
-                  <li>OpenAI Vision API</li>
-                </ul>
+                <div className={styles.archItems}>
+                  <p>Computer vision</p>
+                  <p>Animal content detection</p>
+                  <p>Following/followers threshold</p>
+                </div>
                 <p className={styles.boxNote}>
-                  Uses image-based classification to identify relevant accounts
-                  and enable targeted engagement
+                  Selects target accounts for engagement
                 </p>
               </article>
 
               <article className={`${styles.archBox} ${styles.centerBox}`}>
                 <h3>Python Orchestration Layer</h3>
-                <p className={styles.boxAccent}>Selenium · GCP Scheduler</p>
-                <p>Rules, workflow coordination</p>
-                <p>decision making</p>
+                <div className={styles.archItems}>
+                  <p>Rules</p>
+                  <p>Workflow coordination</p>
+                  <p>Decision making</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Coordinates system behavior
+                </p>
               </article>
 
               <article className={`${styles.archBox} ${styles.browserBox}`}>
                 <h3>Browser Automation</h3>
-                <ul>
-                  <li>Post Content</li>
-                  <li>Follow / Unfollow</li>
-                  <li>Like</li>
-                </ul>
+                <div className={styles.archItems}>
+                  <p>Post content</p>
+                  <p>Follow / Unfollow</p>
+                  <p>Like</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Executes Instagram actions
+                </p>
               </article>
 
               <article className={`${styles.archBox} ${styles.bottomBox}`}>
                 <h3>Data &amp; Behavioral Tracking</h3>
-                <p>Action logs</p>
-                <p>Engagement tracking</p>
-                <p>Account history</p>
+                <div className={styles.archItems}>
+                  <p>Action logs</p>
+                  <p>Engagement received</p>
+                  <p>Public account metrics</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Tracks actions and decision inputs
+                </p>
               </article>
             </div>
           </div>
@@ -265,10 +267,11 @@ function InstagramProjectPage() {
                     )}
                   </div>
                   <div className={styles.exampleMeta}>
-                    <p>
-                      <strong>cute_kitties_and_puppies</strong> {post.caption}
-                    </p>
+                    <p>{post.caption}</p>
                   </div>
+                  <span className={styles.cardLinkIcon} aria-hidden="true">
+                    <ExternalLink />
+                  </span>
                 </>
               );
 
@@ -285,6 +288,9 @@ function InstagramProjectPage() {
               );
             })}
           </div>
+          <p className={styles.postNote}>
+            Click on a post to see engagement received (e.g., likes, comments).
+          </p>
         </section>
       </div>
     </main>
