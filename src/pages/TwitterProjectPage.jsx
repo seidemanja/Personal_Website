@@ -99,11 +99,11 @@ function TwitterProjectPage() {
               <svg
                 aria-hidden="true"
                 className={`${styles.connectorLayer} ${styles.twitterConnectorLayer}`}
-                viewBox="0 0 900 330"
+                viewBox="0 0 900 310"
               >
-                <line x1="286" y1="87" x2="328" y2="87" />
-                <line x1="572" y1="87" x2="614" y2="87" />
-                <line x1="450" y1="150" x2="450" y2="180" />
+                <line x1="284" y1="87" x2="330" y2="87" />
+                <line x1="570" y1="87" x2="616" y2="87" />
+                <line x1="450" y1="148" x2="450" y2="182" />
               </svg>
 
               <article
