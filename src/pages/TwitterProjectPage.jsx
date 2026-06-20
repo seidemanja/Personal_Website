@@ -22,7 +22,7 @@ const metrics = [
   },
 ];
 
-const technologies = ['Python', 'Twitter API', 'AWS EC2'];
+const technologies = ['Python', 'AWS EC2', 'Twitter API'];
 
 const nftExamples = [
   {
@@ -87,8 +87,8 @@ function TwitterProjectPage() {
           <header className={styles.sectionHeader}>
             <h2 id="architecture-title">Architecture</h2>
             <p>
-              A fully automated pipeline for content discovery, engagement
-              decision-making, and behavioral tracking.
+              A fully automated pipeline for content discovery, engagement,
+              and activity tracking.
             </p>
           </header>
 
@@ -99,21 +99,21 @@ function TwitterProjectPage() {
               <svg
                 aria-hidden="true"
                 className={`${styles.connectorLayer} ${styles.twitterConnectorLayer}`}
-                viewBox="0 0 900 310"
+                viewBox="0 0 900 332"
               >
-                <line x1="284" y1="87" x2="330" y2="87" />
-                <line x1="570" y1="87" x2="616" y2="87" />
-                <line x1="450" y1="148" x2="450" y2="182" />
+                <line x1="174" y1="98" x2="450" y2="98" />
+                <line x1="450" y1="98" x2="717" y2="98" />
+                <line x1="450" y1="158" x2="450" y2="206" />
               </svg>
 
               <article
                 className={`${styles.archBox} ${styles.accountBox} ${styles.twitterAccountBox}`}
               >
-                <h3>Twitter API Content Discovery</h3>
+                <h3>Content Discovery</h3>
                 <div className={styles.archItems}>
-                  <p>Digital asset giveaways</p>
-                  <p>Contests and relevant tweets</p>
-                  <p>Twitter API search</p>
+                  <p>Search and find giveaways</p>
+                  <p>Screen entry requirements</p>
+                  <p>Detect giveaway blockchain</p>
                 </div>
                 <p className={styles.boxNote}>Finds relevant opportunities</p>
               </article>
@@ -121,11 +121,11 @@ function TwitterProjectPage() {
               <article
                 className={`${styles.archBox} ${styles.centerBox} ${styles.twitterCenterBox}`}
               >
-                <h3>Python Orchestration Layer</h3>
+                <h3>Coordination Layer</h3>
                 <div className={styles.archItems}>
-                  <p>Schedules tasks</p>
-                  <p>Coordinates workflow</p>
-                  <p>Makes engagement decisions</p>
+                  <p>Evaluate entry requirements</p>
+                  <p>Match blockchain to wallet</p>
+                  <p>Select participation actions</p>
                 </div>
                 <p className={styles.boxNote}>
                   Coordinates system behavior
@@ -138,7 +138,8 @@ function TwitterProjectPage() {
                 <h3>Automated Engagement</h3>
                 <div className={styles.archItems}>
                   <p>Like giveaway posts</p>
-                  <p>Follow required accounts</p>
+                  <p>Retweet giveaway posts</p>
+                  <p>Follow accounts</p>
                   <p>Comment to enter</p>
                 </div>
                 <p className={styles.boxNote}>Executes Twitter actions</p>
@@ -147,14 +148,13 @@ function TwitterProjectPage() {
               <article
                 className={`${styles.archBox} ${styles.bottomBox} ${styles.twitterBottomBox}`}
               >
-                <h3>Data &amp; Behavioral Tracking</h3>
+                <h3>Data &amp; Activity Tracking</h3>
                 <div className={styles.archItems}>
-                  <p>Entered giveaways</p>
-                  <p>Results</p>
-                  <p>Activity logs and wins</p>
+                  <p>Giveaway metadata</p>
+                  <p>Action logs</p>
                 </div>
                 <p className={styles.boxNote}>
-                  Tracks outcomes and decisions
+                  Tracks giveaways and actions
                 </p>
               </article>
             </div>

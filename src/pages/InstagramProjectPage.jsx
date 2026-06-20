@@ -125,10 +125,10 @@ function InstagramProjectPage() {
                 className={styles.connectorLayer}
                 viewBox="0 0 900 484"
               >
-                <line x1="450" y1="172" x2="450" y2="202" />
-                <line x1="286" y1="265" x2="328" y2="265" />
-                <line x1="572" y1="265" x2="630" y2="265" />
-                <line x1="450" y1="328" x2="450" y2="358" />
+                <line x1="450" y1="160" x2="450" y2="196" />
+                <line x1="143" y1="258" x2="450" y2="258" />
+                <line x1="450" y1="258" x2="733" y2="258" />
+                <line x1="450" y1="320" x2="450" y2="356" />
               </svg>
 
               <div className={`${styles.archBox} ${styles.contentGeneration}`}>
@@ -157,11 +157,11 @@ function InstagramProjectPage() {
               </article>
 
               <article className={`${styles.archBox} ${styles.centerBox}`}>
-                <h3>Python Orchestration Layer</h3>
+                <h3>Coordination Layer</h3>
                 <div className={styles.archItems}>
                   <p>Rules</p>
                   <p>Workflow coordination</p>
-                  <p>Decision making</p>
+                  <p>Action selection</p>
                 </div>
                 <p className={styles.boxNote}>
                   Coordinates system behavior

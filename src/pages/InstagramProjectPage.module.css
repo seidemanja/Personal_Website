@@ -38,6 +38,7 @@
 
 .hero {
   display: block;
+  overflow: visible;
 }
 
 .heroCopy {
@@ -85,6 +86,8 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
+  align-items: stretch;
+  overflow: visible;
 }
 
 .metricCard {
@@ -134,24 +137,31 @@
 
 .architectureScroller {
   margin-top: 22px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .architectureDiagram {
+  --architecture-height: 500px;
+  --architecture-connector-height: 484px;
   width: 900px;
-  height: 484px;
+  min-height: var(--architecture-height);
   position: relative;
   padding: 10px 0 0;
   margin: 0 auto;
+  overflow: visible;
 }
 
 .archBox {
   box-sizing: border-box;
   position: absolute;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  width: max-content;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: start;
+  row-gap: 10px;
+  padding: 14px 18px 11px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: #fcfcfb;
@@ -165,6 +175,7 @@
   font-size: 0.87rem;
   font-weight: 500;
   line-height: 1.35;
+  white-space: nowrap;
 }
 
 .archBox p {
@@ -174,7 +185,7 @@
 }
 
 .boxNote {
-  margin: 8px 0 0;
+  margin: 0;
   font-style: italic;
   color: #80807a;
   font-size: 0.7rem;
@@ -184,51 +195,42 @@
 }
 
 .contentGeneration {
-  width: 220px;
-  height: 148px;
   top: 24px;
-  left: 340px;
-  padding: 14px 14px 11px;
+  left: 450px;
+  transform: translateX(-50%);
 }
 
 .accountBox {
-  width: 286px;
-  height: 126px;
-  top: 202px;
-  left: 0;
-  padding: 14px 14px 11px;
+  top: 196px;
+  left: 143px;
+  transform: translateX(-50%);
 }
 
 .centerBox {
-  width: 244px;
-  height: 126px;
-  top: 202px;
-  left: 328px;
-  padding: 14px 14px 11px;
+  top: 196px;
+  left: 450px;
+  transform: translateX(-50%);
 }
 
 .browserBox {
-  width: 206px;
-  height: 126px;
-  top: 202px;
-  left: 630px;
-  padding: 14px 14px 11px;
+  top: 196px;
+  left: 733px;
+  transform: translateX(-50%);
 }
 
 .bottomBox {
-  width: 230px;
-  height: 126px;
-  top: 358px;
-  left: 335px;
-  padding: 14px 14px 11px;
+  top: 356px;
+  left: 450px;
+  transform: translateX(-50%);
 }
 
 .twitterArchitectureDiagram {
-  height: 310px !important;
+  --architecture-height: 332px;
+  --architecture-connector-height: 332px;
 }
 
 .twitterConnectorLayer {
-  height: 310px !important;
+  height: var(--architecture-connector-height);
 }
 
 .twitterAccountBox,
@@ -237,16 +239,27 @@
   top: 24px !important;
 }
 
+.twitterAccountBox {
+  height: auto !important;
+  left: 174px !important;
+}
+
+.twitterCenterBox {
+  height: auto !important;
+}
+
 .twitterBrowserBox {
-  left: 614px !important;
+  height: auto !important;
+  left: 717px !important;
 }
 
 .twitterBottomBox {
-  top: 180px !important;
+  height: auto !important;
+  top: 206px !important;
 }
 
 .archItems {
-  margin: 5px 0 0;
+  margin: 0;
 }
 
 .archItems p {
@@ -254,6 +267,7 @@
   font-size: 0.8rem;
   line-height: 1.32;
   color: #4f4f4a;
+  white-space: nowrap;
 }
 
 .archItems p + p {
@@ -262,7 +276,7 @@
 
 .connectorLayer {
   width: 900px;
-  height: 484px;
+  height: var(--architecture-connector-height);
   position: absolute;
   inset: 0;
   z-index: 0;

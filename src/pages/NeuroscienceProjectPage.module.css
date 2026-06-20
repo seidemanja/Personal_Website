@@ -2,6 +2,8 @@
   min-height: 100vh;
   overflow-x: clip;
   background: #fff;
+  --project-section-gap-before-divider: 28px;
+  --project-section-gap-after-divider: 30px;
 }
 
 .content {
@@ -36,6 +38,7 @@
 
 .hero {
   display: block;
+  overflow: visible;
 }
 
 .heroCopy {
@@ -104,8 +107,8 @@
 }
 
 .section {
-  margin-top: 28px;
-  padding-top: 30px;
+  margin-top: var(--project-section-gap-before-divider);
+  padding-top: var(--project-section-gap-after-divider);
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
