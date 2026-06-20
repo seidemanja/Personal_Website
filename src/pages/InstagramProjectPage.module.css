@@ -71,14 +71,22 @@
 }
 
 .intro a {
-  color: #165da8;
+  color: inherit;
+  font-weight: 500;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-color: rgba(42, 42, 39, 0.54);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
 }
 
 .intro a:hover,
 .intro a:focus-visible {
-  color: #0d467f;
+  color: #171717;
+  text-decoration-color: rgba(23, 23, 23, 0.95);
 }
 
 .metrics {

@@ -6,32 +6,31 @@ import styles from './SelectedProjectsPage.module.css';
 const projects = [
   {
     description:
+      'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew the account to 2,000+ followers.',
+    imageSrc: '/images/puppy_pic_cropped.png',
+    technologies: ['Python', 'OpenAI', 'Gemini', 'Selenium', 'GCP'],
+    title: 'Instagram Content Creation and Engagement Automation',
+    to: '/projects/instagram-automation',
+  },
+  {
+    description:
       'Conducted a multi-year research program investigating perceptual decision making. Designed experiments, developed real-time research software, analyzed behavioral and neural data, and published findings in leading scientific journals.',
     imageSrc: '/images/CS_Task_Saccade.png',
     technologies: [
+      'Experimental Design',
       'MATLAB',
-      'Eye Tracking',
-      'Electrophysiology',
-      'Statistical Analysis',
-      'Modeling',
+      'Data Analysis',
+      'Computational Modeling',
     ],
     title: 'Decision Making in the Brain',
     to: '/projects/neuroscience-research',
   },
   {
     description:
-      'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew the account to 2,000+ followers.',
-    imageSrc: '/images/puppy_pic_cropped.png',
-    technologies: ['Python', 'Selenium', 'OpenAI API', 'Gemini API', 'GCP'],
-    title: 'Instagram Content Creation and Engagement Automation',
-    to: '/projects/instagram-automation',
-  },
-  {
-    description:
       'Built an end-to-end system that automates giveaway discovery and engagement workflows on Twitter. Won 700+ digital assets through automated participation.',
     imageFrameClassName: styles.imageInsetDark,
     imageSrc: '/images/NFT_Giveaway_Post_Dark.PNG',
-    technologies: ['Python', 'AWS EC2', 'Twitter API'],
+    technologies: ['Python', 'Twitter API', 'AWS'],
     title: 'Automated Twitter Giveaway Entry',
     to: '/projects/twitter-automation',
   },
@@ -48,8 +47,8 @@ function SelectedProjectsPage() {
             Selected Projects
           </h1>
           <p className={styles.subtitle}>
-            Independent work spanning AI systems, automation, and scientific
-            research.
+            Selected projects spanning software development, automation,
+            applied AI, and neuroscience research.
           </p>
         </header>
 

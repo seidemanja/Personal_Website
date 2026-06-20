@@ -23,7 +23,7 @@ const metrics = [
   },
 ];
 
-const technologies = ['Python', 'Selenium', 'OpenAI', 'Gemini', 'GCP'];
+const technologies = ['Python', 'OpenAI', 'Gemini', 'Selenium', 'GCP'];
 
 const examplePosts = [
   {
@@ -76,15 +76,9 @@ function InstagramProjectPage() {
             <p className={styles.intro}>
               Designed and built an end-to-end system that automates content
               generation, publishing, audience targeting, and engagement
-              workflows for Instagram. The system has grown the{' '}
-              <a
-                href="https://www.instagram.com/cute_kitties_and_puppies/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                account
-              </a>{' '}
-              to 2,000+ followers through AI-powered content creation and fully
+              workflows for Instagram. The system has grown the account to
+              2,000+ followers through{' '}
+              <a href="#posts-title">AI-powered content creation</a> and fully
               automated engagement workflows.
             </p>
           </div>
@@ -138,8 +132,8 @@ function InstagramProjectPage() {
                 <h3>Account Discovery &amp; Filtering</h3>
                 <div className={styles.archItems}>
                   <p>Computer vision</p>
-                  <p>Animal content detection</p>
-                  <p>Following/followers threshold</p>
+                  <p>Content categorization</p>
+                  <p>Account relevance scoring</p>
                 </div>
                 <p className={styles.boxNote}>
                   Selects target accounts for engagement
@@ -149,9 +143,8 @@ function InstagramProjectPage() {
               <article className={`${styles.archBox} ${styles.centerBox}`}>
                 <h3>Coordination Layer</h3>
                 <div className={styles.archItems}>
-                  <p>Rules</p>
                   <p>Workflow coordination</p>
-                  <p>Action selection</p>
+                  <p>Execution timing</p>
                 </div>
                 <p className={styles.boxNote}>
                   Coordinates system behavior
@@ -178,7 +171,7 @@ function InstagramProjectPage() {
                   <p>Public account metrics</p>
                 </div>
                 <p className={styles.boxNote}>
-                  Tracks actions and decision inputs
+                  Tracks actions and system inputs
                 </p>
               </article>
             </div>

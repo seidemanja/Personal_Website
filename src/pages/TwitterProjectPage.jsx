@@ -22,7 +22,7 @@ const metrics = [
   },
 ];
 
-const technologies = ['Python', 'AWS EC2', 'Twitter API'];
+const technologies = ['Python', 'Twitter API', 'AWS'];
 
 const nftExamples = [
   {
@@ -68,7 +68,9 @@ function TwitterProjectPage() {
               Designed and built an end-to-end system that automates giveaway
               discovery, entry requirement evaluation, and engagement workflows
               on Twitter. The system operated without manual intervention and
-              won 700+ digital assets through automated giveaway participation.
+              {' '}
+              <a href="#nfts-title">won 700+ digital assets</a> through
+              automated giveaway participation.
             </p>
           </div>
         </section>

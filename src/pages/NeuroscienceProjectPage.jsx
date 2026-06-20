@@ -84,6 +84,7 @@ function NeuroscienceProjectPage() {
                 <span>Wake Forest University School of Medicine</span>
                 <span className={styles.metaDivider} aria-hidden="true">•</span>
                 <a
+                  className={styles.externalTextLink}
                   href="https://www.urgentchoicelab.org/home"
                   rel="noreferrer"
                   target="_blank"
@@ -96,8 +97,9 @@ function NeuroscienceProjectPage() {
               Conducted a multi-year research program investigating the neural
               mechanisms underlying perceptual decision making. Designed
               experiments, developed real-time research software, analyzed
-              behavioral and neural data, secured NIH funding, and published
-              findings in leading scientific journals.
+              behavioral and neural data, secured NIH funding, and{' '}
+              <a href="#publications-title">published findings</a> in leading
+              scientific journals.
             </p>
           </div>
         </section>
@@ -122,7 +124,10 @@ function NeuroscienceProjectPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="publications-title">
+        <section
+          className={`${styles.section} ${styles.publicationsSection}`}
+          aria-labelledby="publications-title"
+        >
           <header className={styles.sectionHeader}>
             <h2 id="publications-title">Selected Publications</h2>
           </header>
@@ -148,8 +153,8 @@ function NeuroscienceProjectPage() {
             ))}
           </div>
 
-          <a
-            className={styles.scholarLink}
+            <a
+              className={styles.scholarLink}
             href="https://scholar.google.com/citations?user=_dN3kXQAAAAJ&hl=en&oi=ao"
             rel="noreferrer"
             target="_blank"
@@ -193,6 +198,7 @@ function NeuroscienceProjectPage() {
             For additional information about the research topics, experimental
             paradigms, and broader research program, visit the{' '}
             <a
+              className={styles.externalTextLink}
               href="https://www.urgentchoicelab.org/home"
               rel="noreferrer"
               target="_blank"
