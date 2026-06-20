@@ -98,6 +98,7 @@
 }
 
 .imagePlaceholder {
+  box-sizing: border-box;
   aspect-ratio: 1 / 1;
   width: 162px;
   height: 162px;
@@ -107,6 +108,21 @@
   border-right: 0.5px solid rgba(0, 0, 0, 0.1);
   background: #f2f2f2;
   font-size: 0.8rem;
+}
+
+.imageInset {
+  padding: 10px;
+  background: #fff;
+}
+
+.imageInsetDark {
+  padding: 10px;
+  background: #000;
+}
+
+.imageInset .cardImage,
+.imageInsetDark .cardImage {
+  border-radius: 3px;
 }
 
 .cardImage {

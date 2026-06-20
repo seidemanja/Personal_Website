@@ -64,28 +64,19 @@ function InstagramProjectPage() {
         <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
           <Link to="/projects">Selected Projects</Link>
           <span aria-hidden="true">›</span>
-          <span>
-            Automated Instagram Engagement System with AI-Powered Content
-            Generation
-          </span>
+          <span>Instagram Content Creation and Engagement Automation</span>
         </nav>
 
         <section className={styles.hero} aria-labelledby="project-title">
           <div className={styles.heroCopy}>
             <h1 id="project-title">
-              Automated Instagram Engagement System with AI-Powered Content
-              Generation
+              Instagram Content Creation and Engagement Automation
             </h1>
             <p className={styles.years}>11/2024 – Present</p>
             <p className={styles.intro}>
-              Designed and built an end-to-end web automation system (Python,
-              Selenium) to orchestrate daily content generation, posting, and
-              engagement workflows without manual intervention. Integrated
-              OpenAI and Gemini APIs for multimodal content generation, and for
-              image-based classification to identify relevant accounts and
-              enable targeted engagement. Deployed and operated the system on
-              Google Cloud Platform (GCP) with scheduled execution, enabling
-              continuous, unattended operation. Grew{' '}
+              Designed and built an end-to-end system that automates content
+              generation, publishing, audience targeting, and engagement
+              workflows for Instagram. The system has grown the{' '}
               <a
                 href="https://www.instagram.com/cute_kitties_and_puppies/"
                 rel="noreferrer"
@@ -93,9 +84,8 @@ function InstagramProjectPage() {
               >
                 account
               </a>{' '}
-              to 2,000+
-              followers with fully automated content generation and engagement
-              workflows.
+              to 2,000+ followers through AI-powered content creation and fully
+              automated engagement workflows.
             </p>
           </div>
         </section>
@@ -132,7 +122,7 @@ function InstagramProjectPage() {
               </svg>
 
               <div className={`${styles.archBox} ${styles.contentGeneration}`}>
-                <h3>Content Generation</h3>
+                <h3>AI Content Generation</h3>
                 <div className={styles.archItems}>
                   <p>Images</p>
                   <p>Videos</p>

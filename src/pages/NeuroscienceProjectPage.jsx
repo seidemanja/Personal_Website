@@ -93,11 +93,11 @@ function NeuroscienceProjectPage() {
               </p>
             </div>
             <p className={styles.intro}>
-              Investigated the neural and behavioral mechanisms underlying
-              perceptual decision-making through a series of behavioral and
-              neurophysiological experiments. The work examined how sensory
-              information influences rapid decisions and how those processes
-              are reflected in both behavior and neural activity.
+              Conducted a multi-year research program investigating the neural
+              mechanisms underlying perceptual decision making. Designed
+              experiments, developed real-time research software, analyzed
+              behavioral and neural data, secured NIH funding, and published
+              findings in leading scientific journals.
             </p>
           </div>
         </section>

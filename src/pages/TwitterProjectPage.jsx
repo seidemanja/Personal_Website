@@ -57,19 +57,18 @@ function TwitterProjectPage() {
         <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
           <Link to="/projects">Selected Projects</Link>
           <span aria-hidden="true">›</span>
-          <span>Automated Twitter Engagement System</span>
+          <span>Automated Twitter Giveaway Entry</span>
         </nav>
 
         <section className={styles.hero} aria-labelledby="project-title">
           <div className={styles.heroCopy}>
-            <h1 id="project-title">Automated Twitter Engagement System</h1>
+            <h1 id="project-title">Automated Twitter Giveaway Entry</h1>
             <p className={styles.years}>03/2022 – 05/2023</p>
             <p className={styles.intro}>
-              Designed and built a fully automated system (Python, Twitter API)
-              to search for relevant content and programmatically engage (like,
-              repost, comment). Deployed the system on AWS EC2 with scheduled
-              execution for reliable remote operation. Won 700+ digital asset
-              giveaways through automated engagement.
+              Designed and built an end-to-end system that automates giveaway
+              discovery, entry requirement evaluation, and engagement workflows
+              on Twitter. The system operated without manual intervention and
+              won 700+ digital assets through automated giveaway participation.
             </p>
           </div>
         </section>

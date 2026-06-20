@@ -6,7 +6,7 @@ import styles from './SelectedProjectsPage.module.css';
 const projects = [
   {
     description:
-      'Designed and built a real-time research software platform for multimodal data acquisition and experimental control. Designed and conducted experiments investigating how the brain uses sensory evidence to inform perceptual decisions under time pressure.',
+      'Conducted a multi-year research program investigating perceptual decision making. Designed experiments, developed real-time research software, analyzed behavioral and neural data, and published findings in leading scientific journals.',
     imageSrc: '/images/CS_Task_Saccade.png',
     technologies: [
       'MATLAB',
@@ -20,18 +20,19 @@ const projects = [
   },
   {
     description:
-      'Built an end-to-end system that generates AI-powered content, posts to Instagram, and engages with relevant accounts - no manual intervention. Grew to 2,000+ followers.',
+      'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew the account to 2,000+ followers.',
     imageSrc: '/images/puppy_pic_cropped.png',
     technologies: ['Python', 'Selenium', 'OpenAI API', 'Gemini API', 'GCP'],
-    title: 'Automated Instagram Engagement System with AI-Powered Content Generation',
+    title: 'Instagram Content Creation and Engagement Automation',
     to: '/projects/instagram-automation',
   },
   {
     description:
-      'Built and deployed a fully automated system that searches for relevant content on Twitter and programmatically engages \u2014 running unattended on AWS. Won 700+ digital asset giveaways.',
-    imageLabel: 'Image 3',
+      'Built an end-to-end system that automates giveaway discovery and engagement workflows on Twitter. Won 700+ digital assets through automated participation.',
+    imageFrameClassName: styles.imageInsetDark,
+    imageSrc: '/images/NFT_Giveaway_Post_Dark.PNG',
     technologies: ['Python', 'AWS EC2', 'Twitter API'],
-    title: 'Automated Twitter Engagement System',
+    title: 'Automated Twitter Giveaway Entry',
     to: '/projects/twitter-automation',
   },
 ];
@@ -56,7 +57,12 @@ function SelectedProjectsPage() {
           {projects.map((project) => {
             const cardContent = (
                 <>
-                <div className={styles.imagePlaceholder} aria-hidden="true">
+                <div
+                  className={`${styles.imagePlaceholder} ${
+                    project.imageFrameClassName ?? ''
+                  }`}
+                  aria-hidden="true"
+                >
                   {project.imageSrc ? (
                     <img
                       className={styles.cardImage}
