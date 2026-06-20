@@ -191,11 +191,6 @@
   padding: 14px 14px 11px;
 }
 
-.twitterTopBox {
-  height: 126px;
-  top: 46px;
-}
-
 .accountBox {
   width: 286px;
   height: 126px;
@@ -226,6 +221,28 @@
   top: 358px;
   left: 335px;
   padding: 14px 14px 11px;
+}
+
+.twitterArchitectureDiagram {
+  height: 330px !important;
+}
+
+.twitterConnectorLayer {
+  height: 330px !important;
+}
+
+.twitterAccountBox,
+.twitterCenterBox,
+.twitterBrowserBox {
+  top: 24px !important;
+}
+
+.twitterBrowserBox {
+  left: 614px !important;
+}
+
+.twitterBottomBox {
+  top: 180px !important;
 }
 
 .archItems {
@@ -345,6 +362,10 @@
   height: 100%;
   display: block;
   object-fit: cover;
+}
+
+.imageAlignTop {
+  object-position: center top;
 }
 
 .exampleMeta {

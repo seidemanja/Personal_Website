@@ -22,7 +22,7 @@ const metrics = [
   },
 ];
 
-const technologies = ['Python', 'Twitter API', 'AWS EC2', 'Scheduled Execution'];
+const technologies = ['Python', 'Twitter API', 'AWS EC2'];
 
 const nftExamples = [
   {
@@ -33,9 +33,10 @@ const nftExamples = [
   {
     src: '/images/Pizzaface.avif',
     title: 'Pizzaface #5',
-    href: 'https://opensea.io/User4275970346?chains=ethereum',
+    href: 'https://opensea.io/item/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/49879903120962930312887756712303232053883587649198307825174097650565511118849',
   },
   {
+    imageClassName: styles.imageAlignTop,
     src: '/images/Fuzzy_Buddy_NFT.avif',
     title: 'Fuzzy Buddy 1357 #242',
     href: 'https://opensea.io/item/polygon/0x50e282cfa3cd96760ec3d0519f3d5433751360d0/242',
@@ -92,30 +93,22 @@ function TwitterProjectPage() {
           </header>
 
           <div className={styles.architectureScroller}>
-            <div className={styles.architectureDiagram}>
+            <div
+              className={`${styles.architectureDiagram} ${styles.twitterArchitectureDiagram}`}
+            >
               <svg
                 aria-hidden="true"
-                className={styles.connectorLayer}
-                viewBox="0 0 900 484"
+                className={`${styles.connectorLayer} ${styles.twitterConnectorLayer}`}
+                viewBox="0 0 900 330"
               >
-                <line x1="450" y1="172" x2="450" y2="202" />
-                <line x1="286" y1="265" x2="328" y2="265" />
-                <line x1="572" y1="265" x2="630" y2="265" />
-                <line x1="450" y1="328" x2="450" y2="358" />
+                <line x1="286" y1="87" x2="328" y2="87" />
+                <line x1="572" y1="87" x2="614" y2="87" />
+                <line x1="450" y1="150" x2="450" y2="180" />
               </svg>
 
-              <div
-                className={`${styles.archBox} ${styles.contentGeneration} ${styles.twitterTopBox}`}
+              <article
+                className={`${styles.archBox} ${styles.accountBox} ${styles.twitterAccountBox}`}
               >
-                <h3>Daily Scheduled Execution</h3>
-                <div className={styles.archItems}>
-                  <p>Runs on a daily schedule</p>
-                  <p>Automated and unattended</p>
-                </div>
-                <p className={styles.boxNote}>Starts recurring workflows</p>
-              </div>
-
-              <article className={`${styles.archBox} ${styles.accountBox}`}>
                 <h3>Twitter API Content Discovery</h3>
                 <div className={styles.archItems}>
                   <p>Digital asset giveaways</p>
@@ -125,7 +118,9 @@ function TwitterProjectPage() {
                 <p className={styles.boxNote}>Finds relevant opportunities</p>
               </article>
 
-              <article className={`${styles.archBox} ${styles.centerBox}`}>
+              <article
+                className={`${styles.archBox} ${styles.centerBox} ${styles.twitterCenterBox}`}
+              >
                 <h3>Python Orchestration Layer</h3>
                 <div className={styles.archItems}>
                   <p>Schedules tasks</p>
@@ -137,7 +132,9 @@ function TwitterProjectPage() {
                 </p>
               </article>
 
-              <article className={`${styles.archBox} ${styles.browserBox}`}>
+              <article
+                className={`${styles.archBox} ${styles.browserBox} ${styles.twitterBrowserBox}`}
+              >
                 <h3>Automated Engagement</h3>
                 <div className={styles.archItems}>
                   <p>Like giveaway posts</p>
@@ -147,7 +144,9 @@ function TwitterProjectPage() {
                 <p className={styles.boxNote}>Executes Twitter actions</p>
               </article>
 
-              <article className={`${styles.archBox} ${styles.bottomBox}`}>
+              <article
+                className={`${styles.archBox} ${styles.bottomBox} ${styles.twitterBottomBox}`}
+              >
                 <h3>Data &amp; Behavioral Tracking</h3>
                 <div className={styles.archItems}>
                   <p>Entered giveaways</p>
@@ -179,7 +178,7 @@ function TwitterProjectPage() {
 
         <section className={styles.section} aria-labelledby="nfts-title">
           <header className={styles.sectionHeader}>
-            <h2 id="nfts-title">Digital Assets Won</h2>
+            <h2 id="nfts-title">Example Digital Assets Won</h2>
             <p>A sample of digital assets won through automated engagement.</p>
           </header>
 
@@ -193,7 +192,7 @@ function TwitterProjectPage() {
                 target="_blank"
               >
                 <div className={styles.exampleMedia}>
-                  <img src={nft.src} alt="" />
+                  <img className={nft.imageClassName} src={nft.src} alt="" />
                 </div>
                 <div className={styles.exampleMeta}>
                   <p>
@@ -206,6 +205,9 @@ function TwitterProjectPage() {
               </a>
             ))}
           </div>
+          <p className={styles.postNote}>
+            Click on a digital asset to view it on OpenSea.
+          </p>
         </section>
       </div>
     </main>
