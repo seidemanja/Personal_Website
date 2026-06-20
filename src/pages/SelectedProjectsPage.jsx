@@ -32,6 +32,7 @@ const projects = [
     imageLabel: 'Image 3',
     technologies: ['Python', 'AWS EC2', 'Twitter API'],
     title: 'Automated Twitter Engagement System',
+    to: '/projects/twitter-automation',
   },
 ];
 

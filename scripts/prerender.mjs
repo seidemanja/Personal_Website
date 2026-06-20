@@ -10,6 +10,10 @@ const neuroscienceProjectOutputPath = new URL(
   '../dist/projects/neuroscience-research/index.html',
   import.meta.url,
 );
+const twitterProjectOutputPath = new URL(
+  '../dist/projects/twitter-automation/index.html',
+  import.meta.url,
+);
 const assetsPath = new URL('../dist/assets/', import.meta.url);
 const serverBundlePath = new URL(
   '../.prerender/entry-server.js',
@@ -22,6 +26,7 @@ try {
     renderNeuroscienceProjectPage,
     renderProjectsPage,
     renderResumePage,
+    renderTwitterProjectPage,
   } = await import(serverBundlePath.href);
   const html = await readFile(outputPath, 'utf8');
   const stylesheetMatch = html.match(
@@ -75,6 +80,10 @@ try {
     '<div id="root"></div>',
     `<div id="root">${renderNeuroscienceProjectPage()}</div>`,
   );
+  const renderedTwitterProjectHtml = htmlWithCriticalCss.replace(
+    '<div id="root"></div>',
+    `<div id="root">${renderTwitterProjectPage()}</div>`,
+  );
 
   await mkdir(new URL('../dist/resume/', import.meta.url), { recursive: true });
   await mkdir(new URL('../dist/projects/', import.meta.url), {
@@ -86,6 +95,12 @@ try {
       recursive: true,
     },
   );
+  await mkdir(
+    new URL('../dist/projects/twitter-automation/', import.meta.url),
+    {
+      recursive: true,
+    },
+  );
   await writeFile(outputPath, renderedHomeHtml);
   await writeFile(resumeOutputPath, renderedResumeHtml);
   await writeFile(projectsOutputPath, renderedProjectsHtml);
@@ -93,6 +108,7 @@ try {
     neuroscienceProjectOutputPath,
     renderedNeuroscienceProjectHtml,
   );
+  await writeFile(twitterProjectOutputPath, renderedTwitterProjectHtml);
 } finally {
   await rm(new URL('../.prerender', import.meta.url), {
     force: true,

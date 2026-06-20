@@ -32,3 +32,7 @@ export function renderInstagramProjectPage() {
 export function renderNeuroscienceProjectPage() {
   return renderPage('/projects/neuroscience-research');
 }
+
+export function renderTwitterProjectPage() {
+  return renderPage('/projects/twitter-automation');
+}

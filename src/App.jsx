@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage.jsx';
 import InstagramProjectPage from './pages/InstagramProjectPage.jsx';
@@ -5,11 +6,16 @@ import NeuroscienceProjectPage from './pages/NeuroscienceProjectPage.jsx';
 import ResumeLayout from './pages/ResumeLayout.jsx';
 import ResumePage from './pages/ResumePage.jsx';
 import SelectedProjectsPage from './pages/SelectedProjectsPage.jsx';
+import TwitterProjectPage from './pages/TwitterProjectPage.jsx';
 
 function App() {
   const location = useLocation();
   const normalizedPathname = location.pathname.replace(/\/+$/, '') || '/';
   const isResumeRoute = normalizedPathname === '/resume';
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [normalizedPathname]);
 
   return (
     <>
@@ -24,6 +30,10 @@ function App() {
         <Route
           path="/projects/neuroscience-research"
           element={<NeuroscienceProjectPage />}
+        />
+        <Route
+          path="/projects/twitter-automation"
+          element={<TwitterProjectPage />}
         />
         <Route path="*" element={<HomePage />} />
       </Routes>
