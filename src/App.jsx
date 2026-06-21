@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage.jsx';
 import InstagramProjectPage from './pages/InstagramProjectPage.jsx';
@@ -8,12 +8,19 @@ import ResumePage from './pages/ResumePage.jsx';
 import SelectedProjectsPage from './pages/SelectedProjectsPage.jsx';
 import TwitterProjectPage from './pages/TwitterProjectPage.jsx';
 
+const useBrowserLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
 function App() {
   const location = useLocation();
   const normalizedPathname = location.pathname.replace(/\/+$/, '') || '/';
   const isResumeRoute = normalizedPathname === '/resume';
+  const isProjectsRoute = normalizedPathname === '/projects';
 
-  useEffect(() => {
+  useBrowserLayoutEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [normalizedPathname]);
 
@@ -22,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/resume" element={null} />
-        <Route path="/projects" element={<SelectedProjectsPage />} />
+        <Route path="/projects" element={null} />
         <Route
           path="/projects/instagram-automation"
           element={<InstagramProjectPage />}
@@ -41,6 +48,14 @@ function App() {
       <ResumeLayout isVisible={isResumeRoute}>
         <ResumePage />
       </ResumeLayout>
+
+      <div
+        hidden={!isProjectsRoute}
+        aria-hidden={!isProjectsRoute}
+        style={isProjectsRoute ? undefined : { display: 'none' }}
+      >
+        <SelectedProjectsPage />
+      </div>
     </>
   );
 }

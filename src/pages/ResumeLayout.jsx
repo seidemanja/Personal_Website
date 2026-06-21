@@ -9,6 +9,7 @@ function ResumeLayout({ children = null, isVisible = true }) {
       aria-hidden={!isVisible}
       className={`${styles.page} ${isVisible ? '' : styles.hidden}`}
       id="resume"
+      style={isVisible ? undefined : { display: 'none' }}
     >
       <Navigation variant="resume" />
 

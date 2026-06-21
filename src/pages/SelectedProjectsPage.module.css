@@ -55,10 +55,6 @@
     3px 6px 14px rgba(0, 0, 0, 0.075),
     7px 12px 28px rgba(0, 0, 0, 0.045);
   text-decoration: none;
-  transition:
-    background-color 200ms ease,
-    box-shadow 200ms ease,
-    transform 200ms ease;
 }
 
 .cardLinkIcon {

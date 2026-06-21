@@ -67,6 +67,11 @@ function SelectedProjectsPage() {
                       className={styles.cardImage}
                       src={project.imageSrc}
                       alt=""
+                      width="162"
+                      height="162"
+                      loading="eager"
+                      decoding="sync"
+                      fetchpriority="high"
                     />
                   ) : (
                     project.imageLabel

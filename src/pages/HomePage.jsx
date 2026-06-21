@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { Check, Clipboard, Mail } from 'lucide-react';
+import { Check, Copy, Mail } from 'lucide-react';
 import Navigation from '../components/Navigation.jsx';
 import { refreshNIHGrantUrl } from '../nihGrant.js';
 import styles from './HomePage.module.css';
@@ -151,7 +151,7 @@ function HomePage() {
                               {isCopied ? (
                                 <Check aria-hidden="true" strokeWidth={2} />
                               ) : (
-                                <Clipboard aria-hidden="true" strokeWidth={2} />
+                                <Copy aria-hidden="true" strokeWidth={2} />
                               )}
                             </button>
                             <span
