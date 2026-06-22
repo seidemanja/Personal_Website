@@ -22,7 +22,7 @@ const projects = [
       'Data Analysis',
       'Computational Modeling',
     ],
-    title: 'Decision Making in the Brain',
+    title: 'PhD Research in Neuroscience',
     to: '/projects/neuroscience-research',
   },
   {

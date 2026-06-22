@@ -6,19 +6,15 @@ import styles from './InstagramProjectPage.module.css';
 const metrics = [
   {
     title: '700+',
-    description: 'Digital assets won through automation',
-  },
-  {
-    title: 'Daily',
-    description: 'Automated execution',
+    description: 'Digital assets won',
   },
   {
     title: '100%',
-    description: 'Automated system',
+    description: 'Automated workflows',
   },
   {
     title: 'AWS',
-    description: 'Deployed on EC2 for reliable remote operation',
+    description: 'Cloud deployment',
   },
 ];
 
@@ -75,7 +71,10 @@ function TwitterProjectPage() {
           </div>
         </section>
 
-        <section className={styles.metrics} aria-label="Project highlights">
+        <section
+          className={`${styles.metrics} ${styles.metricsThree}`}
+          aria-label="Project highlights"
+        >
           {metrics.map(({ description, title }) => (
             <article className={styles.metricCard} key={title}>
               <h2>{title}</h2>

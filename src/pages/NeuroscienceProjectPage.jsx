@@ -71,12 +71,12 @@ function NeuroscienceProjectPage() {
         <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
           <Link to="/projects">Selected Projects</Link>
           <span aria-hidden="true">›</span>
-          <span>Decision Making in the Brain</span>
+          <span>PhD Research in Neuroscience</span>
         </nav>
 
         <section className={styles.hero} aria-labelledby="project-title">
           <div className={styles.heroCopy}>
-            <h1 id="project-title">Decision Making in the Brain</h1>
+            <h1 id="project-title">PhD Research in Neuroscience</h1>
             <div className={styles.metaRow}>
               <p className={styles.years}>2015–2020</p>
               <span className={styles.metaDivider} aria-hidden="true">•</span>
@@ -195,7 +195,7 @@ function NeuroscienceProjectPage() {
           </a>
 
           <p className={styles.researchInfo}>
-            For additional information about the research topics, experimental
+            For more information about the research topics, experimental
             paradigms, and broader research program, visit the{' '}
             <a
               className={styles.externalTextLink}

@@ -7,19 +7,19 @@ import styles from './InstagramProjectPage.module.css';
 const metrics = [
   {
     title: '2,000+',
-    description: 'Followers grown organically',
+    description: 'Followers gained',
   },
   {
     title: '100%',
     description: 'Automated workflows',
   },
   {
-    title: 'Daily',
-    description: 'Content generation, posting, engagement',
+    title: 'AI',
+    description: 'Content creation',
   },
   {
     title: 'Cloud',
-    description: 'Deployed on Google Cloud Platform',
+    description: 'GCP deployment',
   },
 ];
 
@@ -112,7 +112,7 @@ function InstagramProjectPage() {
                 <line x1="450" y1="160" x2="450" y2="196" />
                 <line x1="143" y1="258" x2="450" y2="258" />
                 <line x1="450" y1="258" x2="733" y2="258" />
-                <line x1="450" y1="320" x2="450" y2="356" />
+                <line x1="450" y1="310" x2="450" y2="356" />
               </svg>
 
               <div className={`${styles.archBox} ${styles.contentGeneration}`}>

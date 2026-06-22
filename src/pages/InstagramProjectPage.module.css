@@ -7,7 +7,7 @@
 }
 
 .content {
-  width: 900px;
+  width: 838px;
   margin: 0 auto;
   padding: 28px 0 68px;
   color: #20201e;
@@ -91,35 +91,50 @@
 
 .metrics {
   margin-top: 28px;
+  width: min(100%, 680px);
+  margin-right: auto;
+  margin-left: auto;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 10px;
   align-items: stretch;
   overflow: visible;
 }
 
+.metricsThree {
+  width: min(100%, 500px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .metricCard {
-  min-height: 104px;
-  padding: 14px 16px 13px;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: #fcfcfb;
+  height: 66px;
+  min-height: 0;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.095);
+  background: #fdfdfc;
   box-shadow: none;
+  text-align: center;
 }
 
 .metricCard h2 {
   margin: 0;
   color: #20201e;
   font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: 1.26rem;
-  font-weight: 400;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .metricCard p {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: #555550;
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.86rem;
+  line-height: 1.15;
 }
 
 .section {
@@ -172,7 +187,7 @@
   padding: 14px 18px 11px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background: #fcfcfb;
+  background: #f8f8f8;
   box-shadow: none;
   text-align: center;
 }
@@ -497,6 +512,11 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .metricsThree {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .postGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -513,6 +533,7 @@
   }
 
   .metrics,
+  .metricsThree,
   .postGrid {
     grid-template-columns: 1fr;
   }
