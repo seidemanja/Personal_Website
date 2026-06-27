@@ -104,6 +104,7 @@
   border-right: 0.5px solid rgba(0, 0, 0, 0.1);
   background: #f2f2f2;
   font-size: 0.8rem;
+  contain: layout paint;
 }
 
 .imageInset {
@@ -126,6 +127,21 @@
   height: 100%;
   display: block;
   object-fit: cover;
+}
+
+.cardPicture {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.desktopCardImage {
+  display: block;
+}
+
+.narrowCardImage {
+  display: none;
 }
 
 .cardContent {
@@ -156,6 +172,14 @@
   overflow-wrap: break-word;
 }
 
+.desktopCopy {
+  display: inline;
+}
+
+.mobileCopy {
+  display: none;
+}
+
 .technologies {
   margin: auto 0 0;
   padding: 11px 0 0;
@@ -176,9 +200,79 @@
   white-space: nowrap;
 }
 
+@media (max-width: 860px) {
+  .content {
+    width: min(779px, calc(100% - 64px));
+  }
+
+  .card {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .imagePlaceholder {
+    width: calc(100% - 36px);
+    max-width: 680px;
+    height: auto;
+    margin: 18px auto 0;
+    aspect-ratio: 824 / 294;
+    border-right: 0;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .desktopCardImage {
+    display: none;
+  }
+
+  .narrowCardImage {
+    display: block;
+  }
+
+  .imageInsetDark {
+    aspect-ratio: 824 / 294;
+    padding: 0;
+    background: #000;
+  }
+
+  .imageInsetDark .cardPicture {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+
+  .imageInsetDark .cardImage {
+    width: 62%;
+    height: 58%;
+    object-fit: contain;
+  }
+
+  .cardContent {
+    min-height: 0;
+    padding: 16px 23px 27px;
+    overflow: hidden;
+  }
+
+  .description {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .desktopCopy {
+    display: none;
+  }
+
+  .mobileCopy {
+    display: inline;
+  }
+}
+
 @media (max-width: 720px) {
   .content {
-    width: calc(100% - 32px);
+    width: calc(100% - 48px);
     padding: 54px 0 68px;
   }
 
@@ -194,22 +288,19 @@
     font-size: 0.903rem;
   }
 
-  .card {
-    height: auto;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-  }
-
   .imagePlaceholder {
-    width: 100%;
-    height: auto;
-    border-right: 0;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    width: calc(100% - 28px);
+    max-width: 560px;
+    margin: 14px auto 0;
   }
 
-  .cardContent {
-    min-height: 228px;
-    padding: 25px 23px 27px;
+  .imageInsetDark {
+    padding: 0;
+  }
+
+  .imageInsetDark .cardPicture {
+    width: 100%;
+    height: 100%;
   }
 
   .cardTitle {
@@ -220,8 +311,12 @@
 
 @media (max-width: 420px) {
   .content {
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
     padding-top: 44px;
+  }
+
+  .imagePlaceholder {
+    width: calc(100% - 20px);
   }
 
   .cardContent {

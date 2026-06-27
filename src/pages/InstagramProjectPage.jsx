@@ -1,7 +1,8 @@
 import { ExternalLink, Volume2, VolumeX } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
+import { useArchitectureLayout } from '../hooks/useArchitectureLayout.js';
 import styles from './InstagramProjectPage.module.css';
 
 const metrics = [
@@ -55,6 +56,37 @@ const examplePosts = [
 function InstagramProjectPage() {
   const [videoMuted, setVideoMuted] = useState(true);
   const videoRef = useRef(null);
+  const architectureContainerRef = useRef(null);
+  const contentGenerationRef = useRef(null);
+  const accountRef = useRef(null);
+  const centerRef = useRef(null);
+  const browserRef = useRef(null);
+  const bottomRef = useRef(null);
+  const architectureRefs = useMemo(
+    () => ({
+      account: accountRef,
+      bottom: bottomRef,
+      browser: browserRef,
+      center: centerRef,
+      top: contentGenerationRef,
+    }),
+    [],
+  );
+  const architectureLayout = useArchitectureLayout(architectureRefs, {
+    containerRef: architectureContainerRef,
+    horizontalGap: 72,
+    verticalGap: 42,
+    width: 900,
+  });
+  const handlePostLinkClick = useCallback((event, post) => {
+    if (
+      typeof window !== 'undefined'
+      && window.matchMedia('(max-width: 720px), (pointer: coarse)').matches
+    ) {
+      event.preventDefault();
+      window.location.assign(post.href);
+    }
+  }, []);
 
   return (
     <main className={styles.page}>
@@ -69,15 +101,15 @@ function InstagramProjectPage() {
 
         <section className={styles.hero} aria-labelledby="project-title">
           <div className={styles.heroCopy}>
-            <h1 id="project-title">
+            <h1 className={styles.instagramTitle} id="project-title">
               Instagram Content Creation and Engagement Automation
             </h1>
             <p className={styles.years}>11/2024 – Present</p>
             <p className={styles.intro}>
               Designed and built an end-to-end system that automates content
-              generation, publishing, audience targeting, and engagement
-              workflows for Instagram. The system has grown the account to
-              2,000+ followers through{' '}
+              generation, posting, audience targeting, and engagement for
+              Instagram. The system has grown the account to 2,000+ followers
+              through{' '}
               <a href="#posts-title">AI-powered content creation</a> and fully
               automated engagement workflows.
             </p>
@@ -97,25 +129,44 @@ function InstagramProjectPage() {
           <header className={styles.sectionHeader}>
             <h2 id="architecture-title">Architecture</h2>
             <p>
-              An end-to-end pipeline for AI-powered content generation,
-              automated posting, and targeted engagement.
+              <span className={styles.desktopCopy}>
+                An end-to-end pipeline for AI-powered content generation,
+                automated posting, and targeted engagement.
+              </span>
+              <span className={styles.mobileCopy}>
+                An end-to-end pipeline for AI-powered content creation,
+                automated posting, and targeted engagement.
+              </span>
             </p>
           </header>
 
-          <div className={styles.architectureScroller}>
-            <div className={styles.architectureDiagram}>
+          <div className={styles.architectureScroller} ref={architectureContainerRef}>
+            <div
+              className={styles.architectureDiagram}
+              style={architectureLayout.diagramStyle}
+            >
               <svg
                 aria-hidden="true"
                 className={styles.connectorLayer}
-                viewBox="0 0 900 484"
+                style={architectureLayout.connectorStyle}
+                viewBox={`0 0 ${architectureLayout.width || 900} ${architectureLayout.height || 540}`}
               >
-                <line x1="450" y1="160" x2="450" y2="196" />
-                <line x1="143" y1="258" x2="450" y2="258" />
-                <line x1="450" y1="258" x2="733" y2="258" />
-                <line x1="450" y1="310" x2="450" y2="356" />
+                {architectureLayout.lines.map((line, index) => (
+                  <line
+                    key={`${line.x1}-${line.y1}-${index}`}
+                    x1={line.x1}
+                    x2={line.x2}
+                    y1={line.y1}
+                    y2={line.y2}
+                  />
+                ))}
               </svg>
 
-              <div className={`${styles.archBox} ${styles.contentGeneration}`}>
+              <div
+                className={`${styles.archBox} ${styles.contentGeneration}`}
+                ref={contentGenerationRef}
+                style={architectureLayout.positions.top}
+              >
                 <h3>AI Content Generation</h3>
                 <div className={styles.archItems}>
                   <p>Images</p>
@@ -128,19 +179,27 @@ function InstagramProjectPage() {
                 </p>
               </div>
 
-              <article className={`${styles.archBox} ${styles.accountBox}`}>
+              <article
+                className={`${styles.archBox} ${styles.accountBox}`}
+                ref={accountRef}
+                style={architectureLayout.positions.account}
+              >
                 <h3>Account Discovery &amp; Filtering</h3>
                 <div className={styles.archItems}>
                   <p>Computer vision</p>
-                  <p>Content categorization</p>
-                  <p>Account relevance scoring</p>
+                  <p>Behavioral profiling</p>
+                  <p>Interest characterization</p>
                 </div>
                 <p className={styles.boxNote}>
                   Selects target accounts for engagement
                 </p>
               </article>
 
-              <article className={`${styles.archBox} ${styles.centerBox}`}>
+              <article
+                className={`${styles.archBox} ${styles.centerBox}`}
+                ref={centerRef}
+                style={architectureLayout.positions.center}
+              >
                 <h3>Coordination Layer</h3>
                 <div className={styles.archItems}>
                   <p>Workflow coordination</p>
@@ -151,7 +210,11 @@ function InstagramProjectPage() {
                 </p>
               </article>
 
-              <article className={`${styles.archBox} ${styles.browserBox}`}>
+              <article
+                className={`${styles.archBox} ${styles.browserBox}`}
+                ref={browserRef}
+                style={architectureLayout.positions.browser}
+              >
                 <h3>Browser Automation</h3>
                 <div className={styles.archItems}>
                   <p>Post content</p>
@@ -163,7 +226,73 @@ function InstagramProjectPage() {
                 </p>
               </article>
 
-              <article className={`${styles.archBox} ${styles.bottomBox}`}>
+              <article
+                className={`${styles.archBox} ${styles.bottomBox}`}
+                ref={bottomRef}
+                style={architectureLayout.positions.bottom}
+              >
+                <h3>Data &amp; Behavioral Tracking</h3>
+                <div className={styles.archItems}>
+                  <p>Action logs</p>
+                  <p>Engagement received</p>
+                  <p>Public account metrics</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Tracks actions and system inputs
+                </p>
+              </article>
+            </div>
+
+            <div className={styles.mobileArchitectureDiagram}>
+              <article className={`${styles.mobileArchBox} ${styles.mobileRootBox}`}>
+                <h3>Coordination Layer</h3>
+                <div className={styles.archItems}>
+                  <p>Workflow coordination</p>
+                  <p>Execution timing</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Coordinates system behavior
+                </p>
+              </article>
+
+              <article className={styles.mobileArchBox}>
+                <h3>AI Content Generation</h3>
+                <div className={styles.archItems}>
+                  <p>Images</p>
+                  <p>Videos</p>
+                  <p>Music</p>
+                  <p>Captions</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Generates content for posting
+                </p>
+              </article>
+
+              <article className={styles.mobileArchBox}>
+                <h3>Account Discovery &amp; Filtering</h3>
+                <div className={styles.archItems}>
+                  <p>Computer vision</p>
+                  <p>Behavioral profiling</p>
+                  <p>Interest characterization</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Selects target accounts for engagement
+                </p>
+              </article>
+
+              <article className={styles.mobileArchBox}>
+                <h3>Browser Automation</h3>
+                <div className={styles.archItems}>
+                  <p>Post content</p>
+                  <p>Follow / Unfollow</p>
+                  <p>Like</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Executes Instagram actions
+                </p>
+              </article>
+
+              <article className={styles.mobileArchBox}>
                 <h3>Data &amp; Behavioral Tracking</h3>
                 <div className={styles.archItems}>
                   <p>Action logs</p>
@@ -263,6 +392,7 @@ function InstagramProjectPage() {
                   className={`${styles.exampleCard} ${styles.exampleLinkCard}`}
                   href={post.href}
                   key={post.src}
+                  onClick={(event) => handlePostLinkClick(event, post)}
                   rel="noreferrer"
                   target="_blank"
                 >

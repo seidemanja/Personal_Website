@@ -163,6 +163,14 @@
   line-height: 1.5;
 }
 
+.desktopCopy {
+  display: inline;
+}
+
+.mobileCopy {
+  display: none;
+}
+
 .publicationsSection h2 {
   scroll-margin-top: 88px;
 }
@@ -400,12 +408,20 @@
 
 @media (max-width: 720px) {
   .content {
-    width: calc(100% - 32px);
+    width: calc(100% - 64px);
     padding-top: 24px;
   }
 
   .heroCopy h1 {
     font-size: 2.05rem;
+  }
+
+  .desktopCopy {
+    display: none;
+  }
+
+  .mobileCopy {
+    display: inline;
   }
 
   .scopeItem {
@@ -419,10 +435,6 @@
 }
 
 @media (max-width: 480px) {
-  .content {
-    width: calc(100% - 20px);
-  }
-
   .publicationCard {
     flex-direction: column;
     gap: 14px;

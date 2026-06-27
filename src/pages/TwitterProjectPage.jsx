@@ -1,6 +1,8 @@
 import { ExternalLink } from 'lucide-react';
+import { useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
+import { useArchitectureLayout } from '../hooks/useArchitectureLayout.js';
 import styles from './InstagramProjectPage.module.css';
 
 const metrics = [
@@ -45,6 +47,29 @@ const nftExamples = [
 ];
 
 function TwitterProjectPage() {
+  const architectureContainerRef = useRef(null);
+  const accountRef = useRef(null);
+  const centerRef = useRef(null);
+  const browserRef = useRef(null);
+  const bottomRef = useRef(null);
+  const architectureRefs = useMemo(
+    () => ({
+      account: accountRef,
+      bottom: bottomRef,
+      browser: browserRef,
+      center: centerRef,
+    }),
+    [],
+  );
+  const architectureLayout = useArchitectureLayout(architectureRefs, {
+    centerTop: 24,
+    childGap: 24,
+    containerRef: architectureContainerRef,
+    layout: 'parent-row',
+    verticalGap: 72,
+    width: 900,
+  });
+
   return (
     <main className={styles.page}>
       <Navigation variant="projects" />
@@ -92,22 +117,32 @@ function TwitterProjectPage() {
             </p>
           </header>
 
-          <div className={styles.architectureScroller}>
+          <div className={styles.architectureScroller} ref={architectureContainerRef}>
             <div
               className={`${styles.architectureDiagram} ${styles.twitterArchitectureDiagram}`}
+              style={architectureLayout.diagramStyle}
             >
               <svg
                 aria-hidden="true"
                 className={`${styles.connectorLayer} ${styles.twitterConnectorLayer}`}
-                viewBox="0 0 900 332"
+                style={architectureLayout.connectorStyle}
+                viewBox={`0 0 ${architectureLayout.width || 900} ${architectureLayout.height || 380}`}
               >
-                <line x1="174" y1="98" x2="450" y2="98" />
-                <line x1="450" y1="98" x2="717" y2="98" />
-                <line x1="450" y1="158" x2="450" y2="206" />
+                {architectureLayout.lines.map((line, index) => (
+                  <line
+                    key={`${line.x1}-${line.y1}-${index}`}
+                    x1={line.x1}
+                    x2={line.x2}
+                    y1={line.y1}
+                    y2={line.y2}
+                  />
+                ))}
               </svg>
 
               <article
                 className={`${styles.archBox} ${styles.accountBox} ${styles.twitterAccountBox}`}
+                ref={accountRef}
+                style={architectureLayout.positions.account}
               >
                 <h3>Content Discovery</h3>
                 <div className={styles.archItems}>
@@ -120,12 +155,14 @@ function TwitterProjectPage() {
 
               <article
                 className={`${styles.archBox} ${styles.centerBox} ${styles.twitterCenterBox}`}
+                ref={centerRef}
+                style={architectureLayout.positions.center}
               >
                 <h3>Coordination Layer</h3>
                 <div className={styles.archItems}>
                   <p>Evaluate entry requirements</p>
-                  <p>Match blockchain to wallet</p>
                   <p>Select participation actions</p>
+                  <p>Match blockchain to wallet</p>
                 </div>
                 <p className={styles.boxNote}>
                   Coordinates system behavior
@@ -134,6 +171,8 @@ function TwitterProjectPage() {
 
               <article
                 className={`${styles.archBox} ${styles.browserBox} ${styles.twitterBrowserBox}`}
+                ref={browserRef}
+                style={architectureLayout.positions.browser}
               >
                 <h3>Automated Engagement</h3>
                 <div className={styles.archItems}>
@@ -147,7 +186,55 @@ function TwitterProjectPage() {
 
               <article
                 className={`${styles.archBox} ${styles.bottomBox} ${styles.twitterBottomBox}`}
+                ref={bottomRef}
+                style={architectureLayout.positions.bottom}
               >
+                <h3>Data &amp; Activity Tracking</h3>
+                <div className={styles.archItems}>
+                  <p>Giveaway metadata</p>
+                  <p>Action logs</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Tracks giveaways and actions
+                </p>
+              </article>
+            </div>
+
+            <div className={styles.mobileArchitectureDiagram}>
+              <article className={`${styles.mobileArchBox} ${styles.mobileRootBox}`}>
+                <h3>Coordination Layer</h3>
+                <div className={styles.archItems}>
+                  <p>Evaluate entry requirements</p>
+                  <p>Select participation actions</p>
+                  <p>Match blockchain to wallet</p>
+                </div>
+                <p className={styles.boxNote}>
+                  Coordinates system behavior
+                </p>
+              </article>
+
+              <article className={styles.mobileArchBox}>
+                <h3>Content Discovery</h3>
+                <div className={styles.archItems}>
+                  <p>Search and find giveaways</p>
+                  <p>Screen entry requirements</p>
+                  <p>Detect giveaway blockchain</p>
+                </div>
+                <p className={styles.boxNote}>Finds relevant opportunities</p>
+              </article>
+
+              <article className={styles.mobileArchBox}>
+                <h3>Automated Engagement</h3>
+                <div className={styles.archItems}>
+                  <p>Like giveaway posts</p>
+                  <p>Retweet giveaway posts</p>
+                  <p>Follow accounts</p>
+                  <p>Comment to enter</p>
+                </div>
+                <p className={styles.boxNote}>Executes Twitter actions</p>
+              </article>
+
+              <article className={styles.mobileArchBox}>
                 <h3>Data &amp; Activity Tracking</h3>
                 <div className={styles.archItems}>
                   <p>Giveaway metadata</p>

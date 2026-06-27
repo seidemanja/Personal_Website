@@ -14,7 +14,8 @@ function Navigation({ variant = 'home' }) {
       <div className={styles.inner}>
         {isInteriorPage ? (
           <NavLink className={styles.brand} to="/" aria-label="Joshua Seideman, PhD home">
-            Joshua Seideman, PhD
+            <span className={styles.desktopBrandText}>Joshua Seideman, PhD</span>
+            <span className={styles.mobileBrandText}>Seideman, PhD</span>
           </NavLink>
         ) : (
           <NavLink

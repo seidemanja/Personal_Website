@@ -7,6 +7,68 @@
       name="description"
       content="Personal website for Joshua Seideman, PhD, Product Manager and Scientist."
     />
+    <meta name="format-detection" content="telephone=no,date=no,address=no,email=no" />
+    <style>
+      .sp-img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .sp-img-narrow {
+        display: none;
+      }
+
+      @media (max-width: 860px) {
+        .sp-card {
+          height: auto;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto 1fr;
+        }
+
+        .sp-image-slot {
+          width: calc(100% - 36px);
+          max-width: 680px;
+          height: auto;
+          margin: 18px auto 0;
+          aspect-ratio: 824 / 294;
+          border-right: 0;
+          background: #fff;
+          overflow: hidden;
+        }
+
+        .sp-card-picture {
+          width: 100%;
+          height: 100%;
+          display: block;
+          overflow: hidden;
+        }
+
+        .sp-img-desktop {
+          display: none !important;
+        }
+
+        .sp-img-narrow {
+          display: block !important;
+        }
+
+        .sp-image-dark {
+          background: #000;
+        }
+
+        .sp-image-dark .sp-card-picture {
+          display: grid;
+          place-items: center;
+        }
+
+        .sp-image-dark .sp-img {
+          width: 62%;
+          height: 58%;
+          object-fit: contain;
+        }
+      }
+    </style>
     <link
       rel="preload"
       href="/images/Josh_Headshot_760.jpg"
@@ -19,13 +81,41 @@
       rel="preload"
       href="/images/puppy_pic_cropped.png"
       as="image"
+      media="(min-width: 861px)"
       fetchpriority="high"
     />
-    <link rel="preload" href="/images/CS_Task_Saccade.png" as="image" />
+    <link
+      rel="preload"
+      href="/images/puppy_pic_cropped_narrow.png"
+      as="image"
+      media="(max-width: 860px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/images/CS_Task_Saccade.png"
+      as="image"
+      media="(min-width: 861px)"
+    />
+    <link
+      rel="preload"
+      href="/images/CS_Task_Saccade_narrow.png"
+      as="image"
+      media="(max-width: 860px)"
+      fetchpriority="high"
+    />
     <link
       rel="preload"
       href="/images/NFT_Giveaway_Post_Dark.PNG"
       as="image"
+      media="(min-width: 861px)"
+    />
+    <link
+      rel="preload"
+      href="/images/NFT_Giveaway_Post_Dark_narrow.PNG"
+      as="image"
+      media="(max-width: 860px)"
+      fetchpriority="high"
     />
     <title>Joshua Seideman, PhD</title>
     <script>

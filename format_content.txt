@@ -1,0 +1,54 @@
+PERSONAL WEBSITE DESIGN + RENDERING CONTRACT
+
+Use this file as the consistency baseline. Preserve existing values unless a request explicitly changes them.
+
+PAGE FRAME
+- Global UI font: Inter/system sans. Editorial/display headings: Georgia, "Times New Roman", serif.
+- All pages: white background, centered content, no horizontal page scrollbar.
+- Project-detail pages (Instagram, Twitter, Neuroscience): identical `.content` frame: width 838px; margin auto; padding 28px 0 68px. At <=980px and narrower use `calc(100% - 64px)` so narrow pages retain 32px side margins.
+- Project-detail hero: title Georgia 2.38rem/1.08, metadata .78rem, body .86rem/1.72, body max-width 760px.
+- Project-detail sections: heading Georgia 1.5rem; support text .78rem/1.5. Section rhythm is always 28px from prior content to divider, then 30px from divider to next section content.
+- Selected Projects overview has its own centered 779px content column; do not force it to match project-detail width.
+- Navbar dimensions/typography and 56px left/right inset are shared and must not shift between routes, viewport widths or while scrolling. It remains 47px high with .94rem links and .99rem brand; narrow breakpoints may reduce only gaps between items. Keep sticky interior navigation opaque.
+- Resume pages are fixed-layout documents. Changing viewport width must never reflow or rewrap resume text; every word must keep the same relative position on the resume page. For narrow widths, scale the complete resume surface uniformly from the fixed desktop layout instead of changing the resume document width, padding, font size, or line wrapping independently.
+
+TYPOGRAPHY + COMPONENT CONSISTENCY
+- Never scale desktop typography/images/components with viewport width. Use fixed rem/px values and breakpoint-specific layouts only.
+- Never insert hard-coded line breaks (`<br />`, manual newline elements, or equivalent forced breaks) inside resume body text. Resume line breaks must come only from the fixed resume document layout so scaling the resume cannot create extra or different breaks.
+- Project-detail architecture: title .87rem; capability lines .8rem/1.32; italic description .7rem/1.32.
+- Project-detail KPI text: value 1.25rem; descriptor .86rem. Cards stay compact (currently 66px high), centered as a group, not stretched across the page.
+- Technology pills: .76rem; breadcrumb text .76rem.
+- Interactive cards use white background, restrained directional shadow and subtle hover lift/tint. Noninteractive architecture/KPI boxes use no shadow or button-like styling.
+
+REFRESH / NAVIGATION / NO-FLASH RULES
+- Production pages must be prerendered HTML and hydrated; never render an empty root first. Add every new route to `entry-server.jsx` AND `scripts/prerender.mjs`, including its output directory.
+- Inline critical/shared CSS during prerender so typography, layout, shadows, navigation and fixed controls do not flash from unstyled to styled.
+- Preload only first-viewport/high-priority local images in `index.html`; give important images explicit dimensions and stable containers to prevent layout shift.
+- Server/prerender markup must exactly match the first client render. Do not branch initial markup on browser-only state.
+- Keep Resume and Selected Projects mounted when navigating if preserving their DOM avoids reload flashes. Hide inactive mounted pages with `display:none`; do not remount expensive/stable content unnecessarily.
+- Set `history.scrollRestoration = "manual"` before paint and scroll to top in a layout effect on pathname changes. Never allow browser restoration to jump down and then back up.
+- No temporary gray shells, alternate previews, animations or delayed style classes that visibly swap after load. Reserve final dimensions immediately; use white/static placeholders only when unavoidable.
+- Avoid unstable effect dependencies (especially newly created ref arrays/objects); memoize them to prevent render loops or blank pages.
+
+ARCHITECTURE DIAGRAM CONTRACT
+- Desktop diagram geometry is measured from actual box dimensions; never hard-code connector endpoints that can drift when text changes.
+- Center box is the reference. Left and right nearest-boundary gaps must be equal. Top and bottom nearest-boundary gaps must be equal when both exist. Horizontal and vertical gaps may differ.
+- Current desktop defaults: 72px horizontal gap; Instagram 42px vertical gap; Twitter 44px vertical gap. Preserve unless intentionally redesigned.
+- Center the complete diagram bounds (leftmost box edge through rightmost box edge) on the same content axis represented by section dividers.
+- Box width is content-driven (`max-content`) with consistent internal padding (14px top, 18px sides, 11px bottom), 10px radius, 1px solid `--diagram-box-border`, `#f8f8f8` fill, no shadow.
+- All text inside boxes is centered. Keep equal title-to-body spacing, body-to-description spacing, and bottom description-to-border spacing across every box and both diagrams. Descriptions stay one line where possible.
+- Connector color must be exactly the same solid color as the box border (not transparent rgba), 1px wide, butt line caps. This prevents darker overlap at intersections.
+- SVG connectors sit behind boxes. Endpoints use measured box boundaries: touch borders exactly, never penetrate, overrun or fall short.
+- Desktop horizontal connector runs from the right edge of the left box to the left edge of the right box through the center-box midpoint; vertical connectors run exactly from one box boundary to the next.
+- Diagram/container height is computed from the bottommost box plus the standard small bottom allowance. Never clip the bottom box or leave a large artificial gap before the next divider.
+
+MOBILE ARCHITECTURE (<640px)
+- Switch to the vertical mobile diagram; do not squeeze/reflow the desktop cross layout.
+- All boxes are full-width and stacked vertically. Coordination Layer is first and uses a slightly darker fill to read as the parent.
+- Connect each adjacent pair with one 16px centered vertical line spanning the exact grid gap. Attach it to the lower box (`bottom:100%`), use the exact opaque box-border color, and keep all box borders the same color so contact points neither gap nor darken.
+- No side rail, spokes, branching connectors, SVG measurement hook or connector JavaScript is needed on mobile.
+
+VERIFY BEFORE HANDOFF
+- Run `npm run build`.
+- Inspect desktop and <=430px mobile layouts for both Instagram and Twitter diagrams.
+- Confirm no blank page, overflow scrollbar, clipped box, disconnected/darkened connector, load flash, navbar shift or scroll-restoration jump.

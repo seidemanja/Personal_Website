@@ -6,16 +6,22 @@ import styles from './SelectedProjectsPage.module.css';
 const projects = [
   {
     description:
+      'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew account to 2,000+ followers.',
+    desktopDescription:
       'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew the account to 2,000+ followers.',
     imageSrc: '/images/puppy_pic_cropped.png',
+    narrowImageSrc: '/images/puppy_pic_cropped_narrow.png',
     technologies: ['Python', 'OpenAI', 'Gemini', 'Selenium', 'GCP'],
     title: 'Instagram Content Creation and Engagement Automation',
     to: '/projects/instagram-automation',
   },
   {
     description:
+      'Conducted a multi-year research program investigating perceptual decision making. Designed experiments, developed real-time research software, analyzed behavioral and neural data. Published findings in leading journals.',
+    desktopDescription:
       'Conducted a multi-year research program investigating perceptual decision making. Designed experiments, developed real-time research software, analyzed behavioral and neural data, and published findings in leading scientific journals.',
     imageSrc: '/images/CS_Task_Saccade.png',
+    narrowImageSrc: '/images/CS_Task_Saccade_narrow.png',
     technologies: [
       'Experimental Design',
       'MATLAB',
@@ -30,6 +36,7 @@ const projects = [
       'Built an end-to-end system that automates giveaway discovery and engagement workflows on Twitter. Won 700+ digital assets through automated participation.',
     imageFrameClassName: styles.imageInsetDark,
     imageSrc: '/images/NFT_Giveaway_Post_Dark.PNG',
+    narrowImageSrc: '/images/NFT_Giveaway_Post_Dark_narrow.PNG',
     technologies: ['Python', 'Twitter API', 'AWS'],
     title: 'Automated Twitter Giveaway Entry',
     to: '/projects/twitter-automation',
@@ -57,22 +64,36 @@ function SelectedProjectsPage() {
             const cardContent = (
                 <>
                 <div
-                  className={`${styles.imagePlaceholder} ${
+                  className={`${styles.imagePlaceholder} sp-image-slot ${
                     project.imageFrameClassName ?? ''
-                  }`}
+                  } ${project.imageFrameClassName ? 'sp-image-dark' : ''}`}
                   aria-hidden="true"
                 >
                   {project.imageSrc ? (
-                    <img
-                      className={styles.cardImage}
-                      src={project.imageSrc}
-                      alt=""
-                      width="162"
-                      height="162"
-                      loading="eager"
-                      decoding="sync"
-                      fetchpriority="high"
-                    />
+                    <span className={`${styles.cardPicture} sp-card-picture`}>
+                      <img
+                        className={`${styles.cardImage} ${styles.desktopCardImage} sp-img sp-img-desktop`}
+                        src={project.imageSrc}
+                        alt=""
+                        width="162"
+                        height="162"
+                        loading="eager"
+                        decoding="sync"
+                        fetchpriority="high"
+                      />
+                      {project.narrowImageSrc ? (
+                        <img
+                          className={`${styles.cardImage} ${styles.narrowCardImage} sp-img sp-img-narrow`}
+                          src={project.narrowImageSrc}
+                          alt=""
+                          width="824"
+                          height="294"
+                          loading="eager"
+                          decoding="sync"
+                          fetchpriority="high"
+                        />
+                      ) : null}
+                    </span>
                   ) : (
                     project.imageLabel
                   )}
@@ -80,7 +101,20 @@ function SelectedProjectsPage() {
 
                 <div className={styles.cardContent}>
                   <h2 className={styles.cardTitle}>{project.title}</h2>
-                  <p className={styles.description}>{project.description}</p>
+                  <p className={styles.description}>
+                    {project.desktopDescription ? (
+                      <>
+                        <span className={styles.desktopCopy}>
+                          {project.desktopDescription}
+                        </span>
+                        <span className={styles.mobileCopy}>
+                          {project.description}
+                        </span>
+                      </>
+                    ) : (
+                      project.description
+                    )}
+                  </p>
 
                   <ul
                     className={styles.technologies}
@@ -100,11 +134,11 @@ function SelectedProjectsPage() {
             );
 
             return project.to ? (
-              <Link className={styles.card} key={project.title} to={project.to}>
+              <Link className={`${styles.card} sp-card`} key={project.title} to={project.to}>
                 {cardContent}
               </Link>
             ) : (
-              <article className={styles.card} key={project.title}>
+              <article className={`${styles.card} sp-card`} key={project.title}>
                 {cardContent}
               </article>
             );

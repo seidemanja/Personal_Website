@@ -331,7 +331,16 @@
 
 @media (max-width: 420px) {
   .heroGrid {
+    width: calc(100% - 32px);
     margin-top: 72px;
+  }
+
+  .content {
+    width: min(100%, 486px);
+  }
+
+  .title {
+    white-space: normal;
   }
 
   .profileLinks {

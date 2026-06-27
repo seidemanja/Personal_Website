@@ -31,42 +31,20 @@ const workExperience = [
     role: 'Manager – Product Management & Program Delivery',
     dates: '09/2021 – Present',
     bullets: [
-      <>
-        Owned product roadmap and drove product requirements for a portfolio of
-        30+ data analytics products,
-        <br />
-        prioritizing features and release timelines based on user needs and
-        capacity
-      </>,
-      <>
-        Oversaw delivery across multiple concurrent workstreams, managing project
-        managers and product
-        <br />
-        owners to align priorities, timelines, and dependencies across
-        initiatives
-      </>,
+      'Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, prioritizing features and release timelines based on user needs and capacity',
+      'Oversaw delivery across multiple concurrent workstreams, managing project managers and product owners to align priorities, timelines, and dependencies across initiatives',
       <>
         Drove execution for key initiatives by leading cross-functional teams
         (engineering, data science, design), defining scope and timelines, and
         ensuring on-time delivery
       </>,
-      <>
-        Leveraged AI-assisted coding (OpenAI Codex; ChatGPT) to prototype
-        solutions, resolve technical
-        <br />
-        blockers, and accelerate development timelines
-      </>,
+      'Leveraged AI-assisted coding (OpenAI Codex; ChatGPT) to prototype solutions, resolve technical blockers, and accelerate development timelines',
       <>
         Led delivery of an AI-enabled analytics product that used semantic
         search and LLM-based classification to evaluate scientific literature
         against user-defined hypotheses (Azure, PostgreSQL, React)
       </>,
-      <>
-        Delivered an ML-based classification tool for scientific grants to
-        support funding decisions, reducing
-        <br />
-        manual categorization time by over 70%
-      </>,
+      'Delivered an ML-based classification tool for scientific grants to support funding decisions, reducing manual categorization time by over 70%',
       <>
         Led development of a data anomaly detection product, defining
         requirements and guiding system design to monitor data quality and
@@ -79,23 +57,11 @@ const workExperience = [
     role: 'Consultant – Scientific Portfolio Analyst',
     dates: '08/2020 – 09/2021',
     bullets: [
-      <>
-        Contributed to a publicly published strategic plan for the National
-        Institutes of Health (NIH) Office of
-        <br />
-        Portfolio Analysis, authoring a section on measuring data and resource
-        sharing
-      </>,
+      'Contributed to a publicly published strategic plan for the National Institutes of Health (NIH) Office of Portfolio Analysis, authoring a section on measuring data and resource sharing',
       'Conducted user research to define requirements and scope for web-based analytics products',
       'Served as project manager for select initiatives, coordinating analysts and ensuring timely delivery',
       'Delivered analytical products (slide decks, datasets) to support portfolio analysis and decision-making',
-      <>
-        Wrote custom Python code (Pandas, Jupyter, Matplotlib) to clean, analyze,
-        visualize, and statistically
-        <br />
-        summarize large-scale grant and publication datasets (Python; Pandas,
-        Jupyter Notebook, Matplotlib)
-      </>,
+      'Wrote custom Python code (Pandas, Jupyter, Matplotlib) to clean, analyze, visualize, and statistically summarize large-scale grant and publication datasets (Python; Pandas, Jupyter Notebook, Matplotlib)',
       'Taught virtual classes to train NIH staff to perform grant data analyses',
     ],
   },
@@ -110,12 +76,7 @@ const workExperience = [
         <NIHGrantLink>federally-funded research grant proposal</NIHGrantLink>{' '}
         – defined scope, methods, KPIs, timeline, and budget
       </>,
-      <>
-        Designed and developed real-time research software enabling multimodal
-        data acquisition, interactive
-        <br />
-        visual interfaces, and automated experimental workflows (MATLAB)
-      </>,
+      'Designed and developed real-time research software enabling multimodal data acquisition, interactive visual interfaces, and automated experimental workflows (MATLAB)',
       'Gathered, analyzed, and modeled behavioral and neural data (MATLAB)',
       'Programmed an optimization algorithm to fit a decision-making model to data (MATLAB)',
       'Applied advanced statistical methods – bootstrap, permutation test, linear regression, AUROC',
@@ -162,13 +123,7 @@ const independentProjects = [
         Selenium) to orchestrate daily content generation, posting, and
         engagement workflows without manual intervention
       </>,
-      <>
-        Integrated OpenAI and Gemini APIs for multimodal content generation and
-        for image-based
-        <br />
-        classification to identify relevant accounts and enable targeted
-        engagement
-      </>,
+      'Integrated OpenAI and Gemini APIs for multimodal content generation and for image-based classification to identify relevant accounts and enable targeted engagement',
       'Leveraged AI-assisted development (ChatGPT) to rapidly prototype and implement system components',
       <>
         Deployed and operated the system on Google Cloud Platform (GCP) with
@@ -181,12 +136,7 @@ const independentProjects = [
     organization: 'Twitter Bot – Automated Content Interaction System',
     dates: '03/2022 – 05/2023',
     bullets: [
-      <>
-        Designed and built a fully automated system (Python, Twitter API) to
-        search for relevant content and
-        <br />
-        programmatically engage (like, repost, comment)
-      </>,
+      'Designed and built a fully automated system (Python, Twitter API) to search for relevant content and programmatically engage (like, repost, comment)',
       'Deployed the system on AWS EC2 with scheduled execution for reliable remote operation',
       'Won 700+ digital asset giveaways through automated engagement',
     ],

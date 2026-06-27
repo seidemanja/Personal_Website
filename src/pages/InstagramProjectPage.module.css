@@ -2,6 +2,8 @@
   min-height: 100vh;
   overflow-x: clip;
   background: #fff;
+  --diagram-box-border: #d7d7d1;
+  --diagram-box-fill: #f8f8f8;
   --project-section-gap-before-divider: 28px;
   --project-section-gap-after-divider: 30px;
 }
@@ -158,20 +160,28 @@
   line-height: 1.5;
 }
 
+.desktopCopy {
+  display: inline;
+}
+
+.mobileCopy {
+  display: none;
+}
+
 .architectureScroller {
   margin-top: 22px;
-  overflow-x: hidden;
+  overflow-x: clip;
   overflow-y: visible;
 }
 
 .architectureDiagram {
   --architecture-height: 500px;
   --architecture-connector-height: 484px;
-  width: 900px;
+  width: 100%;
   min-height: var(--architecture-height);
   position: relative;
   padding: 10px 0 0;
-  margin: 0 auto;
+  margin: 0;
   overflow: visible;
 }
 
@@ -186,8 +196,8 @@
   row-gap: 10px;
   padding: 14px 18px 11px;
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: #f8f8f8;
+  border: 1px solid var(--diagram-box-border);
+  background: var(--diagram-box-fill);
   box-shadow: none;
   text-align: center;
 }
@@ -258,27 +268,9 @@
 
 .twitterAccountBox,
 .twitterCenterBox,
-.twitterBrowserBox {
-  top: 24px !important;
-}
-
-.twitterAccountBox {
-  height: auto !important;
-  left: 174px !important;
-}
-
-.twitterCenterBox {
-  height: auto !important;
-}
-
-.twitterBrowserBox {
-  height: auto !important;
-  left: 717px !important;
-}
-
+.twitterBrowserBox,
 .twitterBottomBox {
-  height: auto !important;
-  top: 206px !important;
+  height: auto;
 }
 
 .archItems {
@@ -298,7 +290,7 @@
 }
 
 .connectorLayer {
-  width: 900px;
+  width: 100%;
   height: var(--architecture-connector-height);
   position: absolute;
   inset: 0;
@@ -308,9 +300,42 @@
 }
 
 .connectorLayer line {
-  stroke: rgba(0, 0, 0, 0.18);
+  stroke: var(--diagram-box-border);
   stroke-width: 1;
+  stroke-linecap: butt;
   vector-effect: non-scaling-stroke;
+}
+
+.mobileArchitectureDiagram {
+  display: none;
+}
+
+.mobileArchBox {
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: start;
+  row-gap: 10px;
+  padding: 14px 18px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--diagram-box-border);
+  background: var(--diagram-box-fill);
+  box-shadow: none;
+  text-align: center;
+}
+
+.mobileRootBox {
+  background: #efefec;
+}
+
+.mobileArchBox h3 {
+  margin: 0;
+  color: #20201e;
+  font-size: 0.87rem;
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .technologyRow {
@@ -517,30 +542,87 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .postGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 720px) {
   .content {
-    width: calc(100% - 32px);
+    width: calc(100% - 64px);
     padding: 22px 0 56px;
   }
 
   .heroCopy h1 {
-    font-size: 2.08rem;
+    font-size: 1.98rem;
+  }
+
+  .heroCopy .instagramTitle {
+    font-size: 1.54rem;
   }
 
   .metrics,
-  .metricsThree,
-  .postGrid {
-    grid-template-columns: 1fr;
+  .metricsThree {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .metrics,
+  .metricsThree {
+    width: calc(100% - 20px);
+  }
+
+  .sectionHeader p {
+    max-width: 100%;
+  }
+
+  .desktopCopy {
+    display: none;
+  }
+
+  .mobileCopy {
+    display: inline;
   }
 }
 
-@media (max-width: 420px) {
-  .content {
-    width: calc(100% - 20px);
+@media (max-width: 640px) {
+  .architectureScroller {
+    overflow: visible;
+  }
+
+  .architectureDiagram {
+    display: none;
+  }
+
+  .mobileArchitectureDiagram {
+    width: calc(100vw - 70px);
+    display: grid;
+    gap: 16px;
+    margin: 0 auto;
+    background:
+      linear-gradient(
+        var(--diagram-box-border),
+        var(--diagram-box-border)
+      )
+      center / 1px 100% no-repeat;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 900px) and (min-width: 641px) {
+  .architectureDiagram:not(.twitterArchitectureDiagram) {
+    transform: scale(0.84);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 900px) {
+  .postGrid {
+    width: min(100%, 488px);
+    margin-right: auto;
+    margin-left: auto;
+    grid-template-columns: repeat(2, 236px);
+  }
+}
+
+@media (max-width: 475px) {
+  .postGrid {
+    width: min(100%, 340px);
+    grid-template-columns: minmax(0, 340px);
   }
 }

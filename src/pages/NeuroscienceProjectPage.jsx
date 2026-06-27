@@ -20,6 +20,8 @@ const scopeOfWork = [
     title: 'Software Development',
     description:
       'Designed and developed real-time research software enabling multimodal data acquisition, interactive visual interfaces, and automated experimental workflows.',
+    mobileDescription:
+      'Designed and developed real-time research software enabling data acquisition, interactive visual interfaces, and automated experimental workflows.',
   },
   {
     title: 'Data Collection, Analysis, & Modeling',
@@ -30,6 +32,8 @@ const scopeOfWork = [
     title: 'Scientific Communication',
     description:
       'Presented findings at national and international conferences and published results in peer-reviewed journals.',
+    mobileDescription:
+      'Presented findings at national and international conferences and published in peer-reviewed journals.',
   },
 ];
 
@@ -113,11 +117,24 @@ function NeuroscienceProjectPage() {
           </header>
 
           <div className={styles.scopeList}>
-            {scopeOfWork.map(({ description, title }) => (
+            {scopeOfWork.map(({ description, mobileDescription, title }) => (
               <article className={styles.scopeItem} key={title}>
                 <div className={styles.scopeCopy}>
                   <h3>{title}</h3>
-                  <p>{description}</p>
+                  <p>
+                    {mobileDescription ? (
+                      <>
+                        <span className={styles.desktopCopy}>
+                          {description}
+                        </span>
+                        <span className={styles.mobileCopy}>
+                          {mobileDescription}
+                        </span>
+                      </>
+                    ) : (
+                      description
+                    )}
+                  </p>
                 </div>
               </article>
             ))}
