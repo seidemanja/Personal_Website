@@ -20,22 +20,61 @@
         display: none;
       }
 
+      .sp-desktop-copy {
+        display: inline;
+      }
+
+      .sp-mobile-copy {
+        display: none;
+      }
+
       @media (max-width: 860px) {
+        .sp-content {
+          width: min(779px, calc(100% - 64px));
+          -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+        }
+
+        .sp-list {
+          display: grid;
+          grid-auto-rows: auto;
+          gap: 1rem;
+        }
+
         .sp-card {
+          min-height: 0;
           height: auto;
-          grid-template-columns: 1fr;
-          grid-template-rows: auto 1fr;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 21px;
+          overflow: hidden;
+          color: inherit;
+          border: 0;
+          border-radius: 7.6px;
+          background: #fff;
+          text-decoration: none;
+          box-shadow:
+            3px 6px 14px rgba(0, 0, 0, 0.075),
+            7px 12px 28px rgba(0, 0, 0, 0.045);
         }
 
         .sp-image-slot {
+          box-sizing: border-box;
           width: calc(100% - 36px);
           max-width: 680px;
           height: auto;
           margin: 18px auto 0;
           aspect-ratio: 824 / 294;
           border-right: 0;
+          border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
           background: #fff;
+          background-image: var(--sp-narrow-image);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
           overflow: hidden;
+          contain: layout paint;
         }
 
         .sp-card-picture {
@@ -55,6 +94,7 @@
 
         .sp-image-dark {
           background: #000;
+          background-image: none;
         }
 
         .sp-image-dark .sp-card-picture {
@@ -66,6 +106,104 @@
           width: 62%;
           height: 58%;
           object-fit: contain;
+        }
+
+        .sp-card-content {
+          min-height: 0;
+          padding: 0 23px 38px;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          overflow: hidden;
+        }
+
+        .sp-card-title {
+          margin: 3px 0 0;
+          color: #1a1a1a;
+          font-family: Georgia, "Times New Roman", Times, serif;
+          font-size: 1.093rem;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: 0;
+        }
+
+        .sp-description {
+          max-width: 100%;
+          margin: 8px 0 0;
+          color: #444440;
+          font-size: 0.855rem;
+          line-height: 1.55;
+          overflow-wrap: anywhere;
+        }
+
+        .sp-desktop-copy {
+          display: none;
+        }
+
+        .sp-mobile-copy {
+          display: inline;
+        }
+
+        .sp-technologies {
+          margin: 0;
+          padding: 20px 0 0;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 5px;
+          list-style: none;
+        }
+
+        .sp-technology {
+          padding: 3px 6px;
+          color: #4e4e4a;
+          border: 0.5px solid rgba(0, 0, 0, 0.28);
+          border-radius: 4px;
+          background: transparent;
+          font-size: 0.76rem;
+          line-height: 1.15;
+          white-space: nowrap;
+        }
+      }
+
+      @media (hover: none) and (pointer: coarse) and (max-width: 720px) {
+        .sp-content {
+          width: calc(100% - 48px);
+          padding: 54px 0 68px;
+        }
+
+        .sp-image-slot {
+          width: calc(100% - 28px);
+          max-width: 560px;
+          margin: 14px auto 0;
+        }
+      }
+
+      @media (hover: none) and (pointer: coarse) and (max-width: 420px) {
+        .sp-content {
+          width: calc(100% - 40px);
+          padding-top: 44px;
+        }
+
+        .sp-image-slot {
+          width: calc(100% - 20px);
+        }
+
+        .sp-card-content {
+          padding: 0 19px 36px;
+        }
+      }
+
+      @media (hover: none) and (pointer: coarse) and (max-width: 900px) {
+        .sp-subtitle {
+          font-size: 1rem;
+        }
+
+        .sp-description {
+          font-size: 1rem;
+        }
+
+        .sp-technology {
+          font-size: 0.86rem;
         }
       }
     </style>

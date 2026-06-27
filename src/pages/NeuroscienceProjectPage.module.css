@@ -11,6 +11,8 @@
   margin: 0 auto;
   padding: 28px 0 68px;
   color: #20201e;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .breadcrumbs {
@@ -404,6 +406,32 @@
     width: calc(100% - 64px);
   }
 
+}
+
+@media (hover: none) and (pointer: coarse) and (max-width: 900px) {
+  .breadcrumbs,
+  .metaRow,
+  .researchInfo {
+    font-size: 0.84rem;
+  }
+
+  .intro {
+    font-size: 1rem;
+  }
+
+  .sectionHeader p {
+    font-size: 0.9rem;
+  }
+
+  .scopeCopy p,
+  .publicationCard p,
+  .fundingCard p {
+    font-size: 0.95rem;
+  }
+
+  .scholarLink {
+    font-size: 0.84rem;
+  }
 }
 
 @media (max-width: 720px) {

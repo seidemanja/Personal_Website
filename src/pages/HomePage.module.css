@@ -329,6 +329,68 @@
   }
 }
 
+@media (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 520px) {
+  .hero {
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .heroGrid {
+    width: max-content;
+    max-width: calc(100% - 64px);
+    grid-template-columns: 150px max-content;
+    justify-items: initial;
+    align-items: center;
+    margin-top: 42px;
+    margin-bottom: 34px;
+    gap: 42px;
+  }
+
+  .portraitWrap {
+    width: 150px;
+  }
+
+  .content {
+    width: max-content;
+  }
+
+  .header {
+    text-align: left;
+  }
+
+  .title {
+    font-size: 1.9rem;
+  }
+
+  .subtitle {
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+
+  .rule {
+    margin: 16px 0 0;
+  }
+
+  .profileLinks {
+    margin-top: 22px;
+    justify-content: flex-start;
+  }
+
+  .profileLink {
+    gap: 8px;
+  }
+
+  .emailMenu {
+    left: 0;
+    transform: none;
+  }
+
+  .emailMenu::before {
+    left: 19px;
+    transform: rotate(45deg);
+  }
+}
+
 @media (max-width: 420px) {
   .heroGrid {
     width: calc(100% - 32px);

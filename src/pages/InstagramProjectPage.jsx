@@ -13,6 +13,7 @@ const metrics = [
   {
     title: '100%',
     description: 'Automated workflows',
+    mobileDescription: 'Automated',
   },
   {
     title: 'AI',
@@ -32,24 +33,28 @@ const examplePosts = [
     src: '/videos/video_cat_walking_w_music_instagram.mp4',
     caption: 'Pause, stretch, settle. Tiny tabby perfection.',
     href: 'https://www.instagram.com/p/DWea2UaCXdE/',
+    appHref: 'instagram://media?id=3863643612303161156',
   },
   {
     mediaType: 'image',
     src: '/images/Golden_retriever_laying_on_couch_instagram.jpg',
     caption: 'Living for the snuggles!',
     href: 'https://www.instagram.com/p/DVG9NOZjq_-/',
+    appHref: 'instagram://media?id=3839024922031468542',
   },
   {
     mediaType: 'image',
     src: '/images/Cat_in_bag_instagram.jpg',
     caption: 'Ambition entered the bag first, dignity got stuck behind.',
     href: 'https://www.instagram.com/p/DWrRaoTDm0K/',
+    appHref: 'instagram://media?id=3867261301794172170',
   },
   {
     mediaType: 'image',
     src: '/images/Kitten_jumping_on_bed_instagram.jpg',
     caption: 'Soaking up the snuggles!',
     href: 'https://www.instagram.com/p/DUvyECpjhF-/',
+    appHref: 'instagram://media?id=3832501987963703678',
   },
 ];
 
@@ -81,10 +86,10 @@ function InstagramProjectPage() {
   const handlePostLinkClick = useCallback((event, post) => {
     if (
       typeof window !== 'undefined'
-      && window.matchMedia('(max-width: 720px), (pointer: coarse)').matches
+      && window.matchMedia('(hover: none) and (pointer: coarse)').matches
     ) {
       event.preventDefault();
-      window.location.assign(post.href);
+      window.location.assign(post.appHref ?? post.href);
     }
   }, []);
 
@@ -117,10 +122,19 @@ function InstagramProjectPage() {
         </section>
 
         <section className={styles.metrics} aria-label="Project highlights">
-          {metrics.map(({ description, title }) => (
+          {metrics.map(({ description, mobileDescription, title }) => (
             <article className={styles.metricCard} key={title}>
               <h2>{title}</h2>
-              <p>{description}</p>
+              <p>
+                {mobileDescription ? (
+                  <>
+                    <span className={styles.metricDesktopCopy}>{description}</span>
+                    <span className={styles.metricMobileCopy}>{mobileDescription}</span>
+                  </>
+                ) : (
+                  description
+                )}
+              </p>
             </article>
           ))}
         </section>

@@ -8,6 +8,8 @@
   width: 779px;
   margin: 0 auto;
   padding: 42px 0 61px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .header {
@@ -201,14 +203,20 @@
 }
 
 @media (max-width: 860px) {
+  .projectList {
+    grid-auto-rows: auto;
+  }
+
   .content {
     width: min(779px, calc(100% - 64px));
   }
 
   .card {
+    min-height: 0;
     height: auto;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
   }
 
   .imagePlaceholder {
@@ -220,6 +228,10 @@
     border-right: 0;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
     background: #fff;
+    background-image: var(--sp-narrow-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     overflow: hidden;
   }
 
@@ -235,6 +247,7 @@
     aspect-ratio: 824 / 294;
     padding: 0;
     background: #000;
+    background-image: none;
   }
 
   .imageInsetDark .cardPicture {
@@ -252,13 +265,18 @@
 
   .cardContent {
     min-height: 0;
-    padding: 16px 23px 27px;
+    padding: 0 23px 38px;
     overflow: hidden;
   }
 
   .description {
     max-width: 100%;
     overflow-wrap: anywhere;
+  }
+
+  .technologies {
+    margin: 0;
+    padding-top: 20px;
   }
 
   .desktopCopy {
@@ -270,7 +288,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (hover: none) and (pointer: coarse) and (max-width: 720px) {
   .content {
     width: calc(100% - 48px);
     padding: 54px 0 68px;
@@ -309,7 +327,7 @@
 
 }
 
-@media (max-width: 420px) {
+@media (hover: none) and (pointer: coarse) and (max-width: 420px) {
   .content {
     width: calc(100% - 40px);
     padding-top: 44px;
@@ -320,7 +338,21 @@
   }
 
   .cardContent {
-    padding: 23px 19px 25px;
+    padding: 0 19px 36px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) and (max-width: 900px) {
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .technology {
+    font-size: 0.86rem;
   }
 }
 

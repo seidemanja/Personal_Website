@@ -13,6 +13,7 @@ const metrics = [
   {
     title: '100%',
     description: 'Automated workflows',
+    mobileDescription: 'Automated',
   },
   {
     title: 'AWS',
@@ -100,10 +101,19 @@ function TwitterProjectPage() {
           className={`${styles.metrics} ${styles.metricsThree}`}
           aria-label="Project highlights"
         >
-          {metrics.map(({ description, title }) => (
+          {metrics.map(({ description, mobileDescription, title }) => (
             <article className={styles.metricCard} key={title}>
               <h2>{title}</h2>
-              <p>{description}</p>
+              <p>
+                {mobileDescription ? (
+                  <>
+                    <span className={styles.metricDesktopCopy}>{description}</span>
+                    <span className={styles.metricMobileCopy}>{mobileDescription}</span>
+                  </>
+                ) : (
+                  description
+                )}
+              </p>
             </article>
           ))}
         </section>

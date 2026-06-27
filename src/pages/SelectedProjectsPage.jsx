@@ -5,6 +5,7 @@ import styles from './SelectedProjectsPage.module.css';
 
 const projects = [
   {
+    imageClassName: 'sp-image-instagram',
     description:
       'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew account to 2,000+ followers.',
     desktopDescription:
@@ -16,6 +17,7 @@ const projects = [
     to: '/projects/instagram-automation',
   },
   {
+    imageClassName: 'sp-image-neuroscience',
     description:
       'Conducted a multi-year research program investigating perceptual decision making. Designed experiments, developed real-time research software, analyzed behavioral and neural data. Published findings in leading journals.',
     desktopDescription:
@@ -34,6 +36,7 @@ const projects = [
   {
     description:
       'Built an end-to-end system that automates giveaway discovery and engagement workflows on Twitter. Won 700+ digital assets through automated participation.',
+    imageClassName: 'sp-image-twitter',
     imageFrameClassName: styles.imageInsetDark,
     imageSrc: '/images/NFT_Giveaway_Post_Dark.PNG',
     narrowImageSrc: '/images/NFT_Giveaway_Post_Dark_narrow.PNG',
@@ -48,25 +51,31 @@ function SelectedProjectsPage() {
     <main className={styles.page} id="selected-projects">
       <Navigation variant="projects" />
 
-      <section className={styles.content} aria-labelledby="projects-title">
+      <section className={`${styles.content} sp-content`} aria-labelledby="projects-title">
         <header className={styles.header}>
           <h1 className={styles.title} id="projects-title">
             Selected Projects
           </h1>
-          <p className={styles.subtitle}>
+          <p className={`${styles.subtitle} sp-subtitle`}>
             Selected projects spanning software development, automation,
             applied AI, and neuroscience research.
           </p>
         </header>
 
-        <div className={styles.projectList}>
+        <div className={`${styles.projectList} sp-list`}>
           {projects.map((project) => {
             const cardContent = (
                 <>
                 <div
                   className={`${styles.imagePlaceholder} sp-image-slot ${
                     project.imageFrameClassName ?? ''
-                  } ${project.imageFrameClassName ? 'sp-image-dark' : ''}`}
+                  } ${project.imageFrameClassName ? 'sp-image-dark' : ''} ${
+                    project.imageClassName ?? ''
+                  }`}
+                  style={{
+                    '--sp-desktop-image': `url(${project.imageSrc})`,
+                    '--sp-narrow-image': `url(${project.narrowImageSrc ?? project.imageSrc})`,
+                  }}
                   aria-hidden="true"
                 >
                   {project.imageSrc ? (
@@ -99,15 +108,15 @@ function SelectedProjectsPage() {
                   )}
                 </div>
 
-                <div className={styles.cardContent}>
-                  <h2 className={styles.cardTitle}>{project.title}</h2>
-                  <p className={styles.description}>
+                <div className={`${styles.cardContent} sp-card-content`}>
+                  <h2 className={`${styles.cardTitle} sp-card-title`}>{project.title}</h2>
+                  <p className={`${styles.description} sp-description`}>
                     {project.desktopDescription ? (
                       <>
-                        <span className={styles.desktopCopy}>
+                        <span className={`${styles.desktopCopy} sp-desktop-copy`}>
                           {project.desktopDescription}
                         </span>
-                        <span className={styles.mobileCopy}>
+                        <span className={`${styles.mobileCopy} sp-mobile-copy`}>
                           {project.description}
                         </span>
                       </>
@@ -117,11 +126,11 @@ function SelectedProjectsPage() {
                   </p>
 
                   <ul
-                    className={styles.technologies}
+                    className={`${styles.technologies} sp-technologies`}
                     aria-label={`${project.title} technologies`}
                   >
                     {project.technologies.map((technology) => (
-                      <li className={styles.technology} key={technology}>
+                      <li className={`${styles.technology} sp-technology`} key={technology}>
                         {technology}
                       </li>
                     ))}
