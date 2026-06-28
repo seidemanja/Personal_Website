@@ -89,7 +89,7 @@ function NeuroscienceProjectPage() {
             <h1 id="project-title">PhD Research in Neuroscience</h1>
             <div className={styles.metaRow}>
               <p className={`${styles.years} ${styles.defaultMetaPiece}`}>
-                2015–2020
+                2014–2020
               </p>
               <span
                 className={`${styles.metaDivider} ${styles.defaultMetaPiece}`}
