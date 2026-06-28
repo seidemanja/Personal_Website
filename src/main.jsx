@@ -6,8 +6,10 @@ import './styles/global.css';
 
 const rootElement = document.getElementById('root');
 const projectDetailSnapshotPaths = new Set([
+  '/resume',
   '/projects',
   '/projects/instagram-automation',
+  '/projects/neuroscience-research',
   '/projects/twitter-automation',
 ]);
 function saveProjectDetailSnapshot() {

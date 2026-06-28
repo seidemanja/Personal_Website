@@ -286,6 +286,14 @@
         .sp-image-dark .sp-card-picture {
           display: grid;
           place-items: center;
+          background: #000;
+        }
+
+        .sp-image-slot:not(.sp-image-dark) .sp-card-picture {
+          background-image: var(--sp-narrow-image);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
         }
 
         .sp-image-dark .sp-img {
@@ -1093,8 +1101,10 @@
     <script>
       (() => {
         const projectDetailPaths = new Set([
+          '/resume',
           '/projects',
           '/projects/instagram-automation',
+          '/projects/neuroscience-research',
           '/projects/twitter-automation',
         ]);
         const path = window.location.pathname.replace(/\/+$/, '') || '/';

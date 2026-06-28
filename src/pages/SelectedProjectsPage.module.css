@@ -264,6 +264,14 @@
     height: 100%;
     display: grid;
     place-items: center;
+    background: #000;
+  }
+
+  .imagePlaceholder:not(.imageInsetDark) .cardPicture {
+    background-image: var(--sp-narrow-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .imageInsetDark .cardImage {
