@@ -11,7 +11,7 @@
 
 .heroGrid {
   width: max-content;
-  margin: 99px auto 0;
+  margin: calc(99px + 3vh) auto 0;
   display: grid;
   grid-template-columns: 180px max-content;
   align-items: center;

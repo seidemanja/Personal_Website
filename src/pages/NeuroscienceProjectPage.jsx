@@ -13,8 +13,14 @@ import styles from './NeuroscienceProjectPage.module.css';
 const scopeOfWork = [
   {
     title: 'Experimental Design',
-    description:
-      'Designed and conducted cognitive and computational neuroscience experiments. Wrote a federally funded research grant proposal defining scope, methods, timeline, and budget.',
+    description: (
+      <>
+        Designed and conducted cognitive and computational neuroscience
+        experiments. Wrote a federally{' '}
+        <a href="#funding-title">funded research grant</a> proposal defining
+        scope, methods, timeline, and budget.
+      </>
+    ),
   },
   {
     title: 'Software Development',
@@ -31,9 +37,9 @@ const scopeOfWork = [
   {
     title: 'Scientific Communication',
     description:
-      'Presented findings at national and international conferences and published results in peer-reviewed journals.',
+      'Presented findings at international conferences and published results in peer-reviewed journals.',
     mobileDescription:
-      'Presented findings at national and international conferences and published in peer-reviewed journals.',
+      'Presented findings at international conferences and published results in peer-reviewed journals.',
   },
 ];
 
@@ -43,7 +49,7 @@ const publications = [
       'Saccade Metrics Reflect Decision-Making Dynamics During Urgent Choices',
     journal: 'Nature Communications, 2018',
     description:
-      'Showed that saccade metrics, including peak velocity, are tightly linked to decision-making dynamics during urgent perceptual choices. Saccade kinematics provide a readout of decision confidence consistent with race-to-threshold models.',
+      'Demonstrated that decision-related processes influence eye movement kinematics, including peak velocity. Using computational modeling, we identified a plausible neural mechanism by which this could occur.',
     href: '/pdfs/Saccade_metrics_paper.pdf',
   },
   {
@@ -51,7 +57,7 @@ const publications = [
       'A Conflict Between Spatial Selection and Evidence Accumulation in Area LIP',
     journal: 'Nature Communications, 2022',
     description:
-      'Found that spatial selection signals in area LIP can be dissociated from evidence accumulation, revealing a conflict between where attention is directed and how evidence is accumulated during decision-making.',
+      'Found that neuronal activity in the lateral intraparietal area does not reliably reflect accumulated sensory evidence during informed choices. The results suggest it instead tracks the deployment of spatial attention.',
     href: '/pdfs/LIP_paper_s41467-022-32209-z.pdf',
   },
 ];
@@ -82,9 +88,16 @@ function NeuroscienceProjectPage() {
           <div className={styles.heroCopy}>
             <h1 id="project-title">PhD Research in Neuroscience</h1>
             <div className={styles.metaRow}>
-              <p className={styles.years}>2015–2020</p>
-              <span className={styles.metaDivider} aria-hidden="true">•</span>
-              <p className={styles.affiliation}>
+              <p className={`${styles.years} ${styles.defaultMetaPiece}`}>
+                2015–2020
+              </p>
+              <span
+                className={`${styles.metaDivider} ${styles.defaultMetaPiece}`}
+                aria-hidden="true"
+              >
+                •
+              </span>
+              <p className={`${styles.affiliation} ${styles.defaultMetaPiece}`}>
                 <span>Wake Forest University School of Medicine</span>
                 <span className={styles.metaDivider} aria-hidden="true">•</span>
                 <a
@@ -96,14 +109,31 @@ function NeuroscienceProjectPage() {
                   Salinas-Stanford Lab
                 </a>
               </p>
+              <div className={styles.portraitMeta}>
+                <p>
+                  2014–2020 <span className={styles.metaDivider}>•</span> Wake
+                  Forest School of Medicine
+                </p>
+                <a
+                  className={styles.externalTextLink}
+                  href="https://www.urgentchoicelab.org/home"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Salinas-Stanford Lab
+                </a>
+              </div>
             </div>
             <p className={styles.intro}>
               Conducted a multi-year research program investigating the neural
               mechanisms underlying perceptual decision making. Designed
               experiments, developed real-time research software, analyzed
               behavioral and neural data, secured NIH funding, and{' '}
-              <a href="#publications-title">published findings</a> in leading
-              scientific journals.
+              <a href="#publications-title">
+                <span className={styles.defaultInline}>published findings</span>
+                <span className={styles.portraitInline}>published</span>
+              </a>{' '}
+              in leading scientific journals.
             </p>
           </div>
         </section>
@@ -190,7 +220,7 @@ function NeuroscienceProjectPage() {
           aria-labelledby="funding-title"
         >
           <header className={styles.sectionHeader}>
-            <h2 id="funding-title">Research Funding</h2>
+            <h2 id="funding-title">Research Awards</h2>
           </header>
 
           <a
@@ -200,10 +230,13 @@ function NeuroscienceProjectPage() {
             target="_blank"
           >
             <div>
-              <h3>NIH Predoctoral Grant Award (F31)</h3>
+              <h3>NIH Predoctoral Research Grant (F31)</h3>
+              <p className={styles.fundingRole}>
+                Principal Investigator · 2018–2020
+              </p>
               <p>
-                Competitive federal research funding awarded to support this
-                research program.
+                Competitively awarded federal research grant supporting my
+                doctoral research.
               </p>
             </div>
             <span className={styles.cardLinkIcon} aria-hidden="true">
