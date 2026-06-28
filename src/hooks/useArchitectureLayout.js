@@ -12,6 +12,50 @@ const DEFAULT_LAYOUT = {
   width: 0,
 };
 
+function readStoredLayout(storageKey, fallbackLayout = DEFAULT_LAYOUT) {
+  if (typeof window === 'undefined' || !storageKey) {
+    return fallbackLayout;
+  }
+
+  try {
+    const stored = JSON.parse(
+      sessionStorage.getItem(`architecture-layout:${storageKey}`) || 'null',
+    );
+
+    if (
+      stored?.version === 'architecture-layout-v1'
+      && Math.abs(stored.viewportWidth - window.innerWidth) <= 8
+      && stored.layout
+    ) {
+      return stored.layout;
+    }
+  } catch {
+    sessionStorage.removeItem(`architecture-layout:${storageKey}`);
+  }
+
+  return fallbackLayout;
+}
+
+function writeStoredLayout(storageKey, layout) {
+  if (typeof window === 'undefined' || !storageKey) {
+    return;
+  }
+
+  try {
+    sessionStorage.setItem(
+      `architecture-layout:${storageKey}`,
+      JSON.stringify({
+        layout,
+        version: 'architecture-layout-v1',
+        viewportHeight: window.innerHeight,
+        viewportWidth: window.innerWidth,
+      }),
+    );
+  } catch {
+    // If session storage is unavailable or full, fall back to recalculation.
+  }
+}
+
 function readBox(ref) {
   if (!ref.current) {
     return null;
@@ -38,12 +82,16 @@ export function useArchitectureLayout(refs, options = {}) {
     childGap = 24,
     containerRef,
     horizontalGap = 72,
+    initialLayout = DEFAULT_LAYOUT,
     layout: layoutMode = 'cross',
+    storageKey,
     topOffset = 24,
     verticalGap = 44,
     width = 900,
   } = options;
-  const [layout, setLayout] = useState(DEFAULT_LAYOUT);
+  const [layout, setLayout] = useState(() =>
+    readStoredLayout(storageKey, initialLayout),
+  );
 
   useIsomorphicLayoutEffect(() => {
     function updateLayout() {
@@ -124,14 +172,17 @@ export function useArchitectureLayout(refs, options = {}) {
           Math.max(account.height, browser.height, bottom.height) +
           bottomGap;
 
-        setLayout({
+        const nextLayout = {
           connectorStyle: { height: diagramHeight },
           diagramStyle: { minHeight: diagramHeight },
           height: diagramHeight,
           lines: nextLines,
           positions: nextPositions,
           width: layoutWidth,
-        });
+        };
+
+        setLayout(nextLayout);
+        writeStoredLayout(storageKey, nextLayout);
         return;
       }
 
@@ -220,14 +271,17 @@ export function useArchitectureLayout(refs, options = {}) {
 
       const diagramHeight = nextPositions.bottom.top + bottom.height + bottomGap;
 
-      setLayout({
+      const nextLayout = {
         connectorStyle: { height: diagramHeight },
         diagramStyle: { minHeight: diagramHeight },
         height: diagramHeight,
         lines: nextLines,
         positions: nextPositions,
         width: layoutWidth,
-      });
+      };
+
+      setLayout(nextLayout);
+      writeStoredLayout(storageKey, nextLayout);
     }
 
     updateLayout();
@@ -262,8 +316,10 @@ export function useArchitectureLayout(refs, options = {}) {
     childGap,
     containerRef,
     horizontalGap,
+    initialLayout,
     layoutMode,
     refs,
+    storageKey,
     topOffset,
     verticalGap,
     width,

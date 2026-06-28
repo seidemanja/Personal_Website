@@ -23,6 +23,40 @@ const metrics = [
 
 const technologies = ['Python', 'Twitter API', 'AWS'];
 
+const twitterInitialArchitectureLayout = {
+  connectorStyle: { height: 332 },
+  diagramStyle: { minHeight: 332 },
+  height: 332,
+  lines: [
+    {
+      x1: 450,
+      x2: 450,
+      y1: 124,
+      y2: 196,
+    },
+    {
+      x1: 143,
+      x2: 733,
+      y1: 160,
+      y2: 160,
+    },
+    {
+      x1: 143,
+      x2: 143,
+      y1: 160,
+      y2: 196,
+    },
+    {
+      x1: 733,
+      x2: 733,
+      y1: 160,
+      y2: 196,
+    },
+  ],
+  positions: {},
+  width: 900,
+};
+
 const nftExamples = [
   {
     src: '/images/Skeleton_punks_NFT.avif',
@@ -66,27 +100,29 @@ function TwitterProjectPage() {
     centerTop: 24,
     childGap: 24,
     containerRef: architectureContainerRef,
+    initialLayout: twitterInitialArchitectureLayout,
     layout: 'parent-row',
+    storageKey: 'twitter-project-architecture',
     verticalGap: 72,
     width: 900,
   });
 
   return (
-    <main className={styles.page}>
+    <main className={`${styles.page} pd-page`}>
       <Navigation variant="projects" />
 
-      <div className={styles.content}>
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+      <div className={`${styles.content} pd-content`}>
+        <nav className={`${styles.breadcrumbs} pd-breadcrumbs`} aria-label="Breadcrumb">
           <Link to="/projects">Selected Projects</Link>
           <span aria-hidden="true">›</span>
           <span>Automated Twitter Giveaway Entry</span>
         </nav>
 
         <section className={styles.hero} aria-labelledby="project-title">
-          <div className={styles.heroCopy}>
-            <h1 id="project-title">Automated Twitter Giveaway Entry</h1>
-            <p className={styles.years}>03/2022 – 05/2023</p>
-            <p className={styles.intro}>
+          <div className={`${styles.heroCopy} pd-hero-copy`}>
+            <h1 className="pd-project-title" id="project-title">Automated Twitter Giveaway Entry</h1>
+            <p className={`${styles.years} pd-years`}>03/2022 – 05/2023</p>
+            <p className={`${styles.intro} pd-intro`}>
               Designed and built an end-to-end system that automates giveaway
               discovery, entry requirement evaluation, and engagement workflows
               on Twitter. The system operated without manual intervention and
@@ -98,17 +134,17 @@ function TwitterProjectPage() {
         </section>
 
         <section
-          className={`${styles.metrics} ${styles.metricsThree}`}
+          className={`${styles.metrics} ${styles.metricsThree} pd-metrics pd-metrics-three`}
           aria-label="Project highlights"
         >
           {metrics.map(({ description, mobileDescription, title }) => (
-            <article className={styles.metricCard} key={title}>
+            <article className={`${styles.metricCard} pd-metric-card`} key={title}>
               <h2>{title}</h2>
               <p>
                 {mobileDescription ? (
                   <>
-                    <span className={styles.metricDesktopCopy}>{description}</span>
-                    <span className={styles.metricMobileCopy}>{mobileDescription}</span>
+                    <span className={`${styles.metricDesktopCopy} pd-metric-desktop-copy`}>{description}</span>
+                    <span className={`${styles.metricMobileCopy} pd-metric-mobile-copy`}>{mobileDescription}</span>
                   </>
                 ) : (
                   description
@@ -118,8 +154,8 @@ function TwitterProjectPage() {
           ))}
         </section>
 
-        <section className={styles.section} aria-labelledby="architecture-title">
-          <header className={styles.sectionHeader}>
+        <section className={`${styles.section} pd-section`} aria-labelledby="architecture-title">
+          <header className={`${styles.sectionHeader} pd-section-header`}>
             <h2 id="architecture-title">Architecture</h2>
             <p>
               A fully automated pipeline for content discovery, engagement,
@@ -127,14 +163,14 @@ function TwitterProjectPage() {
             </p>
           </header>
 
-          <div className={styles.architectureScroller} ref={architectureContainerRef}>
+          <div className={`${styles.architectureScroller} pd-architecture-scroller`} ref={architectureContainerRef}>
             <div
-              className={`${styles.architectureDiagram} ${styles.twitterArchitectureDiagram}`}
+              className={`${styles.architectureDiagram} ${styles.twitterArchitectureDiagram} pd-architecture-diagram pd-twitter-architecture-diagram`}
               style={architectureLayout.diagramStyle}
             >
               <svg
                 aria-hidden="true"
-                className={`${styles.connectorLayer} ${styles.twitterConnectorLayer}`}
+                className={`${styles.connectorLayer} ${styles.twitterConnectorLayer} pd-connector-layer`}
                 style={architectureLayout.connectorStyle}
                 viewBox={`0 0 ${architectureLayout.width || 900} ${architectureLayout.height || 380}`}
               >
@@ -150,7 +186,7 @@ function TwitterProjectPage() {
               </svg>
 
               <article
-                className={`${styles.archBox} ${styles.accountBox} ${styles.twitterAccountBox}`}
+                className={`${styles.archBox} ${styles.accountBox} ${styles.twitterAccountBox} pd-arch-box pd-twitter-account`}
                 ref={accountRef}
                 style={architectureLayout.positions.account}
               >
@@ -164,7 +200,7 @@ function TwitterProjectPage() {
               </article>
 
               <article
-                className={`${styles.archBox} ${styles.centerBox} ${styles.twitterCenterBox}`}
+                className={`${styles.archBox} ${styles.centerBox} ${styles.twitterCenterBox} pd-arch-box pd-twitter-center`}
                 ref={centerRef}
                 style={architectureLayout.positions.center}
               >
@@ -180,7 +216,7 @@ function TwitterProjectPage() {
               </article>
 
               <article
-                className={`${styles.archBox} ${styles.browserBox} ${styles.twitterBrowserBox}`}
+                className={`${styles.archBox} ${styles.browserBox} ${styles.twitterBrowserBox} pd-arch-box pd-twitter-browser`}
                 ref={browserRef}
                 style={architectureLayout.positions.browser}
               >
@@ -195,7 +231,7 @@ function TwitterProjectPage() {
               </article>
 
               <article
-                className={`${styles.archBox} ${styles.bottomBox} ${styles.twitterBottomBox}`}
+                className={`${styles.archBox} ${styles.bottomBox} ${styles.twitterBottomBox} pd-arch-box pd-twitter-bottom`}
                 ref={bottomRef}
                 style={architectureLayout.positions.bottom}
               >
@@ -258,14 +294,14 @@ function TwitterProjectPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="technologies-title">
-          <div className={styles.technologyRow}>
-            <p className={styles.technologyLabel} id="technologies-title">
+        <section className={`${styles.section} pd-section`} aria-labelledby="technologies-title">
+          <div className={`${styles.technologyRow} pd-technology-row`}>
+            <p className={`${styles.technologyLabel} pd-technology-label`} id="technologies-title">
               Technologies
             </p>
-            <ul className={styles.technologyList}>
+            <ul className={`${styles.technologyList} pd-technology-list`}>
               {technologies.map((technology) => (
-                <li className={styles.technologyPill} key={technology}>
+                <li className={`${styles.technologyPill} pd-technology-pill`} key={technology}>
                   {technology}
                 </li>
               ))}
@@ -273,36 +309,36 @@ function TwitterProjectPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="nfts-title">
-          <header className={styles.sectionHeader}>
+        <section className={`${styles.section} pd-section`} aria-labelledby="nfts-title">
+          <header className={`${styles.sectionHeader} pd-section-header`}>
             <h2 id="nfts-title">Example Digital Assets Won</h2>
             <p>A sample of digital assets won through automated engagement.</p>
           </header>
 
-          <div className={`${styles.postGrid} ${styles.nftGrid}`}>
+          <div className={`${styles.postGrid} ${styles.nftGrid} pd-post-grid`}>
             {nftExamples.map((nft) => (
               <a
-                className={`${styles.exampleCard} ${styles.exampleLinkCard} ${styles.nftCard}`}
+                className={`${styles.exampleCard} ${styles.exampleLinkCard} ${styles.nftCard} pd-example-card pd-nft-card`}
                 href={nft.href}
                 key={nft.title}
                 rel="noreferrer"
                 target="_blank"
               >
-                <div className={styles.exampleMedia}>
+                <div className={`${styles.exampleMedia} pd-example-media`}>
                   <img className={nft.imageClassName} src={nft.src} alt="" />
                 </div>
-                <div className={styles.exampleMeta}>
+                <div className={`${styles.exampleMeta} pd-example-meta`}>
                   <p>
                     <strong>{nft.title}</strong>
                   </p>
                 </div>
-                <span className={styles.cardLinkIcon} aria-hidden="true">
+                <span className={`${styles.cardLinkIcon} pd-card-link-icon`} aria-hidden="true">
                   <ExternalLink />
                 </span>
               </a>
             ))}
           </div>
-          <p className={styles.postNote}>
+          <p className={`${styles.postNote} pd-post-note`}>
             Click on a digital asset to view it on OpenSea.
           </p>
         </section>

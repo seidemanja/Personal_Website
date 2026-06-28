@@ -48,12 +48,12 @@ const projects = [
 
 function SelectedProjectsPage() {
   return (
-    <main className={styles.page} id="selected-projects">
+    <main className={`${styles.page} sp-page`} id="selected-projects">
       <Navigation variant="projects" />
 
       <section className={`${styles.content} sp-content`} aria-labelledby="projects-title">
-        <header className={styles.header}>
-          <h1 className={styles.title} id="projects-title">
+        <header className={`${styles.header} sp-header`}>
+          <h1 className={`${styles.title} sp-title`} id="projects-title">
             Selected Projects
           </h1>
           <p className={`${styles.subtitle} sp-subtitle`}>

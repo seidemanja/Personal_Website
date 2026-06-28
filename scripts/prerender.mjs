@@ -14,6 +14,10 @@ const twitterProjectOutputPath = new URL(
   '../dist/projects/twitter-automation/index.html',
   import.meta.url,
 );
+const instagramProjectOutputPath = new URL(
+  '../dist/projects/instagram-automation/index.html',
+  import.meta.url,
+);
 const assetsPath = new URL('../dist/assets/', import.meta.url);
 const serverBundlePath = new URL(
   '../.prerender/entry-server.js',
@@ -23,6 +27,7 @@ const serverBundlePath = new URL(
 try {
   const {
     renderHomePage,
+    renderInstagramProjectPage,
     renderNeuroscienceProjectPage,
     renderProjectsPage,
     renderResumePage,
@@ -84,6 +89,10 @@ try {
     '<div id="root"></div>',
     `<div id="root">${renderTwitterProjectPage()}</div>`,
   );
+  const renderedInstagramProjectHtml = htmlWithCriticalCss.replace(
+    '<div id="root"></div>',
+    `<div id="root">${renderInstagramProjectPage()}</div>`,
+  );
 
   await mkdir(new URL('../dist/resume/', import.meta.url), { recursive: true });
   await mkdir(new URL('../dist/projects/', import.meta.url), {
@@ -101,6 +110,12 @@ try {
       recursive: true,
     },
   );
+  await mkdir(
+    new URL('../dist/projects/instagram-automation/', import.meta.url),
+    {
+      recursive: true,
+    },
+  );
   await writeFile(outputPath, renderedHomeHtml);
   await writeFile(resumeOutputPath, renderedResumeHtml);
   await writeFile(projectsOutputPath, renderedProjectsHtml);
@@ -109,6 +124,7 @@ try {
     renderedNeuroscienceProjectHtml,
   );
   await writeFile(twitterProjectOutputPath, renderedTwitterProjectHtml);
+  await writeFile(instagramProjectOutputPath, renderedInstagramProjectHtml);
 } finally {
   await rm(new URL('../.prerender', import.meta.url), {
     force: true,

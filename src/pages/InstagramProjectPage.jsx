@@ -80,6 +80,7 @@ function InstagramProjectPage() {
   const architectureLayout = useArchitectureLayout(architectureRefs, {
     containerRef: architectureContainerRef,
     horizontalGap: 72,
+    storageKey: 'instagram-project-architecture',
     verticalGap: 42,
     width: 900,
   });
@@ -94,23 +95,23 @@ function InstagramProjectPage() {
   }, []);
 
   return (
-    <main className={styles.page}>
+    <main className={`${styles.page} pd-page`}>
       <Navigation variant="projects" />
 
-      <div className={styles.content}>
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+      <div className={`${styles.content} pd-content`}>
+        <nav className={`${styles.breadcrumbs} pd-breadcrumbs`} aria-label="Breadcrumb">
           <Link to="/projects">Selected Projects</Link>
           <span aria-hidden="true">›</span>
           <span>Instagram Content Creation and Engagement Automation</span>
         </nav>
 
         <section className={styles.hero} aria-labelledby="project-title">
-          <div className={styles.heroCopy}>
-            <h1 className={styles.instagramTitle} id="project-title">
+          <div className={`${styles.heroCopy} pd-hero-copy`}>
+            <h1 className={`${styles.instagramTitle} pd-project-title pd-instagram-title`} id="project-title">
               Instagram Content Creation and Engagement Automation
             </h1>
-            <p className={styles.years}>11/2024 – Present</p>
-            <p className={styles.intro}>
+            <p className={`${styles.years} pd-years`}>11/2024 – Present</p>
+            <p className={`${styles.intro} pd-intro`}>
               Designed and built an end-to-end system that automates content
               generation, posting, audience targeting, and engagement for
               Instagram. The system has grown the account to 2,000+ followers
@@ -121,15 +122,15 @@ function InstagramProjectPage() {
           </div>
         </section>
 
-        <section className={styles.metrics} aria-label="Project highlights">
+        <section className={`${styles.metrics} pd-metrics`} aria-label="Project highlights">
           {metrics.map(({ description, mobileDescription, title }) => (
-            <article className={styles.metricCard} key={title}>
+            <article className={`${styles.metricCard} pd-metric-card`} key={title}>
               <h2>{title}</h2>
               <p>
                 {mobileDescription ? (
                   <>
-                    <span className={styles.metricDesktopCopy}>{description}</span>
-                    <span className={styles.metricMobileCopy}>{mobileDescription}</span>
+                    <span className={`${styles.metricDesktopCopy} pd-metric-desktop-copy`}>{description}</span>
+                    <span className={`${styles.metricMobileCopy} pd-metric-mobile-copy`}>{mobileDescription}</span>
                   </>
                 ) : (
                   description
@@ -139,8 +140,8 @@ function InstagramProjectPage() {
           ))}
         </section>
 
-        <section className={styles.section} aria-labelledby="architecture-title">
-          <header className={styles.sectionHeader}>
+        <section className={`${styles.section} pd-section`} aria-labelledby="architecture-title">
+          <header className={`${styles.sectionHeader} pd-section-header`}>
             <h2 id="architecture-title">Architecture</h2>
             <p>
               <span className={styles.desktopCopy}>
@@ -154,14 +155,14 @@ function InstagramProjectPage() {
             </p>
           </header>
 
-          <div className={styles.architectureScroller} ref={architectureContainerRef}>
+          <div className={`${styles.architectureScroller} pd-architecture-scroller`} ref={architectureContainerRef}>
             <div
-              className={styles.architectureDiagram}
+              className={`${styles.architectureDiagram} pd-architecture-diagram`}
               style={architectureLayout.diagramStyle}
             >
               <svg
                 aria-hidden="true"
-                className={styles.connectorLayer}
+                className={`${styles.connectorLayer} pd-connector-layer`}
                 style={architectureLayout.connectorStyle}
                 viewBox={`0 0 ${architectureLayout.width || 900} ${architectureLayout.height || 540}`}
               >
@@ -177,7 +178,7 @@ function InstagramProjectPage() {
               </svg>
 
               <div
-                className={`${styles.archBox} ${styles.contentGeneration}`}
+                className={`${styles.archBox} ${styles.contentGeneration} pd-arch-box pd-instagram-top`}
                 ref={contentGenerationRef}
                 style={architectureLayout.positions.top}
               >
@@ -194,7 +195,7 @@ function InstagramProjectPage() {
               </div>
 
               <article
-                className={`${styles.archBox} ${styles.accountBox}`}
+                className={`${styles.archBox} ${styles.accountBox} pd-arch-box pd-instagram-account`}
                 ref={accountRef}
                 style={architectureLayout.positions.account}
               >
@@ -210,7 +211,7 @@ function InstagramProjectPage() {
               </article>
 
               <article
-                className={`${styles.archBox} ${styles.centerBox}`}
+                className={`${styles.archBox} ${styles.centerBox} pd-arch-box pd-instagram-center`}
                 ref={centerRef}
                 style={architectureLayout.positions.center}
               >
@@ -225,7 +226,7 @@ function InstagramProjectPage() {
               </article>
 
               <article
-                className={`${styles.archBox} ${styles.browserBox}`}
+                className={`${styles.archBox} ${styles.browserBox} pd-arch-box pd-instagram-browser`}
                 ref={browserRef}
                 style={architectureLayout.positions.browser}
               >
@@ -241,7 +242,7 @@ function InstagramProjectPage() {
               </article>
 
               <article
-                className={`${styles.archBox} ${styles.bottomBox}`}
+                className={`${styles.archBox} ${styles.bottomBox} pd-arch-box pd-instagram-bottom`}
                 ref={bottomRef}
                 style={architectureLayout.positions.bottom}
               >
@@ -321,14 +322,14 @@ function InstagramProjectPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="technologies-title">
-          <div className={styles.technologyRow}>
-            <p className={styles.technologyLabel} id="technologies-title">
+        <section className={`${styles.section} pd-section`} aria-labelledby="technologies-title">
+          <div className={`${styles.technologyRow} pd-technology-row`}>
+            <p className={`${styles.technologyLabel} pd-technology-label`} id="technologies-title">
               Technologies
             </p>
-            <ul className={styles.technologyList}>
+            <ul className={`${styles.technologyList} pd-technology-list`}>
               {technologies.map((technology) => (
-                <li className={styles.technologyPill} key={technology}>
+                <li className={`${styles.technologyPill} pd-technology-pill`} key={technology}>
                   {technology}
                 </li>
               ))}
@@ -336,17 +337,17 @@ function InstagramProjectPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="posts-title">
-          <header className={styles.sectionHeader}>
+        <section className={`${styles.section} pd-section`} aria-labelledby="posts-title">
+          <header className={`${styles.sectionHeader} pd-section-header`}>
             <h2 id="posts-title">Example Posts</h2>
             <p>A few examples of AI-generated content published to the Instagram account.</p>
           </header>
 
-          <div className={styles.postGrid}>
+          <div className={`${styles.postGrid} pd-post-grid`}>
             {examplePosts.map((post) => {
               const cardInner = (
                 <>
-                  <div className={styles.exampleMedia}>
+                  <div className={`${styles.exampleMedia} pd-example-media`}>
                     {post.mediaType === 'video' ? (
                       <>
                         <video
@@ -392,10 +393,10 @@ function InstagramProjectPage() {
                       <img src={post.src} alt="" />
                     )}
                   </div>
-                  <div className={styles.exampleMeta}>
+                  <div className={`${styles.exampleMeta} pd-example-meta`}>
                     <p>{post.caption}</p>
                   </div>
-                  <span className={styles.cardLinkIcon} aria-hidden="true">
+                  <span className={`${styles.cardLinkIcon} pd-card-link-icon`} aria-hidden="true">
                     <ExternalLink />
                   </span>
                 </>
@@ -403,7 +404,7 @@ function InstagramProjectPage() {
 
               return (
                 <a
-                  className={`${styles.exampleCard} ${styles.exampleLinkCard}`}
+                  className={`${styles.exampleCard} ${styles.exampleLinkCard} pd-example-card`}
                   href={post.href}
                   key={post.src}
                   onClick={(event) => handlePostLinkClick(event, post)}
@@ -415,7 +416,7 @@ function InstagramProjectPage() {
               );
             })}
           </div>
-          <p className={styles.postNote}>
+          <p className={`${styles.postNote} pd-post-note`}>
             Click on a post to see engagement received (e.g., likes, comments).
           </p>
         </section>

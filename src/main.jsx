@@ -5,6 +5,32 @@ import App from './App.jsx';
 import './styles/global.css';
 
 const rootElement = document.getElementById('root');
+const projectDetailSnapshotPaths = new Set([
+  '/projects',
+  '/projects/instagram-automation',
+  '/projects/twitter-automation',
+]);
+function saveProjectDetailSnapshot() {
+  const normalizedPathname =
+    window.location.pathname.replace(/\/+$/, '') || '/';
+
+  if (!rootElement || !projectDetailSnapshotPaths.has(normalizedPathname)) {
+    return;
+  }
+
+  try {
+    sessionStorage.setItem(
+      `project-detail-snapshot:${normalizedPathname}`,
+      JSON.stringify({
+        html: rootElement.innerHTML,
+        version: 'project-detail-refresh-v4',
+      }),
+    );
+  } catch {
+    // If session storage is unavailable or full, fall back to normal rendering.
+  }
+}
+
 const app = (
   <React.StrictMode>
     <BrowserRouter>
@@ -18,3 +44,5 @@ if (rootElement.hasChildNodes()) {
 } else {
   createRoot(rootElement).render(app);
 }
+
+window.addEventListener('pagehide', saveProjectDetailSnapshot);

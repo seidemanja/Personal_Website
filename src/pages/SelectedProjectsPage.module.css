@@ -138,6 +138,15 @@
   overflow: hidden;
 }
 
+@media (min-width: 861px) {
+  .cardPicture {
+    background-image: var(--sp-desktop-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
 .desktopCardImage {
   display: block;
 }

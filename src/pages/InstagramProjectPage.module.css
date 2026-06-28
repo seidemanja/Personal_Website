@@ -624,6 +624,20 @@
     transform: scale(0.8);
     transform-origin: top center;
   }
+
+  .architectureDiagram:not(.twitterArchitectureDiagram) .archBox h3 {
+    font-size: 1.01rem;
+  }
+
+  .architectureDiagram:not(.twitterArchitectureDiagram) .archItems p {
+    font-size: 0.94rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 520px) and (max-width: 900px) and (min-width: 641px) {
+  .architectureDiagram:not(.twitterArchitectureDiagram) .boxNote {
+    font-size: 0.87rem;
+  }
 }
 
 @media (hover: none) and (pointer: coarse) and (max-width: 900px) {
@@ -675,6 +689,15 @@
 
   .exampleMeta p {
     font-size: 0.86rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) and (orientation: portrait) and (max-width: 640px) {
+  .breadcrumbs {
+    display: grid;
+    grid-template-columns: max-content max-content minmax(0, 1fr);
+    align-items: start;
+    column-gap: 12px;
   }
 }
 
