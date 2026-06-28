@@ -9,3 +9,8 @@ homepage-snapshots/
 .env
 .env.*
 *.log
+/*.md
+!/README.md
+*.zip
+/*-check*.png
+/*-check*.PNG
