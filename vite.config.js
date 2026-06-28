@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 import nihGrantHandler from './api/nih-grant.js';
 
 function prerenderRoutesInDevelopment() {
@@ -120,5 +121,28 @@ function prerenderRoutesInDevelopment() {
 }
 
 export default defineConfig({
-  plugins: [react(), prerenderRoutesInDevelopment()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      workbox: {
+        globPatterns: ['**/*.{png,PNG,jpg,jpeg,svg,gif,webp}'],
+        runtimeCaching: [
+          {
+            urlPattern: /\/images\//,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
+          },
+        ],
+      },
+    }),
+    prerenderRoutesInDevelopment(),
+  ],
 });
