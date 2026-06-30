@@ -1,6 +1,8 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import aiChatHandler from './api/ai-chat.js';
+import aiChatModelsHandler from './api/ai-chat-models.js';
 import nihGrantHandler from './api/nih-grant.js';
 
 function prerenderRoutesInDevelopment() {
@@ -11,6 +13,14 @@ function prerenderRoutesInDevelopment() {
     apply: 'serve',
     configureServer(server) {
       developmentServer = server;
+
+      server.middlewares.use('/api/ai-chat-models', async (request, response) => {
+        await aiChatModelsHandler(request, response);
+      });
+
+      server.middlewares.use('/api/ai-chat', async (request, response) => {
+        await aiChatHandler(request, response);
+      });
 
       server.middlewares.use('/api/nih-grant', async (request, response) => {
         const apiResponse = {
@@ -41,6 +51,7 @@ function prerenderRoutesInDevelopment() {
         if (
           ![
             '/',
+            '/ai-chat',
             '/projects',
             '/projects/instagram-automation',
             '/projects/neuroscience-research',
@@ -52,6 +63,7 @@ function prerenderRoutesInDevelopment() {
         }
 
         const {
+          renderAiChatPage,
           renderHomePage,
           renderInstagramProjectPage,
           renderNeuroscienceProjectPage,
@@ -59,6 +71,7 @@ function prerenderRoutesInDevelopment() {
           renderResumePage,
         } = await developmentServer.ssrLoadModule('/src/entry-server.jsx');
         const isResume = pathname === '/resume';
+        const isAiChat = pathname === '/ai-chat';
         const isProjects = pathname === '/projects';
         const isInstagramProject =
           pathname === '/projects/instagram-automation';
@@ -66,6 +79,8 @@ function prerenderRoutesInDevelopment() {
           pathname === '/projects/neuroscience-research';
         const renderedPage = isResume
           ? renderResumePage()
+          : isAiChat
+            ? renderAiChatPage()
           : isInstagramProject
             ? renderInstagramProjectPage()
           : isNeuroscienceProject
@@ -75,6 +90,8 @@ function prerenderRoutesInDevelopment() {
             : renderHomePage();
         const pageStylesheet = isResume
           ? '/src/pages/ResumePage.module.css?direct'
+          : isAiChat
+            ? '/src/pages/AiChatPage.module.css?direct'
           : isInstagramProject
             ? '/src/pages/InstagramProjectPage.module.css?direct'
           : isNeuroscienceProject
@@ -120,31 +137,41 @@ function prerenderRoutesInDevelopment() {
   };
 }
 
-export default defineConfig({
-  plugins: [
-    react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'auto',
-      workbox: {
-        navigateFallback: null,
-        globPatterns: ['**/*.{png,PNG,jpg,jpeg,svg,gif,webp}'],
-        globIgnores: ['**/*.html'],
-        runtimeCaching: [
-          {
-            urlPattern: /\/images\//,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'images-cache',
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30,
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+
+  Object.entries(env).forEach(([key, value]) => {
+    if (process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  });
+
+  return {
+    plugins: [
+      react(),
+      VitePWA({
+        registerType: 'autoUpdate',
+        injectRegister: 'auto',
+        workbox: {
+          navigateFallback: null,
+          globPatterns: ['**/*.{png,PNG,jpg,jpeg,svg,gif,webp}'],
+          globIgnores: ['**/*.html'],
+          runtimeCaching: [
+            {
+              urlPattern: /\/images\//,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'images-cache',
+                expiration: {
+                  maxEntries: 50,
+                  maxAgeSeconds: 60 * 60 * 24 * 30,
+                },
               },
             },
-          },
-        ],
-      },
-    }),
-    prerenderRoutesInDevelopment(),
-  ],
+          ],
+        },
+      }),
+      prerenderRoutesInDevelopment(),
+    ],
+  };
 });

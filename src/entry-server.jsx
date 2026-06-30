@@ -17,6 +17,10 @@ export function renderHomePage() {
   return renderPage('/');
 }
 
+export function renderAiChatPage() {
+  return renderPage('/ai-chat');
+}
+
 export function renderResumePage() {
   return renderPage('/resume');
 }

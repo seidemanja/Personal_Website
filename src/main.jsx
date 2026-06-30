@@ -6,6 +6,7 @@ import './styles/global.css';
 
 const rootElement = document.getElementById('root');
 const projectDetailSnapshotPaths = new Set([
+  '/ai-chat',
   '/resume',
   '/projects',
   '/projects/instagram-automation',

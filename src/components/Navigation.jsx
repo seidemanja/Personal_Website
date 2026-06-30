@@ -4,6 +4,7 @@ import styles from './Navigation.module.css';
 const rightItems = [
   { label: 'Resume', to: '/resume' },
   { label: 'Selected Projects', to: '/projects' },
+  { label: 'AI Chat', shortLabel: 'AI', to: '/ai-chat' },
 ];
 
 function Navigation({ variant = 'home' }) {
@@ -49,7 +50,16 @@ function Navigation({ variant = 'home' }) {
                 }
                 to={item.to}
               >
-                {item.label}
+                {item.shortLabel ? (
+                  <>
+                    <span className={styles.fullLinkText}>{item.label}</span>
+                    <span className={styles.shortLinkText}>
+                      {item.shortLabel}
+                    </span>
+                  </>
+                ) : (
+                  item.label
+                )}
               </NavLink>
             ) : (
               <span className={`${styles.link} pd-nav-link`} aria-disabled="true" key={item.label}>

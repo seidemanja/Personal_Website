@@ -87,6 +87,14 @@
   display: none;
 }
 
+.fullLinkText {
+  display: inline;
+}
+
+.shortLinkText {
+  display: none;
+}
+
 .link::after {
   width: 100%;
   height: 2px;
@@ -132,7 +140,15 @@
   }
 
   .rightGroup {
-    gap: clamp(13px, 4.2vw, 20px);
+    gap: clamp(8px, 3vw, 15px);
+  }
+
+  .fullLinkText {
+    display: none;
+  }
+
+  .shortLinkText {
+    display: inline;
   }
 }
 

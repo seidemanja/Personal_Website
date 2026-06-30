@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import AiChatPage from './pages/AiChatPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import InstagramProjectPage from './pages/InstagramProjectPage.jsx';
 import NeuroscienceProjectPage from './pages/NeuroscienceProjectPage.jsx';
@@ -28,6 +29,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/ai-chat" element={<AiChatPage />} />
         <Route path="/resume" element={null} />
         <Route path="/projects" element={null} />
         <Route

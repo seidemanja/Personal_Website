@@ -10,6 +10,11 @@
       ]
     }
   ],
+  "functions": {
+    "api/ai-chat.js": {
+      "includeFiles": "server/knowledge/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/resume",
@@ -18,6 +23,10 @@
     {
       "source": "/projects",
       "destination": "/projects/index.html"
+    },
+    {
+      "source": "/ai-chat",
+      "destination": "/ai-chat/index.html"
     },
     {
       "source": "/(.*)",

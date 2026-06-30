@@ -1,6 +1,7 @@
 import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 
 const outputPath = new URL('../dist/index.html', import.meta.url);
+const aiChatOutputPath = new URL('../dist/ai-chat/index.html', import.meta.url);
 const resumeOutputPath = new URL('../dist/resume/index.html', import.meta.url);
 const projectsOutputPath = new URL(
   '../dist/projects/index.html',
@@ -26,6 +27,7 @@ const serverBundlePath = new URL(
 
 try {
   const {
+    renderAiChatPage,
     renderHomePage,
     renderInstagramProjectPage,
     renderNeuroscienceProjectPage,
@@ -54,6 +56,10 @@ try {
   const renderedHomeHtml = htmlWithCriticalCss.replace(
     '<div id="root"></div>',
     `<div id="root">${renderHomePage()}</div>`,
+  );
+  const renderedAiChatHtml = htmlWithCriticalCss.replace(
+    '<div id="root"></div>',
+    `<div id="root">${renderAiChatPage()}</div>`,
   );
 
   const assetNames = await readdir(assetsPath);
@@ -94,6 +100,9 @@ try {
     `<div id="root">${renderInstagramProjectPage()}</div>`,
   );
 
+  await mkdir(new URL('../dist/ai-chat/', import.meta.url), {
+    recursive: true,
+  });
   await mkdir(new URL('../dist/resume/', import.meta.url), { recursive: true });
   await mkdir(new URL('../dist/projects/', import.meta.url), {
     recursive: true,
@@ -117,6 +126,7 @@ try {
     },
   );
   await writeFile(outputPath, renderedHomeHtml);
+  await writeFile(aiChatOutputPath, renderedAiChatHtml);
   await writeFile(resumeOutputPath, renderedResumeHtml);
   await writeFile(projectsOutputPath, renderedProjectsHtml);
   await writeFile(
