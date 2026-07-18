@@ -22,7 +22,7 @@ const STREAM_FLUSH_INTERVAL_MS = 33;
 const CHAT_STREAM_DEBUG = import.meta.env.VITE_CHAT_STREAM_DEBUG === 'true';
 const EXAMPLE_QUESTIONS = [
   'Give me a brief summary of Josh’s product experience.',
-  'What would be easy to miss about Josh from a quick resume scan?',
+  'What might a quick resume scan miss about Josh?',
   'How does Josh use AI to work more efficiently?',
 ];
 const useBrowserLayoutEffect =
@@ -107,11 +107,24 @@ function parseSseBuffer(buffer, onEvent) {
 
 function sanitizePdfText(text) {
   return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
     .replace(/[“”]/g, '"')
     .replace(/[‘’]/g, "'")
     .replace(/[–—]/g, '-')
     .replace(/•/g, '-')
     .replace(/[^\x09\x0a\x0d\x20-\x7e]/g, '?');
+}
+
+function stripMarkdownEmphasis(text) {
+  return String(text || '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/(^|\s)(?:\*\*|\*)(?=\s|$)/g, '$1');
+}
+
+function isEmptyMarkdownMarker(text) {
+  return /^[*_•\-\s]+$/.test(String(text || ''));
 }
 
 function escapePdfLiteral(text) {
@@ -155,62 +168,147 @@ function getPdfMessageLines(content, maxWidth, fontSize) {
     .replace(/\r\n?/g, '\n');
 
   if (!normalizedContent) {
-    return [''];
+    return [{ text: '', indent: 0, bullet: false, extraAfter: 0 }];
   }
 
-  return normalizedContent
-    .split('\n')
-    .flatMap((rawLine) => {
-      const line = sanitizePdfText(rawLine).trimEnd();
+  const blocks = parseChatMessageBlocks(normalizedContent);
+  const pdfLines = [];
+  const bulletTextIndent = 15;
+  const bulletItemGap = 4;
+  const blockGap = 8;
 
-      if (!line.trim()) {
-        return [''];
+  blocks.forEach((block, blockIndex) => {
+    if (blockIndex > 0) {
+      const previousBlock = blocks[blockIndex - 1];
+      const isAdjacentBulletBlock =
+        previousBlock.type === 'bullets' && block.type === 'bullets';
+      const previousLine = pdfLines[pdfLines.length - 1];
+
+      if (previousLine) {
+        previousLine.extraAfter = Math.max(
+          previousLine.extraAfter || 0,
+          isAdjacentBulletBlock ? bulletItemGap : blockGap,
+        );
       }
+    }
 
-      const bulletMatch = line.match(/^(\s*)([-*•])\s+(.*)$/);
+    if (block.type === 'bullets') {
+      block.items.forEach((item, itemIndex) => {
+        const wrappedBulletLines = wrapPdfText(
+          item,
+          maxWidth - bulletTextIndent,
+          fontSize,
+        );
 
-      if (!bulletMatch) {
-        return wrapPdfText(line.trim(), maxWidth, fontSize);
-      }
+        wrappedBulletLines.forEach((wrappedLine, lineIndex) => {
+          const isLastLineOfItem = lineIndex === wrappedBulletLines.length - 1;
+          const isLastItem = itemIndex === block.items.length - 1;
 
-      const [, leadingWhitespace, bullet, bulletText] = bulletMatch;
-      const bulletPrefix = `${leadingWhitespace}${bullet} `;
-      const continuationPrefix = `${leadingWhitespace}  `;
-      const firstLineMaxWidth =
-        maxWidth - approximatePdfTextWidth(bulletPrefix, fontSize);
-      const continuationMaxWidth =
-        maxWidth - approximatePdfTextWidth(continuationPrefix, fontSize);
-      const words = sanitizePdfText(bulletText).split(/\s+/).filter(Boolean);
-      const wrappedBulletLines = [];
-      let currentLine = '';
-      let currentMaxWidth = firstLineMaxWidth;
-
-      words.forEach((word) => {
-        const nextLine = currentLine ? `${currentLine} ${word}` : word;
-
-        if (
-          approximatePdfTextWidth(nextLine, fontSize) > currentMaxWidth &&
-          currentLine
-        ) {
-          wrappedBulletLines.push(currentLine);
-          currentLine = word;
-          currentMaxWidth = continuationMaxWidth;
-          return;
-        }
-
-        currentLine = nextLine;
+          pdfLines.push({
+            text: wrappedLine,
+            indent: bulletTextIndent,
+            bullet: lineIndex === 0,
+            extraAfter: isLastLineOfItem && !isLastItem ? bulletItemGap : 0,
+          });
+        });
       });
+      return;
+    }
 
-      if (currentLine) {
-        wrappedBulletLines.push(currentLine);
-      }
-
-      return wrappedBulletLines.map((wrappedLine, index) =>
-        index === 0
-          ? `${bulletPrefix}${wrappedLine}`
-          : `${continuationPrefix}${wrappedLine}`,
-      );
+    wrapPdfText(block.text, maxWidth, fontSize).forEach((wrappedLine) => {
+      pdfLines.push({
+        text: wrappedLine,
+        indent: 0,
+        bullet: false,
+        extraAfter: 0,
+      });
     });
+  });
+
+  return pdfLines.length
+    ? pdfLines
+    : [{ text: '', indent: 0, bullet: false, extraAfter: 0 }];
+}
+
+function parseChatMessageBlocks(content) {
+  const lines = String(content || '').replace(/\r\n?/g, '\n').split('\n');
+  const blocks = [];
+  let paragraphLines = [];
+  let bulletItems = [];
+
+  function flushParagraph() {
+    if (!paragraphLines.length) {
+      return;
+    }
+
+    blocks.push({
+      type: 'paragraph',
+      text: paragraphLines.join('\n').trim(),
+    });
+    paragraphLines = [];
+  }
+
+  function flushBullets() {
+    if (!bulletItems.length) {
+      return;
+    }
+
+    blocks.push({
+      type: 'bullets',
+      items: bulletItems,
+    });
+    bulletItems = [];
+  }
+
+  lines.forEach((line) => {
+    const bulletMatch = line.match(/^\s*[-*•]\s+(.*)$/);
+
+    if (bulletMatch) {
+      flushParagraph();
+      const bulletText = stripMarkdownEmphasis(bulletMatch[1]).trim();
+
+      if (bulletText && !isEmptyMarkdownMarker(bulletText)) {
+        bulletItems.push(bulletText);
+      }
+      return;
+    }
+
+    if (!line.trim()) {
+      flushParagraph();
+      flushBullets();
+      return;
+    }
+
+    flushBullets();
+    paragraphLines.push(stripMarkdownEmphasis(line));
+  });
+
+  flushParagraph();
+  flushBullets();
+
+  return blocks.length ? blocks : [{ type: 'paragraph', text: '' }];
+}
+
+function renderMessageContent(message) {
+  if (isThinkingMessage(message)) {
+    return <p className={styles.thinkingText}>Thinking</p>;
+  }
+
+  const blocks = parseChatMessageBlocks(message.content);
+
+  return blocks.map((block, index) => {
+    if (block.type === 'bullets') {
+      return (
+        <ul className={styles.messageBullets} key={`bullets-${index}`}>
+          {block.items.map((item, itemIndex) => (
+            <li key={`${item}-${itemIndex}`}>{item}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return <p key={`paragraph-${index}`}>{block.text}</p>;
+  });
 }
 
 function roundedRectOps(x, y, width, height, radius) {
@@ -229,6 +327,19 @@ function roundedRectOps(x, y, width, height, radius) {
     `${x + radius - c} ${top} ${x} ${top - radius + c} ${x} ${top - radius} c`,
     `${x} ${y + radius} l`,
     `${x} ${y + radius - c} ${x + radius - c} ${y} ${x + radius} ${y} c`,
+  ];
+}
+
+function circleOps(cx, cy, radius) {
+  const k = 0.5522847498;
+  const c = radius * k;
+
+  return [
+    `${cx} ${cy + radius} m`,
+    `${cx + c} ${cy + radius} ${cx + radius} ${cy + c} ${cx + radius} ${cy} c`,
+    `${cx + radius} ${cy - c} ${cx + c} ${cy - radius} ${cx} ${cy - radius} c`,
+    `${cx - c} ${cy - radius} ${cx - radius} ${cy - c} ${cx - radius} ${cy} c`,
+    `${cx - radius} ${cy + c} ${cx - c} ${cy + radius} ${cx} ${cy + radius} c`,
   ];
 }
 
@@ -311,11 +422,14 @@ function createPdfDocument({ messages, modelLabel }) {
       maxTextWidth,
       bodyFontSize,
     );
-    const textBlockHeight = lines.length * lineHeight;
+    const textBlockHeight = lines.reduce(
+      (height, line) => height + lineHeight + (line.extraAfter || 0),
+      0,
+    );
 
     if (isUser) {
       const longestLineWidth = Math.max(
-        ...lines.map((line) => approximatePdfTextWidth(line, bodyFontSize)),
+        ...lines.map((line) => approximatePdfTextWidth(line.text, bodyFontSize)),
         32,
       );
       const bubblePaddingX = 14;
@@ -335,33 +449,55 @@ function createPdfDocument({ messages, modelLabel }) {
       currentOps.push('f');
       currentOps.push('Q');
 
-      lines.forEach((line, index) => {
+      let lineOffset = 0;
+      lines.forEach((line) => {
+        if (!line.text) {
+          lineOffset += lineHeight + (line.extraAfter || 0);
+          return;
+        }
+
         currentOps.push(
           textOp(
-            line,
+            line.text,
             bubbleX + bubblePaddingX,
-            cursorY - bubblePaddingY - bodyFontSize - index * lineHeight,
+            cursorY - bubblePaddingY - bodyFontSize - lineOffset,
             'F1',
             bodyFontSize,
           ),
         );
+        lineOffset += lineHeight + (line.extraAfter || 0);
       });
 
       cursorY -= bubbleHeight + 20;
       return;
     }
 
-    ensureSpace(textBlockHeight + 18);
-    lines.forEach((line, index) => {
-      if (!line) {
+    lines.forEach((line) => {
+      ensureSpace(lineHeight + (line.extraAfter || 0));
+
+      if (!line.text) {
+        cursorY -= lineHeight + (line.extraAfter || 0);
         return;
       }
 
+      const textX = marginX + (line.indent || 0);
+      const textY = cursorY - bodyFontSize;
+
+      if (line.bullet) {
+        currentOps.push('q');
+        currentOps.push(setFillColor('0.2'));
+        currentOps.push(...circleOps(marginX + 4, textY + 4, 1.7));
+        currentOps.push('f');
+        currentOps.push('Q');
+      }
+
       currentOps.push(
-        textOp(line, marginX, cursorY - bodyFontSize - index * lineHeight, 'F1', bodyFontSize),
+        textOp(line.text, textX, textY, 'F1', bodyFontSize),
       );
+      cursorY -= lineHeight + (line.extraAfter || 0);
     });
-    cursorY -= textBlockHeight + 18;
+    ensureSpace(18);
+    cursorY -= 18;
   });
 
   newPage();
@@ -1121,13 +1257,7 @@ function AiChatPage() {
                   }`}
                   key={message.id}
                 >
-                  <p
-                    className={
-                      isThinkingMessage(message) ? styles.thinkingText : undefined
-                    }
-                  >
-                    {isThinkingMessage(message) ? 'Thinking' : message.content}
-                  </p>
+                  {renderMessageContent(message)}
 
                   {!isThinkingMessage(message) ? (
                     <div className={styles.messageActions}>

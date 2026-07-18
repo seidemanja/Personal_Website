@@ -25,6 +25,7 @@ REFRESH / NAVIGATION / NO-FLASH RULES
 - Inline critical/shared CSS during prerender so typography, layout, shadows, navigation and fixed controls do not flash from unstyled to styled.
 - Preload only first-viewport/high-priority local images in `index.html`; give important images explicit dimensions and stable containers to prevent layout shift.
 - Server/prerender markup must exactly match the first client render. Do not branch initial markup on browser-only state.
+- When changing shared UI, page content, navbar labels/icons/spacing, images, cards, or any element whose markup may be prerendered, snapshotted, cached, or restored before hydration, update every pre-hydration source of truth at the same time. This includes prerender output logic, critical CSS, static `index.html` restore scripts, snapshot version keys, stable non-hashed CSS hooks, preload references, and stored snapshot compatibility. Never allow refresh/hydration to briefly show old labels, old images, old spacing, stale snapshots, or previously cached markup before the new intended content appears.
 - Keep Resume and Selected Projects mounted when navigating if preserving their DOM avoids reload flashes. Hide inactive mounted pages with `display:none`; do not remount expensive/stable content unnecessarily.
 - Set `history.scrollRestoration = "manual"` before paint and scroll to top in a layout effect on pathname changes. Never allow browser restoration to jump down and then back up.
 - No temporary gray shells, alternate previews, animations or delayed style classes that visibly swap after load. Reserve final dimensions immediately; use white/static placeholders only when unavoidable.
@@ -47,6 +48,15 @@ MOBILE ARCHITECTURE (<640px)
 - All boxes are full-width and stacked vertically. Coordination Layer is first and uses a slightly darker fill to read as the parent.
 - Connect each adjacent pair with one 16px centered vertical line spanning the exact grid gap. Attach it to the lower box (`bottom:100%`), use the exact opaque box-border color, and keep all box borders the same color so contact points neither gap nor darken.
 - No side rail, spokes, branching connectors, SVG measurement hook or connector JavaScript is needed on mobile.
+
+AI CHAT CONTRACT
+- AI Chat desktop PDF export uses direct file download. Mobile may use view/share/save behavior where browser download APIs are limited; labels must accurately reflect the behavior.
+- AI Chat responses may render bullet lists, but raw Markdown emphasis markers such as `**bold**`, `__bold__`, lone `*`, lone `**`, and marker-only bullets must never appear in the visible chat or exported PDF.
+- Chat UI and PDF export must preserve readable bullet formatting, including dot bullets, indentation, wrapped continuation alignment, and modest spacing between bullet items.
+- AI Chat bullet-list spacing must be visually consistent across all assistant responses and exported PDFs, regardless of whether the model emits bullets as one continuous list or with blank lines between items.
+- AI Chat PDF export must paginate assistant responses line-by-line; do not force an entire assistant response onto a new page as one unbreakable block.
+- Mobile bullet text must match the surrounding assistant-response font size.
+- AI Chat restored conversations should stay visually anchored at the latest message during refresh; do not allow top-then-bottom scroll jumps.
 
 VERIFY BEFORE HANDOFF
 - Run `npm run build`.

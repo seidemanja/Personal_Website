@@ -296,6 +296,32 @@
   line-height: 1.62;
 }
 
+.message p + p,
+.message p + .messageBullets,
+.messageBullets + p {
+  margin-top: 14px;
+}
+
+.messageBullets + .messageBullets {
+  margin-top: 7px;
+}
+
+.messageBullets {
+  margin: 0;
+  padding-left: 20px;
+  color: #343430;
+  font-size: 0.88rem;
+  line-height: 1.62;
+}
+
+.messageBullets li {
+  padding-left: 2px;
+}
+
+.messageBullets li + li {
+  margin-top: 7px;
+}
+
 .userMessage {
   margin-left: auto;
   max-width: min(560px, 78%);
@@ -626,8 +652,13 @@
 }
 
 @media (hover: none) and (pointer: coarse) and (max-width: 900px) {
+  .optionsButton::after {
+    display: none;
+  }
+
   .header p,
   .message p,
+  .messageBullets,
   .form textarea {
     font-size: 1rem;
   }
