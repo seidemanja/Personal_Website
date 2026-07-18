@@ -57,6 +57,7 @@ AI CHAT CONTRACT
 - AI Chat PDF export must paginate assistant responses line-by-line; do not force an entire assistant response onto a new page as one unbreakable block.
 - Mobile bullet text must match the surrounding assistant-response font size.
 - AI Chat restored conversations should stay visually anchored at the latest message during refresh; do not allow top-then-bottom scroll jumps.
+- When AI Chat behavior or visual formatting is refined through repeated testing, update this contract alongside the implementation before committing so future changes do not regress the settled behavior.
 
 VERIFY BEFORE HANDOFF
 - Run `npm run build`.
