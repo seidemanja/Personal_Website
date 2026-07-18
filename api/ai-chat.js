@@ -2,6 +2,22 @@ import { checkAndTrackRequest, getSessionCookieValue, prepareSession } from '../
 import { resolveModel } from '../server/ai/modelConfig.js';
 import { streamOpenAIResponse } from '../server/ai/openaiResponses.js';
 
+function createServerDebugLogger() {
+  if (process.env.CHAT_STREAM_DEBUG !== 'true') {
+    return null;
+  }
+
+  const startedAt = performance.now();
+
+  return (event, metadata = {}) => {
+    console.info('chat-stream-debug', {
+      event,
+      elapsed_ms: Math.round((performance.now() - startedAt) * 10) / 10,
+      ...metadata,
+    });
+  };
+}
+
 function sendJson(response, statusCode, body, headers = {}) {
   Object.entries(headers).forEach(([name, value]) => {
     response.setHeader(name, value);
@@ -44,15 +60,12 @@ function normalizeHistory(history) {
 }
 
 export default async function handler(request, response) {
+  const debugLog = createServerDebugLogger();
+  debugLog?.('server.request_start');
+
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'POST');
     return sendJson(response, 405, { error: 'Method not allowed' });
-  }
-
-  if (!process.env.OPENAI_API_KEY) {
-    return sendJson(response, 500, {
-      error: 'OpenAI API key is not configured',
-    });
   }
 
   let body;
@@ -61,6 +74,24 @@ export default async function handler(request, response) {
     body = await readJsonRequest(request);
   } catch {
     return sendJson(response, 400, { error: 'Invalid JSON body' });
+  }
+
+  if (body?.type === 'reset') {
+    const { id: sessionId } = prepareSession(request, { resetSession: true });
+    return sendJson(
+      response,
+      200,
+      { ok: true },
+      {
+        'Set-Cookie': getSessionCookieValue(sessionId),
+      },
+    );
+  }
+
+  if (!process.env.OPENAI_API_KEY) {
+    return sendJson(response, 500, {
+      error: 'OpenAI API key is not configured',
+    });
   }
 
   const isWarmup = body?.type === 'warmup';
@@ -87,6 +118,7 @@ export default async function handler(request, response) {
 
   response.on?.('close', () => {
     if (!response.writableEnded) {
+      debugLog?.('server.abort');
       abortController.abort();
     }
   });
@@ -103,8 +135,13 @@ export default async function handler(request, response) {
       history: normalizeHistory(body?.history),
       isWarmup,
       signal: abortController.signal,
+      debugLog,
     });
   } catch (error) {
+    debugLog?.('server.error', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+
     if (response.headersSent) {
       response.write('event: error\n');
       response.write('data: {}\n\n');

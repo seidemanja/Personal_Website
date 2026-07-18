@@ -19,9 +19,9 @@ export function getModelConfig() {
 }
 
 export function getPublicModelOptions() {
-  return Object.values(getModelConfig()).map(({ key, label }) => ({
+  return Object.values(getModelConfig()).map(({ key, model }) => ({
     key,
-    label,
+    label: model,
   }));
 }
 

@@ -4,8 +4,7 @@ import { resolveModel } from './modelConfig.js';
 const OPENAI_RESPONSES_URL = 'https://api.openai.com/v1/responses';
 
 function writeSse(response, event, payload) {
-  response.write(`event: ${event}\n`);
-  response.write(`data: ${JSON.stringify(payload)}\n\n`);
+  return response.write(`event: ${event}\ndata: ${JSON.stringify(payload)}\n\n`);
 }
 
 function sendUsageLog({ modelKey, model, usage, latencyMs, status = 'ok' }) {
@@ -57,11 +56,16 @@ export async function streamOpenAIResponse({
   history,
   isWarmup = false,
   signal,
+  debugLog,
 }) {
   const selectedModel = resolveModel(modelKey);
   const staticPromptPrefix = await buildStaticPromptPrefix();
   const input = buildChatInput({ history, message, isWarmup });
   const startedAt = Date.now();
+
+  debugLog?.('server.openai_request_start', {
+    modelKey: selectedModel.key,
+  });
 
   const openAiResponse = await fetch(OPENAI_RESPONSES_URL, {
     method: 'POST',
@@ -74,10 +78,14 @@ export async function streamOpenAIResponse({
       instructions: staticPromptPrefix,
       input,
       stream: true,
-      max_output_tokens: isWarmup ? 8 : 900,
+      max_output_tokens: isWarmup ? 16 : 900,
       prompt_cache_key: getPromptCacheKey(),
     }),
     signal,
+  });
+
+  debugLog?.('server.openai_response_headers_received', {
+    status: openAiResponse.status,
   });
 
   if (!openAiResponse.ok || !openAiResponse.body) {
@@ -98,6 +106,10 @@ export async function streamOpenAIResponse({
   const decoder = new TextDecoder();
   let buffer = '';
   let completedUsage = null;
+  let hasLoggedFirstOpenAiChunk = false;
+  let hasLoggedFirstClientWrite = false;
+  let clientWriteLogCount = 0;
+  let cumulativeCharacters = 0;
 
   try {
     while (true) {
@@ -107,10 +119,42 @@ export async function streamOpenAIResponse({
         break;
       }
 
+      if (!hasLoggedFirstOpenAiChunk) {
+        hasLoggedFirstOpenAiChunk = true;
+        debugLog?.('server.first_openai_chunk_received', {
+          approximate_chunk_bytes: value?.byteLength ?? 0,
+        });
+      }
+
       buffer += decoder.decode(value, { stream: true });
       buffer = parseOpenAIStreamChunk(buffer, (event) => {
         if (event.type === 'response.output_text.delta' && event.delta) {
-          writeSse(response, 'delta', { text: event.delta });
+          const chunkLength = event.delta.length;
+          cumulativeCharacters += chunkLength;
+          const writeReturned = writeSse(response, 'delta', {
+            text: event.delta,
+          });
+
+          if (!hasLoggedFirstClientWrite) {
+            hasLoggedFirstClientWrite = true;
+            debugLog?.('server.first_chunk_written_to_client', {
+              approximate_chunk_characters: chunkLength,
+              cumulative_characters: cumulativeCharacters,
+              immediate_write_attempted: true,
+              write_returned: writeReturned,
+            });
+          }
+
+          if (clientWriteLogCount < 10) {
+            clientWriteLogCount += 1;
+            debugLog?.('server.chunk_written_to_client', {
+              chunk_index: clientWriteLogCount,
+              approximate_chunk_characters: chunkLength,
+              cumulative_characters: cumulativeCharacters,
+              immediate_write_attempted: true,
+              write_returned: writeReturned,
+            });
+          }
         }
 
         if (event.type === 'response.completed') {
@@ -129,6 +173,9 @@ export async function streamOpenAIResponse({
       usage: completedUsage,
       latencyMs: Date.now() - startedAt,
     });
+    debugLog?.('server.stream_complete', {
+      cumulative_characters: cumulativeCharacters,
+    });
     writeSse(response, 'done', {
       usage: {
         input_tokens: completedUsage?.input_tokens ?? null,
@@ -141,4 +188,3 @@ export async function streamOpenAIResponse({
     response.end();
   }
 }
-
