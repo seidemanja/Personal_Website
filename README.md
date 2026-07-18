@@ -1,8 +1,26 @@
-# Joshua Seideman Personal Website
+# Joshua Seideman — Personal Website
 
 Personal portfolio website for Joshua Seideman, PhD.
 
-The site presents Josh’s professional background, resume, selected projects, research work, publications, and an AI chat assistant grounded in a private Markdown knowledge document.
+Live site: [add deployed URL here]
+
+The site presents Josh's professional background, resume, selected projects, research work, publications, and an AI chat assistant grounded in a private Markdown knowledge document covering his work and research.
+
+<!-- Optional: add 1-2 screenshots here, e.g. -->
+<!-- ![Homepage screenshot](./readme-assets/homepage.png) -->
+
+## Features
+
+- Responsive personal homepage
+- Resume page
+- Selected projects overview
+- Project detail pages for:
+  - Instagram content creation and engagement automation
+  - Automated Twitter giveaway entry
+  - PhD research in neuroscience
+- Server-side AI Chat page for questions about Josh's work, projects, research, publications, and technical background
+- PDF export for visible AI chat conversations
+- PWA/service-worker image caching for smoother local and production refresh behavior
 
 ## Tech stack
 
@@ -15,19 +33,6 @@ The site presents Josh’s professional background, resume, selected projects, r
 - Vite
 - React Router
 - OpenAI API for the AI Chat feature
-
-## Main features
-
-- Responsive personal homepage
-- Resume page
-- Selected projects overview
-- Project detail pages for:
-  - Instagram content creation and engagement automation
-  - Automated Twitter giveaway entry
-  - PhD research in neuroscience
-- Server-side AI Chat page for questions about Josh’s work, projects, research, publications, and technical background
-- PDF export for visible AI chat conversations
-- PWA/service-worker image caching for smoother local and production refresh behavior
 
 ## Local development
 
@@ -54,7 +59,7 @@ Mobile testing URL:
 Use the `Network:` URL printed by Vite, for example:
 
 ```text
-http://10.0.0.189:5173/
+http://<your-local-ip>:5173/
 ```
 
 The AI Chat API is available during local development through the Vite middleware.
@@ -71,7 +76,7 @@ Preview the production build:
 npm run preview -- --host 0.0.0.0
 ```
 
-Note: Vite preview serves the static production build. For local AI Chat API testing, use `npm run dev`.
+Vite preview serves the static production build. For local AI Chat API testing, use `npm run dev`.
 
 ## AI Chat configuration
 
@@ -86,14 +91,15 @@ GROUNDING_DOC_VERSION
 
 The API key must remain server-side and should never be committed to GitHub.
 
-The grounding document is stored server-side under:
+The grounding document is stored server-side under `server/knowledge/` and is intentionally excluded from the public/static asset directory.
 
-```text
-server/knowledge/
-```
+## About
 
-It is intentionally not stored in the public/static asset directory.
+Built by Joshua Seideman, PhD.
 
-## Repository notes
+- [LinkedIn](https://www.linkedin.com/in/joshua-a-seideman/)
+- [Email](mailto:josh.seideman@me.com)
 
-This repo intentionally excludes local environment files, review artifacts, screenshots, and zip files through `.gitignore`.
+## License
+
+All rights reserved.
