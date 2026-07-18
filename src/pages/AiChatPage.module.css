@@ -182,6 +182,20 @@
   font-size: 0.72rem;
 }
 
+.optionsMenu button .desktopDownloadLabel {
+  color: inherit;
+  font-size: inherit;
+}
+
+.mobileDownloadLabel {
+  display: none;
+}
+
+.optionsMenu button .mobileDownloadLabel {
+  color: inherit;
+  font-size: inherit;
+}
+
 .optionsMenu button:hover,
 .optionsMenu button:focus-visible,
 .optionsMenu button[aria-checked="true"] {
@@ -629,6 +643,18 @@
   .header {
     flex-direction: column;
     gap: 14px;
+  }
+
+  .downloadButton {
+    display: none;
+  }
+
+  .desktopDownloadLabel {
+    display: none;
+  }
+
+  .mobileDownloadLabel {
+    display: inline;
   }
 
   .messages {

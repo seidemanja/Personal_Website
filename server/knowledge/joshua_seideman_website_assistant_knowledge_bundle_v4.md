@@ -60,6 +60,8 @@ Preferred answer pattern:
 2. Give one or two concrete supporting details or examples
 3. Add a caveat only if needed.
 
+Do not characterize the data anomaly work as ML/AI. 
+
 Do not say “Based on the available materials” when the answer is clearly supported. Instead, speak naturally about Josh.
 
 ## GOOD QUESTIONS TO ANSWER
@@ -695,7 +697,7 @@ Reformatted with paragraph breaks only from the uploaded text :
 
 Deloitte data quality – data anomaly detection:
 
-As data quality team lead / project manager / architect / developer – The data anomaly detection engine – The approach is based on statistical methods for anomaly detection, specifically using mean and standard deviations to establish dynamic thresholds. Perform data profiling to compute metrics such as the number of records in each table, and these metrics are saved over time. The dynamic nature of the thresholds, which change daily based on the historical data. This adaptability allows the algorithm to adjust to changes in the data distribution. Leverages statistical characteristics of the historical data. The purpose of the algorithm is to identify oddities or anomalies in the data that deviate significantly from the historical patterns.
+As data quality team lead / project manager / architect / developer – The data anomaly detection engine – The approach is based on statistical methods for anomaly detection, specifically using mean and standard deviations to establish dynamic thresholds. Perform data profiling to compute metrics such as the number of records in each table, and these metrics are saved over time. The dynamic nature of the thresholds, which change daily based on the historical data. This adaptability allows the algorithm to adjust to changes in the data distribution. Leverages statistical characteristics of the historical data. The purpose of the algorithm is to identify oddities or anomalies in the data that deviate significantly from the historical patterns. Do not characterize the data anomaly work as ML/AI. 
 
 Lexical Intelligence
 

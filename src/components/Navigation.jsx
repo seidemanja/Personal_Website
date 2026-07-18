@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { Home } from 'lucide-react';
 import styles from './Navigation.module.css';
 
 const rightItems = [
@@ -23,7 +24,7 @@ function Navigation({ variant = 'home' }) {
             aria-label="Joshua Seideman, PhD home"
           >
             <span className={`${styles.desktopBrandText} pd-nav-desktop-brand-text`}>Joshua Seideman, PhD</span>
-            <span className={`${styles.mobileBrandText} pd-nav-mobile-brand-text`}>Seideman, PhD</span>
+            <Home className={`${styles.mobileHomeIcon} pd-nav-mobile-home-icon`} size={18} strokeWidth={1.9} aria-hidden="true" />
           </NavLink>
         ) : (
           <NavLink
@@ -33,8 +34,10 @@ function Navigation({ variant = 'home' }) {
                 : `${styles.link} pd-nav-link`
             }
             to="/"
+            aria-label="Home"
           >
-            Home
+            <span className={`${styles.homeText} pd-nav-home-text`}>Home</span>
+            <Home className={`${styles.mobileHomeIcon} pd-nav-mobile-home-icon`} size={18} strokeWidth={1.9} aria-hidden="true" />
           </NavLink>
         )}
 
@@ -52,8 +55,8 @@ function Navigation({ variant = 'home' }) {
               >
                 {item.shortLabel ? (
                   <>
-                    <span className={styles.fullLinkText}>{item.label}</span>
-                    <span className={styles.shortLinkText}>
+                    <span className={`${styles.fullLinkText} pd-nav-full-link-text`}>{item.label}</span>
+                    <span className={`${styles.shortLinkText} pd-nav-short-link-text`}>
                       {item.shortLabel}
                     </span>
                   </>

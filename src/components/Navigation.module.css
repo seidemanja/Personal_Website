@@ -83,8 +83,12 @@
   display: inline;
 }
 
-.mobileBrandText {
+.mobileHomeIcon {
   display: none;
+}
+
+.homeText {
+  display: inline;
 }
 
 .fullLinkText {
@@ -135,20 +139,30 @@
     display: none;
   }
 
-  .mobileBrandText {
-    display: inline;
+  .mobileHomeIcon {
+    display: block;
   }
 
-  .rightGroup {
-    gap: clamp(8px, 3vw, 15px);
-  }
-
-  .fullLinkText {
+  .homeText {
     display: none;
   }
 
-  .shortLinkText {
+  .inner {
+    padding-right: 16px;
+    padding-left: 16px;
+    gap: 10px;
+  }
+
+  .rightGroup {
+    gap: clamp(11px, 3.5vw, 16px);
+  }
+
+  .fullLinkText {
     display: inline;
+  }
+
+  .shortLinkText {
+    display: none;
   }
 }
 

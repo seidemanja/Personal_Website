@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowUp,
@@ -25,6 +25,8 @@ const EXAMPLE_QUESTIONS = [
   'What would be easy to miss about Josh from a quick resume scan?',
   'How does Josh use AI to work more efficiently?',
 ];
+const useBrowserLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 function createClientDebugLogger() {
   if (!CHAT_STREAM_DEBUG || typeof performance === 'undefined') {
@@ -147,6 +149,70 @@ function wrapPdfText(text, maxWidth, fontSize) {
   return lines.length ? lines : [''];
 }
 
+function getPdfMessageLines(content, maxWidth, fontSize) {
+  const normalizedContent = String(content || '')
+    .trim()
+    .replace(/\r\n?/g, '\n');
+
+  if (!normalizedContent) {
+    return [''];
+  }
+
+  return normalizedContent
+    .split('\n')
+    .flatMap((rawLine) => {
+      const line = sanitizePdfText(rawLine).trimEnd();
+
+      if (!line.trim()) {
+        return [''];
+      }
+
+      const bulletMatch = line.match(/^(\s*)([-*•])\s+(.*)$/);
+
+      if (!bulletMatch) {
+        return wrapPdfText(line.trim(), maxWidth, fontSize);
+      }
+
+      const [, leadingWhitespace, bullet, bulletText] = bulletMatch;
+      const bulletPrefix = `${leadingWhitespace}${bullet} `;
+      const continuationPrefix = `${leadingWhitespace}  `;
+      const firstLineMaxWidth =
+        maxWidth - approximatePdfTextWidth(bulletPrefix, fontSize);
+      const continuationMaxWidth =
+        maxWidth - approximatePdfTextWidth(continuationPrefix, fontSize);
+      const words = sanitizePdfText(bulletText).split(/\s+/).filter(Boolean);
+      const wrappedBulletLines = [];
+      let currentLine = '';
+      let currentMaxWidth = firstLineMaxWidth;
+
+      words.forEach((word) => {
+        const nextLine = currentLine ? `${currentLine} ${word}` : word;
+
+        if (
+          approximatePdfTextWidth(nextLine, fontSize) > currentMaxWidth &&
+          currentLine
+        ) {
+          wrappedBulletLines.push(currentLine);
+          currentLine = word;
+          currentMaxWidth = continuationMaxWidth;
+          return;
+        }
+
+        currentLine = nextLine;
+      });
+
+      if (currentLine) {
+        wrappedBulletLines.push(currentLine);
+      }
+
+      return wrappedBulletLines.map((wrappedLine, index) =>
+        index === 0
+          ? `${bulletPrefix}${wrappedLine}`
+          : `${continuationPrefix}${wrappedLine}`,
+      );
+    });
+}
+
 function roundedRectOps(x, y, width, height, radius) {
   const k = 0.5522847498;
   const c = radius * k;
@@ -240,14 +306,10 @@ function createPdfDocument({ messages, modelLabel }) {
   getPersistableMessages(messages).forEach((message) => {
     const isUser = message.role === 'user';
     const maxTextWidth = isUser ? 330 : contentWidth;
-    const paragraphs = message.content
-      .trim()
-      .split(/\n{2,}/)
-      .map((paragraph) =>
-        wrapPdfText(paragraph.replace(/\s+/g, ' '), maxTextWidth, bodyFontSize),
-      );
-    const lines = paragraphs.flatMap((paragraphLines, index) =>
-      index === 0 ? paragraphLines : ['', ...paragraphLines],
+    const lines = getPdfMessageLines(
+      message.content,
+      maxTextWidth,
+      bodyFontSize,
     );
     const textBlockHeight = lines.length * lineHeight;
 
@@ -353,18 +415,33 @@ function createPdfDocument({ messages, modelLabel }) {
   return pdf;
 }
 
-function downloadPdf({ messages, modelLabel }) {
+async function downloadPdf({ messages, modelLabel }) {
   const pdf = createPdfDocument({ messages, modelLabel });
   const blob = new Blob([pdf], { type: 'application/pdf' });
+  const fileName = 'ai-chat-conversation.pdf';
+  const file = new File([blob], fileName, { type: 'application/pdf' });
+  const isMobileLike =
+    window.matchMedia?.('(hover: none) and (pointer: coarse)').matches ||
+    window.matchMedia?.('(max-width: 640px)').matches;
+
+  if (isMobileLike && navigator.canShare?.({ files: [file] })) {
+    await navigator.share({
+      files: [file],
+      title: 'AI Chat Conversation',
+    });
+    return;
+  }
+
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
 
   link.href = url;
-  link.download = 'ai-chat-conversation.pdf';
+  link.download = fileName;
+  link.rel = 'noopener';
   document.body.appendChild(link);
   link.click();
   link.remove();
-  URL.revokeObjectURL(url);
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function getPersistableMessages(messages) {
@@ -598,7 +675,7 @@ function AiChatPage() {
       });
   }, [selectedModelKey]);
 
-  useEffect(() => {
+  useBrowserLayoutEffect(() => {
     if (!isAutoScrollEnabled || !chatScrollerRef.current) {
       return;
     }
@@ -985,14 +1062,21 @@ function AiChatPage() {
     await resetServerSession();
   }
 
-  function downloadConversationPdf() {
+  async function downloadConversationPdf() {
     if (!messages.length) {
       return;
     }
 
-    downloadPdf({ messages, modelLabel: selectedModelLabel });
-    setIsOptionsMenuOpen(false);
-    setOptionsPanel('main');
+    try {
+      await downloadPdf({ messages, modelLabel: selectedModelLabel });
+    } catch (error) {
+      if (error?.name !== 'AbortError') {
+        throw error;
+      }
+    } finally {
+      setIsOptionsMenuOpen(false);
+      setOptionsPanel('main');
+    }
   }
 
   return (
@@ -1023,6 +1107,7 @@ function AiChatPage() {
         <section className={styles.chatShell} aria-label="AI chat">
           <div
             className={styles.messages}
+            data-ai-chat-messages="true"
             ref={chatScrollerRef}
             onScroll={handleScroll}
           >
@@ -1165,7 +1250,12 @@ function AiChatPage() {
                             disabled={!messages.length}
                             onClick={downloadConversationPdf}
                           >
-                            Download chat
+                            <span className={styles.desktopDownloadLabel}>
+                              Download chat
+                            </span>
+                            <span className={styles.mobileDownloadLabel}>
+                              View / save PDF
+                            </span>
                           </button>
                           {messages.length ? (
                             <button

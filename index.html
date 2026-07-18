@@ -47,6 +47,33 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      @media (max-width: 520px) {
+        .pd-nav-desktop-brand-text,
+        .pd-nav-mobile-brand-text,
+        .pd-nav-home-text,
+        .pd-nav-short-link-text {
+          display: none !important;
+        }
+
+        .pd-nav-mobile-home-icon {
+          display: block !important;
+        }
+
+        .pd-nav-full-link-text {
+          display: inline !important;
+        }
+
+        .pd-nav-inner {
+          padding-right: 16px !important;
+          padding-left: 16px !important;
+          gap: 10px !important;
+        }
+
+        .pd-nav-right-group {
+          gap: clamp(11px, 3.5vw, 16px) !important;
+        }
+      }
+
       .sp-img {
         width: 100%;
         height: 100%;
@@ -1122,11 +1149,18 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v4'
+            && snapshot?.version === 'project-detail-refresh-v6'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;
             root.dataset.restoredProjectSnapshot = 'true';
+            root
+              .querySelector('[data-ai-chat-messages="true"]')
+              ?.scrollTo?.({
+                top: root.querySelector('[data-ai-chat-messages="true"]').scrollHeight,
+                left: 0,
+                behavior: 'auto',
+              });
           }
         } catch {
           sessionStorage.removeItem(`project-detail-snapshot:${path}`);
