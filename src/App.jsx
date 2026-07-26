@@ -4,6 +4,7 @@ import AiChatPage from './pages/AiChatPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import InstagramProjectPage from './pages/InstagramProjectPage.jsx';
 import NeuroscienceProjectPage from './pages/NeuroscienceProjectPage.jsx';
+import PersonalWebsiteProjectPage from './pages/PersonalWebsiteProjectPage.jsx';
 import ResumeLayout from './pages/ResumeLayout.jsx';
 import ResumePage from './pages/ResumePage.jsx';
 import SelectedProjectsPage from './pages/SelectedProjectsPage.jsx';
@@ -39,6 +40,10 @@ function App() {
         <Route
           path="/projects/neuroscience-research"
           element={<NeuroscienceProjectPage />}
+        />
+        <Route
+          path="/projects/personal-website-ai-assistant"
+          element={<PersonalWebsiteProjectPage />}
         />
         <Route
           path="/projects/twitter-automation"

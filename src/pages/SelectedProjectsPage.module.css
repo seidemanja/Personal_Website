@@ -119,8 +119,14 @@
   background: #000;
 }
 
+.imageContainFrame {
+  padding: 10px;
+  background: #f4f4f2;
+}
+
 .imageInset .cardImage,
-.imageInsetDark .cardImage {
+.imageInsetDark .cardImage,
+.imageContainFrame .cardImage {
   border-radius: 3px;
 }
 
@@ -136,6 +142,15 @@
   height: 100%;
   display: block;
   overflow: hidden;
+}
+
+.imageContainFrame .cardPicture {
+  background: #f4f4f2;
+}
+
+.imageContainFrame .cardImage {
+  object-fit: cover;
+  object-position: center top;
 }
 
 @media (min-width: 861px) {
@@ -259,6 +274,16 @@
     background-image: none;
   }
 
+  .imageContainFrame {
+    aspect-ratio: 824 / 294;
+    padding: 0;
+    background: #f4f4f2;
+    background-image: var(--sp-narrow-image);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   .imageInsetDark .cardPicture {
     width: 100%;
     height: 100%;
@@ -267,9 +292,16 @@
     background: #000;
   }
 
-  .imagePlaceholder:not(.imageInsetDark) .cardPicture {
+  .imagePlaceholder:not(.imageInsetDark):not(.imageContainFrame) .cardPicture {
     background-image: var(--sp-narrow-image);
     background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .imageContainFrame .cardPicture {
+    background-image: var(--sp-narrow-image);
+    background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
   }

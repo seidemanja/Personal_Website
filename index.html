@@ -181,6 +181,20 @@
         border-radius: 3px;
       }
 
+      .sp-image-personal-website {
+        padding: 10px;
+        background: #f4f4f2;
+      }
+
+      .sp-image-personal-website .sp-card-picture {
+        background: #f4f4f2;
+      }
+
+      .sp-image-personal-website .sp-img {
+        border-radius: 3px;
+        object-position: center top;
+      }
+
       .sp-card-content {
         min-width: 0;
         padding: 17px 23px 19px;
@@ -310,15 +324,31 @@
           background-image: none;
         }
 
+        .sp-image-personal-website {
+          padding: 0;
+          background: #f4f4f2;
+          background-image: var(--sp-narrow-image);
+          background-position: center top;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+
         .sp-image-dark .sp-card-picture {
           display: grid;
           place-items: center;
           background: #000;
         }
 
-        .sp-image-slot:not(.sp-image-dark) .sp-card-picture {
+        .sp-image-slot:not(.sp-image-dark):not(.sp-image-personal-website) .sp-card-picture {
           background-image: var(--sp-narrow-image);
           background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+
+        .sp-image-personal-website .sp-card-picture {
+          background-image: var(--sp-narrow-image);
+          background-position: center top;
           background-repeat: no-repeat;
           background-size: cover;
         }
@@ -1076,6 +1106,12 @@
     <link rel="preload" href="/images/Google_Scholar_logo.svg" as="image" />
     <link
       rel="preload"
+      href="/images/homepagenew.png"
+      as="image"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
       href="/images/puppy_pic_cropped.png"
       as="image"
       media="(min-width: 861px)"
@@ -1133,6 +1169,7 @@
           '/projects',
           '/projects/instagram-automation',
           '/projects/neuroscience-research',
+          '/projects/personal-website-ai-assistant',
           '/projects/twitter-automation',
         ]);
         const path = window.location.pathname.replace(/\/+$/, '') || '/';

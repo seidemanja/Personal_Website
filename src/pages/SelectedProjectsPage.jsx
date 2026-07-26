@@ -5,6 +5,17 @@ import styles from './SelectedProjectsPage.module.css';
 
 const projects = [
   {
+    description:
+      'Built a responsive personal portfolio with a grounded AI assistant that answers questions about my background, projects, research, publications, and technical experience.',
+    imageClassName: 'sp-image-personal-website',
+    imageFrameClassName: styles.imageContainFrame,
+    imageSrc: '/images/homepagenew.png',
+    narrowImageSrc: '/images/homepagenew.png',
+    technologies: ['React', 'Vite', 'OpenAI API', 'Node.js'],
+    title: 'Personal Website & Grounded AI Assistant',
+    to: '/projects/personal-website-ai-assistant',
+  },
+  {
     imageClassName: 'sp-image-instagram',
     description:
       'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew account to 2,000+ followers.',

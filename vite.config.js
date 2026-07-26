@@ -55,6 +55,8 @@ function prerenderRoutesInDevelopment() {
             '/projects',
             '/projects/instagram-automation',
             '/projects/neuroscience-research',
+            '/projects/personal-website-ai-assistant',
+            '/projects/twitter-automation',
             '/resume',
           ].includes(pathname) ||
           !developmentServer
@@ -67,8 +69,10 @@ function prerenderRoutesInDevelopment() {
           renderHomePage,
           renderInstagramProjectPage,
           renderNeuroscienceProjectPage,
+          renderPersonalWebsiteProjectPage,
           renderProjectsPage,
           renderResumePage,
+          renderTwitterProjectPage,
         } = await developmentServer.ssrLoadModule('/src/entry-server.jsx');
         const isResume = pathname === '/resume';
         const isAiChat = pathname === '/ai-chat';
@@ -77,6 +81,10 @@ function prerenderRoutesInDevelopment() {
           pathname === '/projects/instagram-automation';
         const isNeuroscienceProject =
           pathname === '/projects/neuroscience-research';
+        const isPersonalWebsiteProject =
+          pathname === '/projects/personal-website-ai-assistant';
+        const isTwitterProject =
+          pathname === '/projects/twitter-automation';
         const renderedPage = isResume
           ? renderResumePage()
           : isAiChat
@@ -85,6 +93,10 @@ function prerenderRoutesInDevelopment() {
             ? renderInstagramProjectPage()
           : isNeuroscienceProject
             ? renderNeuroscienceProjectPage()
+          : isPersonalWebsiteProject
+            ? renderPersonalWebsiteProjectPage()
+          : isTwitterProject
+            ? renderTwitterProjectPage()
           : isProjects
             ? renderProjectsPage()
             : renderHomePage();
@@ -96,6 +108,10 @@ function prerenderRoutesInDevelopment() {
             ? '/src/pages/InstagramProjectPage.module.css?direct'
           : isNeuroscienceProject
             ? '/src/pages/NeuroscienceProjectPage.module.css?direct'
+          : isPersonalWebsiteProject
+            ? '/src/pages/PersonalWebsiteProjectPage.module.css?direct'
+          : isTwitterProject
+            ? '/src/pages/InstagramProjectPage.module.css?direct'
           : isProjects
             ? '/src/pages/SelectedProjectsPage.module.css?direct'
             : '/src/pages/HomePage.module.css?direct';

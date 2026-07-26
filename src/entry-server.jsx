@@ -37,6 +37,10 @@ export function renderNeuroscienceProjectPage() {
   return renderPage('/projects/neuroscience-research');
 }
 
+export function renderPersonalWebsiteProjectPage() {
+  return renderPage('/projects/personal-website-ai-assistant');
+}
+
 export function renderTwitterProjectPage() {
   return renderPage('/projects/twitter-automation');
 }

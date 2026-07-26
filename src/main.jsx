@@ -11,6 +11,7 @@ const projectDetailSnapshotPaths = new Set([
   '/projects',
   '/projects/instagram-automation',
   '/projects/neuroscience-research',
+  '/projects/personal-website-ai-assistant',
   '/projects/twitter-automation',
 ]);
 function saveProjectDetailSnapshot() {

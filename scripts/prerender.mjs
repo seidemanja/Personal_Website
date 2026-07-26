@@ -11,6 +11,10 @@ const neuroscienceProjectOutputPath = new URL(
   '../dist/projects/neuroscience-research/index.html',
   import.meta.url,
 );
+const personalWebsiteProjectOutputPath = new URL(
+  '../dist/projects/personal-website-ai-assistant/index.html',
+  import.meta.url,
+);
 const twitterProjectOutputPath = new URL(
   '../dist/projects/twitter-automation/index.html',
   import.meta.url,
@@ -31,6 +35,7 @@ try {
     renderHomePage,
     renderInstagramProjectPage,
     renderNeuroscienceProjectPage,
+    renderPersonalWebsiteProjectPage,
     renderProjectsPage,
     renderResumePage,
     renderTwitterProjectPage,
@@ -91,6 +96,10 @@ try {
     '<div id="root"></div>',
     `<div id="root">${renderNeuroscienceProjectPage()}</div>`,
   );
+  const renderedPersonalWebsiteProjectHtml = htmlWithCriticalCss.replace(
+    '<div id="root"></div>',
+    `<div id="root">${renderPersonalWebsiteProjectPage()}</div>`,
+  );
   const renderedTwitterProjectHtml = htmlWithCriticalCss.replace(
     '<div id="root"></div>',
     `<div id="root">${renderTwitterProjectPage()}</div>`,
@@ -120,6 +129,12 @@ try {
     },
   );
   await mkdir(
+    new URL('../dist/projects/personal-website-ai-assistant/', import.meta.url),
+    {
+      recursive: true,
+    },
+  );
+  await mkdir(
     new URL('../dist/projects/instagram-automation/', import.meta.url),
     {
       recursive: true,
@@ -132,6 +147,10 @@ try {
   await writeFile(
     neuroscienceProjectOutputPath,
     renderedNeuroscienceProjectHtml,
+  );
+  await writeFile(
+    personalWebsiteProjectOutputPath,
+    renderedPersonalWebsiteProjectHtml,
   );
   await writeFile(twitterProjectOutputPath, renderedTwitterProjectHtml);
   await writeFile(instagramProjectOutputPath, renderedInstagramProjectHtml);
