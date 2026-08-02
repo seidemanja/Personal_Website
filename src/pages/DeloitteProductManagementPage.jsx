@@ -19,10 +19,10 @@ const metrics = [
 ];
 
 const stages = [
-  'Framing the Problem',
-  'Testing the Solution',
-  'Scoping the Build',
-  'Launching and Measuring',
+  'Problem',
+  'Solution',
+  'Scope',
+  'Launch',
 ];
 
 const launchEntries = [
@@ -39,7 +39,7 @@ const launchEntries = [
   {
     title: 'Scoping the Build',
     description:
-      'Scoped first releases to deliver value quickly, and to add value incrementally through a series of subsequent releases. Scope was set by risk, testing the assumption most likely to undermine the product first, against success metrics defined before the build began.',
+      'Scoped first releases to deliver value quickly, then added value incrementally through later releases. Scope was set by risk, testing the assumption most likely to undermine the product. Success metrics were defined before development.',
   },
   {
     title: 'Launching and Measuring',
@@ -50,14 +50,9 @@ const launchEntries = [
 
 const leadershipEntries = [
   {
-    title: 'Communicating the Product Vision',
+    title: 'Owning the Vision and Roadmap',
     description:
-      "Owned the product vision, making sure customers and the delivery team could each state what a product was for and what would change when it worked. Worked alongside the product owner to keep the customer's voice in front of the team throughout development.",
-  },
-  {
-    title: 'Owning the Roadmap',
-    description:
-      'Owned the product roadmap and drove requirements across a portfolio of data analytics and AI products, prioritizing features and release timelines against user needs, dependencies, and team capacity. Each decision stayed traceable to the problem the feature was meant to solve.',
+      "Owned the product vision and roadmap for a portfolio of analytics and AI products. Prioritized features by expected value and effort to build, and sequenced releases against dependencies and team capacity. Every roadmap item traced back to a validated problem. Communicated the vision so customers and the delivery team shared the same understanding of what a product was for. Worked alongside the product owner to keep the customer's voice in front of the team.",
   },
   {
     title: 'Working Through Product Owners and Project Managers',
@@ -103,13 +98,11 @@ function DeloitteProductManagementPage() {
               </a>
             </p>
             <p className={`${styles.intro} pd-intro`}>
-              Owned the roadmap and requirements for a portfolio of 30+ data
-              analytics products, including AI-powered products with LLM
-              integration and semantic search. Managed product owners and
-              project managers across concurrent initiatives, and led
-              cross-functional teams of engineers, data scientists, and
-              designers from problem definition through launch. Certified
-              Project Management Professional (PMP).
+              Owned the roadmap for a portfolio of 30+ data analytics products,
+              including AI-powered products with LLM integration and semantic
+              search. Managed product owners and project managers across
+              concurrent initiatives. Certified Project Management Professional
+              (PMP).
             </p>
           </div>
         </section>
