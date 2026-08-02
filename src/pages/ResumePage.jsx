@@ -28,11 +28,11 @@ function NIHGrantLink({ children }) {
 const workExperience = [
   {
     organization: 'Deloitte Consulting',
-    role: 'Manager – Product Management & Program Delivery',
+    role: 'Senior Product Manager',
     dates: '09/2021 – Present',
     bullets: [
       'Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, prioritizing features and release timelines based on user needs and capacity',
-      'Oversaw delivery across multiple concurrent workstreams, managing project managers and product owners to align priorities, timelines, and dependencies across initiatives',
+      'Oversaw delivery across concurrent workstreams, managing project managers and product owners to align priorities, timelines, and dependencies.',
       <>
         Drove execution for key initiatives by leading cross-functional teams
         (engineering, data science, design), defining scope and timelines, and
@@ -41,10 +41,21 @@ const workExperience = [
       'Leveraged AI-assisted coding (OpenAI Codex; ChatGPT) to prototype solutions, resolve technical blockers, and accelerate development timelines',
       <>
         Led delivery of an AI-enabled analytics product that used semantic
-        search and LLM-based classification to evaluate scientific literature
-        against user-defined hypotheses (Azure, PostgreSQL, React)
+        search and LLM-based classification to evaluate scientific documents
+        against user-defined statements (Azure, PostgreSQL, React)
       </>,
-      'Delivered an ML-based classification tool for scientific grants to support funding decisions, reducing manual categorization time by over 70%',
+      <>
+        Delivered an{' '}
+        <a
+          href="https://irp.nih.gov/system/files/media/file/2025-05/nih_artificial_intelligence_symposium_2025-05-16_program_booklet_v1.pdf#page=61"
+          rel="noreferrer"
+          target="_blank"
+        >
+          ML-based classification tool
+        </a>{' '}
+        for scientific grants to support funding decisions, reducing manual
+        categorization time by over 20%
+      </>,
       <>
         Led development of a data anomaly detection product, defining
         requirements and guiding system design to monitor data quality and
@@ -57,12 +68,22 @@ const workExperience = [
     role: 'Consultant – Scientific Portfolio Analyst',
     dates: '08/2020 – 09/2021',
     bullets: [
-      'Contributed to a publicly published strategic plan for the National Institutes of Health (NIH) Office of Portfolio Analysis, authoring a section on measuring data and resource sharing',
+      <>
+        Contributed to a publicly published{' '}
+        <a
+          href="https://dpcpsi.nih.gov/sites/g/files/mnhszr346/files/OD-OPA-FY2021-2025-SP-Public-508_11_1_2021.pdf#page=15"
+          rel="noreferrer"
+          target="_blank"
+        >
+          strategic plan
+        </a>{' '}
+        for the National Institutes of Health (NIH) Office of Portfolio
+        Analysis, authoring a section on measuring data and resource sharing
+      </>,
       'Conducted user research to define requirements and scope for web-based analytics products',
       'Served as project manager for select initiatives, coordinating analysts and ensuring timely delivery',
       'Delivered analytical products (slide decks, datasets) to support portfolio analysis and decision-making',
-      'Wrote custom Python code (Pandas, Jupyter, Matplotlib) to clean, analyze, visualize, and statistically summarize large-scale grant and publication datasets (Python; Pandas, Jupyter Notebook, Matplotlib)',
-      'Taught virtual classes to train NIH staff to perform grant data analyses',
+      'Wrote custom Python code to clean, analyze, visualize, and statistically summarize large datasets',
     ],
   },
   {
@@ -80,9 +101,7 @@ const workExperience = [
       ],
       'Designed and developed real-time research software enabling multimodal data acquisition, interactive visual interfaces, and automated experimental workflows (MATLAB)',
       'Gathered, analyzed, and modeled behavioral and neural data (MATLAB)',
-      'Programmed an optimization algorithm to fit a decision-making model to data (MATLAB)',
       'Applied advanced statistical methods – bootstrap, permutation test, linear regression, AUROC',
-      'Presented findings at numerous national and international conferences',
       [
         'Wrote ',
         <a
@@ -121,6 +140,23 @@ const workExperience = [
 
 const independentProjects = [
   {
+    id: 'Personal Website & AI-Chat Assistant',
+    organization: (
+      <>
+        Personal Website & AI-Chat Assistant –{' '}
+        <a href="https://www.seidemanphd.com/" rel="noreferrer" target="_blank">
+          seidemanphd.com
+        </a>
+      </>
+    ),
+    dates: '05/2026 – Present',
+    bullets: [
+      'Defined product requirements and directed AI-assisted design (Claude, ChatGPT) of the site UX for a personal portfolio with an integrated AI chat assistant',
+      'Directed AI-assisted development (Codex) to implement, debug, and iterate on a React/Vite system',
+      'Directed AI-assisted architecture of a grounded AI chat feature (OpenAI API, streamed responses, private knowledge base) with guardrails restricting responses to on-topic questions and sensitive content',
+    ],
+  },
+  {
     organization:
       'Instagram Bot – Web Automation System with AI-Enabled Content Generation',
     dates: '11/2024 – Present',
@@ -137,15 +173,6 @@ const independentProjects = [
         scheduled execution, enabling continuous, unattended operation
       </>,
       'Grew account to 2,000+ followers with fully automated content generation and engagement workflows',
-    ],
-  },
-  {
-    organization: 'Twitter Bot – Automated Content Interaction System',
-    dates: '03/2022 – 05/2023',
-    bullets: [
-      'Designed and built a fully automated system (Python, Twitter API) to search for relevant content and programmatically engage (like, repost, comment)',
-      'Deployed the system on AWS EC2 with scheduled execution for reliable remote operation',
-      'Won 700+ digital asset giveaways through automated engagement',
     ],
   },
 ];
@@ -181,12 +208,12 @@ const skills = [
 const articles = [
   {
     text: 'Seideman JA, Stanford TR, & Salinas E. (2022). A conflict between spatial selection and evidence accumulation in area LIP.',
-    journal: 'Nature communications, 13.',
+    journal: 'Nature communications, 13:4463.',
     href: 'https://www.nature.com/articles/s41467-022-32209-z.pdf',
   },
   {
     text: 'Seideman JA, Stanford TR, & Salinas E. (2021). The spatial signal in area LIP is not an obligatory correlate of perceptual evidence during informed saccadic choices.',
-    journal: 'bioRxiv, 431470.',
+    journal: 'bioRxiv, 2021-02.',
     href: 'https://www.biorxiv.org/content/10.1101/2021.02.16.431470v2',
   },
   {
@@ -196,28 +223,30 @@ const articles = [
     href: 'https://search.proquest.com/openview/4de6ae4c9483ee12f8b21e1ba6fbf8ac/1?pq-origsite=gscholar&cbl=18750&diss=y',
   },
   {
-    text: 'Stonebarger GA, Urbanski HF, Woltjer RL, Vaughan KL, Ingram DK, Schultz PL, Calderazzo SM, Seideman JA, Mattison JA, Rosene DL, Kohama SG. (2020). Amyloidosis increase is not attenuated by long-term calorie restriction or related to neuron density in the prefrontal cortex of extremely aged rhesus macaques.',
-    journal: 'GeroScience, 42.',
+    text: 'Stonebarger GA, Urbanski HF, Woltjer RL, Vaughan KL, Ingram DK, Schultz PL, Calderazzo SM,',
+    continuation:
+      'Seideman JA, Mattison JA, Rosene DL, Kohama SG. (2020). Amyloidosis increase is not attenuated by long-term calorie restriction or related to neuron density in the prefrontal cortex of extremely aged rhesus macaques.',
+    journal: 'GeroScience, 42, 1733-1749.',
     href: 'https://link.springer.com/article/10.1007/s11357-020-00259-0',
   },
   {
     text: 'Seideman JA, Salinas E, Stanford TR. (2019). Perceptual modulation of parietal activity during urgent saccadic choices.',
-    journal: 'bioRxiv, 874313.',
+    journal: 'bioRxiv, 2019-12.',
     href: 'https://www.biorxiv.org/content/biorxiv/early/2019/12/13/2019.12.12.874313.full.pdf',
   },
   {
     text: 'Seideman JA. (2019). A dynamic, imperturbable link between midbrain activity and saccade velocity.',
-    journal: 'Journal of Neurophysiology, 123.',
+    journal: 'Journal of Neurophysiology, 123(2), 451-453.',
     href: 'https://journals.physiology.org/doi/pdf/10.1152/jn.00328.2019?casa_token=RFDq0XcGl_EAAAAA:BFK-tuilx4xtElkx14tZ3GN5lZA-fCb-FdEIJ4cLYin_eEY2eoHH-0sh8oh3D5LZ7cUc5JVFVulQXh8',
   },
   {
     text: 'Salinas E, Seideman JA, Stanford TR. (2018). When the simplest voluntary decisions appear patently suboptimal.',
-    journal: 'Behavioral and Brain Sciences, 41.',
+    journal: 'Behavioral and Brain Sciences, 41:e240.',
     href: 'https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/when-the-simplest-voluntary-decisions-appear-patently-suboptimal/2B651734C80651BF9A82590079AB4071',
   },
   {
     text: 'Seideman JA, Stanford TR, Salinas E. (2018). Saccade metrics reflect decision-making dynamics during urgent choices.',
-    journal: 'Nature communications, 9.',
+    journal: 'Nature communications, 9:2907.',
     href: 'https://www.nature.com/articles/s41467-018-05319-w.pdf',
   },
 ];
@@ -235,6 +264,13 @@ const presentations = [
   'Wylie A, Seideman J, Yu D, Blackwell C, Mishkin M, Turchi J. Dopaminergic and cholinergic mediation of within session concurrent discrimination learning. Prog. No. 580.04. Society for Neuroscience, 2013.',
 ];
 
+const pageThreePresentations = presentations.slice(0, 7);
+const splitPresentationStart =
+  'Seideman J, Scerra VE, Salinas E, Stanford TR. Saccade metrics reflect decision-making dynamics during';
+const splitPresentationRemainder =
+  'urgent choices. Prog. No. 717.05. San Diego, CA: Society for Neuroscience, 2016.';
+const pageFourPresentations = presentations.slice(8);
+
 function BoldName({ children }) {
   const parts = children.split(/(Seideman,?\s+J(?:A)?)/g);
 
@@ -247,7 +283,7 @@ function BoldName({ children }) {
   );
 }
 
-function Entry({ bullets, dates, organization, role }) {
+function Entry({ bullets, dates, id, organization, role }) {
   return (
     <article className={styles.entry}>
       <div className={styles.entryHeading}>
@@ -257,7 +293,7 @@ function Entry({ bullets, dates, organization, role }) {
       {role ? <p className={styles.role}>{role}</p> : null}
       <ul className={styles.bulletList}>
         {bullets.map((bullet, index) => (
-          <li key={`${organization}-${index}`}>{bullet}</li>
+          <li key={`${id || organization}-${index}`}>{bullet}</li>
         ))}
       </ul>
     </article>
@@ -282,18 +318,44 @@ function ResumePage() {
       <article className={`${styles.pageShell} ${styles.resumeDocument}`}>
         <header className={styles.resumeHeader}>
           <h1>Joshua Seideman, Ph.D.</h1>
+          <p className={styles.resumeSubtitle}>Senior Product Manager</p>
+          <p className={styles.contactLine}>
+            josh.seideman@me.com |{' '}
+            <a href="https://www.seidemanphd.com/" rel="noreferrer" target="_blank">
+              seidemanphd.com
+            </a>
+            {' | '}
+            <a
+              href="https://www.linkedin.com/in/joshua-a-seideman/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              LinkedIn
+            </a>
+          </p>
+          <p className={styles.resumeSummary}>
+            <span className={styles.summaryLine}>
+              Senior Product Manager with 6+ years of experience driving
+              roadmaps, prioritization, and delivery across a
+            </span>
+            <span className={styles.summaryLine}>
+              portfolio of data analytics products, including AI-powered
+              solutions with LLM integration and semantic
+            </span>
+            <span className={styles.summaryLine}>
+              search. Manages project managers and product owners across
+              concurrent initiatives. Combines AI-assisted
+            </span>
+            <span className={styles.summaryLine}>
+              development with hands-on coding to accelerate prototyping and
+              resolve technical blockers. PMP-certified.
+            </span>
+          </p>
         </header>
 
-        <Section
-          aside={
-            <span className={styles.sectionEmail}>
-              Seidemanja@gmail.com
-            </span>
-          }
-          title="Work Experience"
-        >
+        <Section title="Work Experience">
           {workExperience.map((entry) => (
-            <Entry key={entry.organization} {...entry} />
+            <Entry key={entry.id || entry.organization} {...entry} />
           ))}
         </Section>
       </article>
@@ -301,7 +363,7 @@ function ResumePage() {
       <article className={`${styles.pageShell} ${styles.resumeDocument}`}>
         <Section title="Independent Projects">
           {independentProjects.map((entry) => (
-            <Entry key={entry.organization} {...entry} />
+            <Entry key={entry.id || entry.organization} {...entry} />
           ))}
         </Section>
 
@@ -347,22 +409,34 @@ function ResumePage() {
           <div className={styles.citationList}>
             {articles.map((article) => (
               <p key={article.text}>
-                <BoldName>{article.text}</BoldName>
-                {article.linkedText ? (
+                <span className={article.continuation ? styles.citationLine : undefined}>
+                  <BoldName>{article.text}</BoldName>
+                </span>
+                {article.continuation ? (
+                  <>
+                    <span className={styles.citationLine}>
+                      <BoldName>{article.continuation}</BoldName>{' '}
+                      <a href={article.href} rel="noreferrer" target="_blank">
+                        <cite>{article.journal}</cite>
+                      </a>
+                    </span>
+                  </>
+                ) : null}
+                {!article.continuation && article.linkedText ? (
                   <>
                     <a href={article.href} rel="noreferrer" target="_blank">
                       {article.linkedText}
                     </a>
                     {article.suffix}
                   </>
-                ) : (
+                ) : !article.continuation ? (
                   <>
                     {' '}
                     <a href={article.href} rel="noreferrer" target="_blank">
                       <cite>{article.journal}</cite>
                     </a>
                   </>
-                )}
+                ) : null}
               </p>
             ))}
           </div>
@@ -370,18 +444,22 @@ function ResumePage() {
 
         <Section title="Published Abstracts / Presentations">
           <div className={styles.citationList}>
-            {presentations.slice(0, 7).map((presentation) => (
+            {pageThreePresentations.map((presentation) => (
               <p key={presentation}>
                 <BoldName>{presentation}</BoldName>
               </p>
             ))}
+            <p>
+              <BoldName>{splitPresentationStart}</BoldName>
+            </p>
           </div>
         </Section>
       </article>
 
       <article className={`${styles.pageShell} ${styles.resumeDocument}`}>
         <div className={styles.citationList}>
-          {presentations.slice(7).map((presentation) => (
+          <p>{splitPresentationRemainder}</p>
+          {pageFourPresentations.map((presentation) => (
             <p key={presentation}>
               <BoldName>{presentation}</BoldName>
             </p>

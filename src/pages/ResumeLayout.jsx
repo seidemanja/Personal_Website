@@ -5,8 +5,8 @@ import { RESUME_PDF_URL } from '../resumeConstants.js';
 import styles from './ResumePage.module.css';
 
 const RESUME_NATURAL_WIDTH = 836;
-const RESUME_NATURAL_HEIGHT = 4257;
-const RESUME_SIDE_MARGIN = 32;
+const RESUME_NATURAL_HEIGHT = 4368;
+const RESUME_SIDE_MARGIN = 80;
 const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect;
 

@@ -99,22 +99,18 @@
   margin-bottom: 0;
 }
 
-.resumeDocument:nth-child(-n + 2) {
-  aspect-ratio: 0.815044 / 1;
-}
-
 .resumeDocument {
   box-sizing: border-box;
   padding: 65px 73px;
   color: #000;
   font-family: "Times New Roman", Times, serif;
-  font-size: 15.4px;
+  font-size: 15.05px;
   line-height: 1.2;
 }
 
 .resumeDocument a {
-  color: #0000ee;
-  text-decoration-color: #0000ee;
+  color: #000070;
+  text-decoration-color: #000070;
   text-decoration-thickness: 1.1px;
   text-underline-offset: 1.1px;
 }
@@ -128,20 +124,54 @@
 }
 
 .resumeHeader {
-  margin: 0 0 30px;
+  margin: 0 0 0;
 }
 
 .resumeHeader h1 {
   margin: 0;
   font-family: "Times New Roman", Times, serif;
-  font-size: 2.181818em;
+  font-size: 1.98913em;
   font-weight: 400;
   line-height: 1;
   text-align: center;
 }
 
+.resumeSubtitle {
+  margin: 0.42em 0 0;
+  font-size: 1.12em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.contactLine {
+  margin: 0.52em 0 0;
+  color: #000;
+  font-size: 1em;
+  line-height: 1;
+  text-align: center;
+}
+
+.contactLine a {
+  color: #000070;
+}
+
+.resumeSummary {
+  margin: 1em 13px 0 12px;
+  font-size: 1em;
+  line-height: 1.26;
+}
+
+.summaryLine {
+  display: block;
+}
+
 .resumeSection {
-  margin-top: 2.25em;
+  margin-top: 1.85em;
+}
+
+.resumeHeader + .resumeSection {
+  margin-top: 1.42em;
 }
 
 .resumeDocument > .resumeSection:first-child {
@@ -153,7 +183,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 17px;
-  margin: 0 0 0.72em;
+  margin: 0 0 0.9em;
   padding-bottom: 0.12em;
   border-bottom: 1.1px solid #000;
 }
@@ -233,7 +263,7 @@
 }
 
 .bulletList li + li {
-  margin-top: 0.2em;
+  margin-top: 0.255em;
 }
 
 .bulletList li::marker {
@@ -297,7 +327,7 @@
 
 .citationList {
   display: grid;
-  gap: 1.2em;
+  gap: 1.05em;
 }
 
 .citationList p {
@@ -309,6 +339,10 @@
   font-family: "Times New Roman", Times, serif;
 }
 
+.citationLine {
+  display: block;
+}
+
 @media (max-width: 980px) {
   .content {
     width: calc(100% - 32px);
@@ -318,12 +352,12 @@
 
 @media (max-width: 868px) {
   .desktopResumeContent {
-    width: calc(100vw - 32px);
-    height: calc((100vw - 32px) * 5.092105263);
+    width: calc(100vw - 80px);
+    height: calc((100vw - 80px) * 5.224880383);
   }
 
   .viewer {
-    transform: scale(calc((100vw - 32px) / 836px));
+    transform: scale(calc((100vw - 80px) / 836px));
   }
 }
 
