@@ -3,17 +3,32 @@ import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
 import styles from './SelectedProjectsPage.module.css';
 
+const personalWebsiteCardImage = '/images/homepage_SP_Card_v2.png';
+const personalWebsiteNarrowCardImage = '/images/homepage_skinny_v2.png';
+
 const projects = [
   {
     description:
-      'Built a responsive personal portfolio with a grounded AI assistant that answers questions about my background, projects, research, publications, and technical experience.',
+      'Built a responsive personal portfolio with a grounded AI assistant, using AI-coding tools (Codex) to accelerate implementation.',
     imageClassName: 'sp-image-personal-website',
     imageFrameClassName: styles.imageContainFrame,
-    imageSrc: '/images/homepagenew.png',
-    narrowImageSrc: '/images/homepagenew.png',
-    technologies: ['React', 'Vite', 'OpenAI API', 'Node.js'],
+    imageSrc: personalWebsiteCardImage,
+    narrowImageSrc: personalWebsiteNarrowCardImage,
+    useResponsivePicture: true,
+    technologies: ['React', 'Vite', 'OpenAI', 'Node.js'],
     title: 'Personal Website & Grounded AI Assistant',
+    mobileTitle: 'Personal Website & Grounded AI Chat',
     to: '/projects/personal-website-ai-assistant',
+  },
+  {
+    description:
+      'Owned roadmap and requirements for 30+ data analytics products, including AI-enabled products with LLM integration and semantic search.',
+    imageClassName: 'sp-image-deloitte',
+    imageSrc: '/images/deloitte-card-wireframe-square.svg',
+    narrowImageSrc: '/images/deloitte-card-wireframe-square-narrow.png',
+    technologies: ['Product Management', 'AI/ML', 'Analytics', 'PMP'],
+    title: 'Product Management for Data & AI Products',
+    to: '/projects/product-management-data-ai',
   },
   {
     imageClassName: 'sp-image-instagram',
@@ -75,12 +90,13 @@ function SelectedProjectsPage() {
 
         <div className={`${styles.projectList} sp-list`}>
           {projects.map((project) => {
+            const isDarkImageFrame = project.imageFrameClassName === styles.imageInsetDark;
             const cardContent = (
                 <>
                 <div
                   className={`${styles.imagePlaceholder} sp-image-slot ${
                     project.imageFrameClassName ?? ''
-                  } ${project.imageFrameClassName ? 'sp-image-dark' : ''} ${
+                  } ${isDarkImageFrame ? 'sp-image-dark' : ''} ${
                     project.imageClassName ?? ''
                   }`}
                   style={{
@@ -91,17 +107,40 @@ function SelectedProjectsPage() {
                 >
                   {project.imageSrc ? (
                     <span className={`${styles.cardPicture} sp-card-picture`}>
-                      <img
-                        className={`${styles.cardImage} ${styles.desktopCardImage} sp-img sp-img-desktop`}
-                        src={project.imageSrc}
-                        alt=""
-                        width="162"
-                        height="162"
-                        loading="eager"
-                        decoding="sync"
-                        fetchpriority="high"
-                      />
-                      {project.narrowImageSrc ? (
+                      {project.useResponsivePicture ? (
+                        <picture>
+                          {project.narrowImageSrc ? (
+                            <source
+                              media="(max-width: 860px)"
+                              srcSet={project.narrowImageSrc}
+                              width="1912"
+                              height="690"
+                            />
+                          ) : null}
+                          <img
+                            className={`${styles.cardImage} sp-img`}
+                            src={project.imageSrc}
+                            alt=""
+                            width="1390"
+                            height="1366"
+                            loading="eager"
+                            decoding="sync"
+                            fetchpriority="high"
+                          />
+                        </picture>
+                      ) : (
+                        <>
+                          <img
+                            className={`${styles.cardImage} ${styles.desktopCardImage} sp-img sp-img-desktop`}
+                            src={project.imageSrc}
+                            alt=""
+                            width="162"
+                            height="162"
+                            loading="eager"
+                            decoding="sync"
+                            fetchpriority="high"
+                          />
+                          {project.narrowImageSrc ? (
                         <img
                           className={`${styles.cardImage} ${styles.narrowCardImage} sp-img sp-img-narrow`}
                           src={project.narrowImageSrc}
@@ -112,7 +151,9 @@ function SelectedProjectsPage() {
                           decoding="sync"
                           fetchpriority="high"
                         />
-                      ) : null}
+                          ) : null}
+                        </>
+                      )}
                     </span>
                   ) : (
                     project.imageLabel
@@ -120,7 +161,20 @@ function SelectedProjectsPage() {
                 </div>
 
                 <div className={`${styles.cardContent} sp-card-content`}>
-                  <h2 className={`${styles.cardTitle} sp-card-title`}>{project.title}</h2>
+                  <h2 className={`${styles.cardTitle} sp-card-title`}>
+                    {project.mobileTitle ? (
+                      <>
+                        <span className={`${styles.desktopCopy} sp-desktop-copy`}>
+                          {project.title}
+                        </span>
+                        <span className={`${styles.mobileCopy} sp-mobile-copy`}>
+                          {project.mobileTitle}
+                        </span>
+                      </>
+                    ) : (
+                      project.title
+                    )}
+                  </h2>
                   <p className={`${styles.description} sp-description`}>
                     {project.desktopDescription ? (
                       <>

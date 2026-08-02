@@ -71,43 +71,50 @@ const workExperience = [
     dates: '08/2014 – 07/2020',
     bullets: [
       'Designed and conducted cognitive and computational neuroscience experiments',
-      <>
-        Wrote{' '}
-        <NIHGrantLink>federally-funded research grant proposal</NIHGrantLink>{' '}
-        – defined scope, methods, KPIs, timeline, and budget
-      </>,
+      [
+        'Wrote ',
+        <NIHGrantLink key="nih-grant-link">
+          federally-funded research grant proposal
+        </NIHGrantLink>,
+        ' – defined scope, methods, KPIs, timeline, and budget',
+      ],
       'Designed and developed real-time research software enabling multimodal data acquisition, interactive visual interfaces, and automated experimental workflows (MATLAB)',
       'Gathered, analyzed, and modeled behavioral and neural data (MATLAB)',
       'Programmed an optimization algorithm to fit a decision-making model to data (MATLAB)',
       'Applied advanced statistical methods – bootstrap, permutation test, linear regression, AUROC',
       'Presented findings at numerous national and international conferences',
-      <>
-        Wrote{' '}
+      [
+        'Wrote ',
         <a
+          key="scholar-link"
           href="https://scholar.google.com/citations?user=_dN3kXQAAAAJ&hl=en&oi=ao"
           rel="noreferrer"
           target="_blank"
         >
           six first-author publications
-        </a>
-        , including two in <cite>Nature Communications</cite> (
+        </a>,
+        ', including two in ',
+        <cite key="journal">Nature Communications</cite>,
+        ' (',
         <a
+          key="pdf-1"
           href="https://www.nature.com/articles/s41467-018-05319-w.pdf"
           rel="noreferrer"
           target="_blank"
         >
           pdf-1
-        </a>
-        ,{' '}
+        </a>,
+        ', ',
         <a
+          key="pdf-2"
           href="https://www.nature.com/articles/s41467-022-32209-z.pdf"
           rel="noreferrer"
           target="_blank"
         >
           pdf-2
-        </a>
-        )
-      </>,
+        </a>,
+        ')',
+      ],
     ],
   },
 ];

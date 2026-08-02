@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Low-fidelity wireframe of an analytics interface">
+  <rect width="800" height="800" fill="#eef1f4"/>
+
+  <!-- app shell -->
+  <rect x="60" y="60" width="680" height="680" rx="12" fill="#ffffff" stroke="#d5dae0" stroke-width="2"/>
+
+  <!-- top bar -->
+  <line x1="60" y1="140" x2="740" y2="140" stroke="#dfe3e8" stroke-width="2"/>
+  <rect x="92" y="92" width="132" height="14" rx="7" fill="#b6bec7"/>
+  <rect x="556" y="88" width="76" height="24" rx="12" fill="#ffffff" stroke="#d5dae0" stroke-width="2"/>
+  <rect x="644" y="88" width="64" height="24" rx="12" fill="#ffffff" stroke="#d5dae0" stroke-width="2"/>
+
+  <!-- left rail -->
+  <line x1="222" y1="140" x2="222" y2="740" stroke="#dfe3e8" stroke-width="2"/>
+  <rect x="92" y="176" width="104" height="12" rx="6" fill="#5c7ea8"/>
+  <rect x="92" y="212" width="86" height="12" rx="6" fill="#d5dae0"/>
+  <rect x="92" y="248" width="96" height="12" rx="6" fill="#d5dae0"/>
+  <rect x="92" y="284" width="72" height="12" rx="6" fill="#d5dae0"/>
+
+  <!-- bar chart card -->
+  <rect x="252" y="176" width="228" height="200" rx="10" fill="#ffffff" stroke="#dfe3e8" stroke-width="2"/>
+  <rect x="272" y="200" width="72" height="10" rx="5" fill="#c6ccd3"/>
+  <line x1="272" y1="336" x2="460" y2="336" stroke="#dfe3e8" stroke-width="2"/>
+  <rect x="276" y="294" width="24" height="42" rx="3" fill="#c3cad2"/>
+  <rect x="312" y="268" width="24" height="68" rx="3" fill="#c3cad2"/>
+  <rect x="348" y="280" width="24" height="56" rx="3" fill="#c3cad2"/>
+  <rect x="384" y="248" width="24" height="88" rx="3" fill="#5c7ea8"/>
+  <rect x="420" y="306" width="24" height="30" rx="3" fill="#c3cad2"/>
+
+  <!-- line chart card -->
+  <rect x="496" y="176" width="212" height="200" rx="10" fill="#ffffff" stroke="#dfe3e8" stroke-width="2"/>
+  <rect x="516" y="200" width="60" height="10" rx="5" fill="#c6ccd3"/>
+  <line x1="516" y1="336" x2="688" y2="336" stroke="#dfe3e8" stroke-width="2"/>
+  <polyline points="516,318 552,290 588,300 624,252 660,266 688,232"
+            fill="none" stroke="#5c7ea8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- table card -->
+  <rect x="252" y="408" width="456" height="300" rx="10" fill="#ffffff" stroke="#dfe3e8" stroke-width="2"/>
+  <rect x="276" y="440" width="86" height="10" rx="5" fill="#b6bec7"/>
+  <rect x="392" y="440" width="66" height="10" rx="5" fill="#b6bec7"/>
+  <rect x="488" y="440" width="66" height="10" rx="5" fill="#b6bec7"/>
+  <rect x="584" y="440" width="52" height="10" rx="5" fill="#b6bec7"/>
+  <line x1="276" y1="472" x2="684" y2="472" stroke="#dfe3e8" stroke-width="2"/>
+
+  <rect x="276" y="496" width="102" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="392" y="496" width="58" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="488" y="496" width="72" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="584" y="496" width="44" height="10" rx="5" fill="#dbdfe4"/>
+  <line x1="276" y1="524" x2="684" y2="524" stroke="#e8ebee" stroke-width="2"/>
+
+  <rect x="276" y="552" width="88" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="392" y="552" width="70" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="488" y="552" width="56" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="584" y="552" width="60" height="10" rx="5" fill="#dbdfe4"/>
+  <line x1="276" y1="580" x2="684" y2="580" stroke="#e8ebee" stroke-width="2"/>
+
+  <rect x="276" y="608" width="114" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="392" y="608" width="52" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="488" y="608" width="78" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="584" y="608" width="38" height="10" rx="5" fill="#dbdfe4"/>
+  <line x1="276" y1="636" x2="684" y2="636" stroke="#e8ebee" stroke-width="2"/>
+
+  <rect x="276" y="664" width="94" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="392" y="664" width="64" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="488" y="664" width="50" height="10" rx="5" fill="#dbdfe4"/>
+  <rect x="584" y="664" width="56" height="10" rx="5" fill="#dbdfe4"/>
+</svg>

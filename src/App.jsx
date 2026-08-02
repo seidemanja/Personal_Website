@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import AiChatPage from './pages/AiChatPage.jsx';
+import DeloitteProductManagementPage from './pages/DeloitteProductManagementPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import InstagramProjectPage from './pages/InstagramProjectPage.jsx';
 import NeuroscienceProjectPage from './pages/NeuroscienceProjectPage.jsx';
@@ -36,6 +37,10 @@ function App() {
         <Route
           path="/projects/instagram-automation"
           element={<InstagramProjectPage />}
+        />
+        <Route
+          path="/projects/product-management-data-ai"
+          element={<DeloitteProductManagementPage />}
         />
         <Route
           path="/projects/neuroscience-research"

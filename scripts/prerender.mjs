@@ -15,6 +15,10 @@ const personalWebsiteProjectOutputPath = new URL(
   '../dist/projects/personal-website-ai-assistant/index.html',
   import.meta.url,
 );
+const deloitteProductManagementOutputPath = new URL(
+  '../dist/projects/product-management-data-ai/index.html',
+  import.meta.url,
+);
 const twitterProjectOutputPath = new URL(
   '../dist/projects/twitter-automation/index.html',
   import.meta.url,
@@ -32,6 +36,7 @@ const serverBundlePath = new URL(
 try {
   const {
     renderAiChatPage,
+    renderDeloitteProductManagementPage,
     renderHomePage,
     renderInstagramProjectPage,
     renderNeuroscienceProjectPage,
@@ -100,6 +105,10 @@ try {
     '<div id="root"></div>',
     `<div id="root">${renderPersonalWebsiteProjectPage()}</div>`,
   );
+  const renderedDeloitteProductManagementHtml = htmlWithCriticalCss.replace(
+    '<div id="root"></div>',
+    `<div id="root">${renderDeloitteProductManagementPage()}</div>`,
+  );
   const renderedTwitterProjectHtml = htmlWithCriticalCss.replace(
     '<div id="root"></div>',
     `<div id="root">${renderTwitterProjectPage()}</div>`,
@@ -135,6 +144,12 @@ try {
     },
   );
   await mkdir(
+    new URL('../dist/projects/product-management-data-ai/', import.meta.url),
+    {
+      recursive: true,
+    },
+  );
+  await mkdir(
     new URL('../dist/projects/instagram-automation/', import.meta.url),
     {
       recursive: true,
@@ -151,6 +166,10 @@ try {
   await writeFile(
     personalWebsiteProjectOutputPath,
     renderedPersonalWebsiteProjectHtml,
+  );
+  await writeFile(
+    deloitteProductManagementOutputPath,
+    renderedDeloitteProductManagementHtml,
   );
   await writeFile(twitterProjectOutputPath, renderedTwitterProjectHtml);
   await writeFile(instagramProjectOutputPath, renderedInstagramProjectHtml);

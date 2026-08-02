@@ -79,7 +79,7 @@ const technologies = [
   'JavaScript',
   'CSS Modules',
   'Node.js',
-  'OpenAI API',
+  'OpenAI',
   'Server-Sent Events',
   'Service Workers',
 ];
@@ -108,13 +108,25 @@ function PersonalWebsiteProjectPage() {
         <nav className={`${styles.breadcrumbs} pd-breadcrumbs`} aria-label="Breadcrumb">
           <Link to="/projects">Selected Projects</Link>
           <span aria-hidden="true">›</span>
-          <span>Personal Website &amp; Grounded AI Assistant</span>
+          <span>
+            <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
+              Personal Website &amp; Grounded AI Assistant
+            </span>
+            <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>
+              Personal Website &amp; Grounded AI Chat
+            </span>
+          </span>
         </nav>
 
         <section className={styles.hero} aria-labelledby="project-title">
           <div className={`${styles.heroCopy} pd-hero-copy`}>
             <h1 className="pd-project-title" id="project-title">
-              Personal Website &amp; Grounded AI Assistant
+              <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
+                Personal Website &amp; Grounded AI Assistant
+              </span>
+              <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>
+                Personal Website &amp; Grounded AI Chat
+              </span>
             </h1>
             <p className={`${styles.years} pd-years`}>
               05/2026 – Present <span aria-hidden="true">•</span>{' '}

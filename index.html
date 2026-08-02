@@ -163,6 +163,12 @@
         overflow: hidden;
       }
 
+      .sp-card-picture picture {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
       @media (min-width: 861px) {
         .sp-card-picture {
           background-image: var(--sp-desktop-image);
@@ -170,6 +176,12 @@
           background-repeat: no-repeat;
           background-size: cover;
         }
+
+        .sp-image-personal-website .sp-img {
+          transform: scaleY(1.055);
+          transform-origin: top center;
+        }
+
       }
 
       .sp-image-dark {
@@ -182,17 +194,27 @@
       }
 
       .sp-image-personal-website {
-        padding: 10px;
-        background: #f4f4f2;
+        padding: 6px;
+        background: #fff;
       }
 
       .sp-image-personal-website .sp-card-picture {
-        background: #f4f4f2;
+        background: #fff;
       }
 
       .sp-image-personal-website .sp-img {
         border-radius: 3px;
         object-position: center top;
+      }
+
+      .sp-image-deloitte {
+        background: #eef1f4;
+      }
+
+      .sp-image-deloitte .sp-img {
+        object-position: center;
+        transform: scale(1.18);
+        transform-origin: center;
       }
 
       .sp-card-content {
@@ -327,10 +349,7 @@
         .sp-image-personal-website {
           padding: 0;
           background: #f4f4f2;
-          background-image: var(--sp-narrow-image);
-          background-position: center top;
-          background-repeat: no-repeat;
-          background-size: cover;
+          background-image: none;
         }
 
         .sp-image-dark .sp-card-picture {
@@ -347,10 +366,14 @@
         }
 
         .sp-image-personal-website .sp-card-picture {
-          background-image: var(--sp-narrow-image);
-          background-position: center top;
-          background-repeat: no-repeat;
-          background-size: cover;
+          background-image: none;
+        }
+
+        .sp-image-personal-website .sp-img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          object-position: center center !important;
         }
 
         .sp-image-dark .sp-img {
@@ -419,10 +442,37 @@
           padding: 54px 0 68px;
         }
 
+        .sp-header {
+          margin-bottom: 34px;
+        }
+
+        .sp-title {
+          font-size: 1.881rem;
+        }
+
+        .sp-subtitle {
+          font-size: 0.903rem;
+        }
+
         .sp-image-slot {
           width: calc(100% - 28px);
           max-width: 560px;
           margin: 14px auto 0;
+        }
+
+        .sp-image-personal-website {
+          aspect-ratio: 1912 / 735;
+          background: #fff;
+        }
+
+        .sp-image-deloitte {
+          aspect-ratio: 824 / 294;
+          background: #eef1f4;
+        }
+
+        .sp-image-personal-website .sp-img {
+          object-fit: cover !important;
+          object-position: center top !important;
         }
       }
 
@@ -735,6 +785,14 @@
       }
 
       .pd-metric-mobile-copy {
+        display: none;
+      }
+
+      .pd-detail-desktop-copy {
+        display: inline;
+      }
+
+      .pd-detail-mobile-copy {
         display: none;
       }
 
@@ -1058,6 +1116,14 @@
           display: inline;
         }
 
+        .pd-detail-desktop-copy {
+          display: none;
+        }
+
+        .pd-detail-mobile-copy {
+          display: inline;
+        }
+
         .pd-section-header p {
           font-size: 0.9rem;
         }
@@ -1106,8 +1172,30 @@
     <link rel="preload" href="/images/Google_Scholar_logo.svg" as="image" />
     <link
       rel="preload"
-      href="/images/homepagenew.png"
+      href="/images/deloitte-card-wireframe-square.svg"
       as="image"
+      media="(min-width: 861px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/images/deloitte-card-wireframe-square-narrow.png"
+      as="image"
+      media="(max-width: 860px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/images/homepage_SP_Card_v2.png"
+      as="image"
+      media="(min-width: 861px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/images/homepage_skinny_v2.png"
+      as="image"
+      media="(max-width: 860px)"
       fetchpriority="high"
     />
     <link
@@ -1170,6 +1258,7 @@
           '/projects/instagram-automation',
           '/projects/neuroscience-research',
           '/projects/personal-website-ai-assistant',
+          '/projects/product-management-data-ai',
           '/projects/twitter-automation',
         ]);
         const path = window.location.pathname.replace(/\/+$/, '') || '/';

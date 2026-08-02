@@ -33,6 +33,10 @@ export function renderInstagramProjectPage() {
   return renderPage('/projects/instagram-automation');
 }
 
+export function renderDeloitteProductManagementPage() {
+  return renderPage('/projects/product-management-data-ai');
+}
+
 export function renderNeuroscienceProjectPage() {
   return renderPage('/projects/neuroscience-research');
 }
