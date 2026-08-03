@@ -19,6 +19,7 @@ const CONVERSATION_LIMIT_MESSAGE =
 const GENERIC_ERROR_MESSAGE =
   'Something went wrong — please try again in a moment.';
 const STREAM_FLUSH_INTERVAL_MS = 33;
+const CHAT_RESPONSE_TIMEOUT_MS = 30 * 1000;
 const CHAT_STREAM_DEBUG = import.meta.env.VITE_CHAT_STREAM_DEBUG === 'true';
 const EXAMPLE_QUESTIONS = [
   'Give me a brief summary of Josh’s product experience.',
@@ -289,6 +290,67 @@ function parseChatMessageBlocks(content) {
   return blocks.length ? blocks : [{ type: 'paragraph', text: '' }];
 }
 
+function isSafeLinkHref(href) {
+  return /^https?:\/\//i.test(href) || href.startsWith('/');
+}
+
+function renderInlineMessageText(text, keyPrefix) {
+  const normalizedText = stripMarkdownEmphasis(text);
+  const parts = [];
+  const linkPattern = /\[([^\]]+)\]\s*\((https?:\/\/[^)\s]+|\/[^)\s]*)\)|(https?:\/\/[^\s<]+)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkPattern.exec(normalizedText))) {
+    const [fullMatch, markdownLabel, markdownHref, rawHref] = match;
+    const isRawUrl = Boolean(rawHref);
+    let label = markdownLabel;
+    let href = markdownHref || rawHref;
+    let trailingText = '';
+
+    if (isRawUrl) {
+      const trailingMatch = href.match(/[).,;:!?]+$/);
+
+      if (trailingMatch) {
+        trailingText = trailingMatch[0];
+        href = href.slice(0, -trailingText.length);
+      }
+
+      label = href;
+    }
+
+    if (match.index > lastIndex) {
+      parts.push(normalizedText.slice(lastIndex, match.index));
+    }
+
+    if (isSafeLinkHref(href)) {
+      parts.push(
+        <a
+          href={href}
+          key={`${keyPrefix}-link-${match.index}`}
+          rel={href.startsWith('http') ? 'noreferrer' : undefined}
+          target={href.startsWith('http') ? '_blank' : undefined}
+        >
+          {stripMarkdownEmphasis(label)}
+        </a>,
+      );
+      if (trailingText) {
+        parts.push(trailingText);
+      }
+    } else {
+      parts.push(stripMarkdownEmphasis(label));
+    }
+
+    lastIndex = match.index + fullMatch.length;
+  }
+
+  if (lastIndex < normalizedText.length) {
+    parts.push(normalizedText.slice(lastIndex));
+  }
+
+  return parts.length ? parts : normalizedText;
+}
+
 function renderMessageContent(message) {
   if (isThinkingMessage(message)) {
     return <p className={styles.thinkingText}>Thinking</p>;
@@ -301,13 +363,19 @@ function renderMessageContent(message) {
       return (
         <ul className={styles.messageBullets} key={`bullets-${index}`}>
           {block.items.map((item, itemIndex) => (
-            <li key={`${item}-${itemIndex}`}>{item}</li>
+            <li key={`${item}-${itemIndex}`}>
+              {renderInlineMessageText(item, `bullet-${index}-${itemIndex}`)}
+            </li>
           ))}
         </ul>
       );
     }
 
-    return <p key={`paragraph-${index}`}>{block.text}</p>;
+    return (
+      <p key={`paragraph-${index}`}>
+        {renderInlineMessageText(block.text, `paragraph-${index}`)}
+      </p>
+    );
   });
 }
 
@@ -656,7 +724,9 @@ function refreshStoredHistoryTimestamp(messages) {
 }
 
 function AiChatPage() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(() =>
+    typeof window === 'undefined' ? [] : readStoredMessages(),
+  );
   const [inputValue, setInputValue] = useState('');
   const [modelOptions, setModelOptions] = useState([]);
   const [selectedModelKey, setSelectedModelKey] = useState('primary');
@@ -669,7 +739,7 @@ function AiChatPage() {
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState('');
-  const [hasLoadedStoredMessages, setHasLoadedStoredMessages] = useState(false);
+  const [hasLoadedStoredMessages] = useState(true);
   const abortControllerRef = useRef(null);
   const chatScrollerRef = useRef(null);
   const optionsMenuRef = useRef(null);
@@ -685,7 +755,7 @@ function AiChatPage() {
   const selectedModelLabel = useMemo(() => {
     const rawLabel =
       modelOptions.find((model) => model.key === selectedModelKey)?.label ||
-      'gpt-4.1';
+      'gpt-5.6-sol';
 
     return formatModelLabel(rawLabel);
   }, [modelOptions, selectedModelKey]);
@@ -710,23 +780,13 @@ function AiChatPage() {
       })
       .catch(() => {
         if (isMounted) {
-          setModelOptions([{ key: 'primary', label: 'gpt-4.1' }]);
+          setModelOptions([{ key: 'primary', label: 'gpt-5.6-sol' }]);
         }
       });
 
     return () => {
       isMounted = false;
     };
-  }, []);
-
-  useEffect(() => {
-    const storedMessages = readStoredMessages();
-
-    if (storedMessages.length) {
-      setMessages(storedMessages);
-    }
-
-    setHasLoadedStoredMessages(true);
   }, []);
 
   useEffect(() => {
@@ -1006,6 +1066,8 @@ function AiChatPage() {
     let hasLoggedFirstReadableChunk = false;
     let readableChunkLogCount = 0;
     let cumulativeChunkCharacters = 0;
+    let responseTimeoutId = 0;
+    let didTimeout = false;
 
     debugLog?.('client.send_clicked');
 
@@ -1029,6 +1091,10 @@ function AiChatPage() {
     setIsAutoScrollEnabled(true);
 
     try {
+      responseTimeoutId = window.setTimeout(() => {
+        didTimeout = true;
+        controller.abort(new Error('Chat request timed out'));
+      }, CHAT_RESPONSE_TIMEOUT_MS);
       debugLog?.('client.fetch_start');
       const response = await fetch('/api/ai-chat', {
         method: 'POST',
@@ -1047,6 +1113,8 @@ function AiChatPage() {
       debugLog?.('client.response_headers_received', {
         status: response.status,
       });
+      window.clearTimeout(responseTimeoutId);
+      responseTimeoutId = 0;
 
       if (response.status === 429) {
         const payload = await response.json().catch(() => ({}));
@@ -1077,6 +1145,8 @@ function AiChatPage() {
         if (done) {
           break;
         }
+        window.clearTimeout(responseTimeoutId);
+        responseTimeoutId = 0;
 
         const decodedChunk = decoder.decode(value, { stream: true });
         cumulativeChunkCharacters += decodedChunk.length;
@@ -1127,7 +1197,7 @@ function AiChatPage() {
       flushPendingStreamText();
       debugLog?.('client.stream_complete');
     } catch (error) {
-      if (error?.name !== 'AbortError') {
+      if (didTimeout || error?.name !== 'AbortError') {
         debugLog?.('client.error', {
           message: error instanceof Error ? error.message : 'Unknown error',
         });
@@ -1148,6 +1218,9 @@ function AiChatPage() {
         );
       }
     } finally {
+      if (responseTimeoutId) {
+        window.clearTimeout(responseTimeoutId);
+      }
       clearStreamFlushTimer();
       flushPendingStreamText();
       abortControllerRef.current = null;

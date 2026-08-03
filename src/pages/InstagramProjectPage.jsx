@@ -114,8 +114,8 @@ function InstagramProjectPage() {
             <p className={`${styles.intro} pd-intro`}>
               Designed and built an end-to-end system that automates content
               generation, posting, audience targeting, and engagement for
-              Instagram. The system has grown the account to 2,000+ followers
-              through{' '}
+              Instagram, using AI-assisted coding to accelerate implementation.
+              The system has grown the account to 2,000+ followers through{' '}
               <a href="#posts-title">AI-powered content creation</a> and fully
               automated engagement workflows.
             </p>

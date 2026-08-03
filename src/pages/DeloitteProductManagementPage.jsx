@@ -89,7 +89,7 @@ function DeloitteProductManagementPage() {
             <p className={`${styles.years} pd-years`}>
               09/2021 – Present <span aria-hidden="true">•</span>{' '}
               <a
-                className={styles.externalTextLink}
+                className={`${styles.externalTextLink} pd-external-text-link`}
                 href="https://www.deloitte.com/us/en.html"
                 rel="noreferrer"
                 target="_blank"
@@ -124,7 +124,7 @@ function DeloitteProductManagementPage() {
             <h2 id="launch-title">Zero-to-Launch Product Management</h2>
           </header>
 
-          <p className={styles.sectionIntro}>
+          <p className={`${styles.sectionIntro} pd-section-intro`}>
             Requests often arrive already framed as solutions. I took a step
             back to understand and validate the problems behind them, then
             tested potential solutions with customers using prototypes, scoped
@@ -132,9 +132,9 @@ function DeloitteProductManagementPage() {
             against metrics established in advance.
           </p>
 
-          <aside className={styles.callout}>
-            <p className={styles.calloutEyebrow}>Scientific Approach</p>
-            <p>
+          <aside className={`${styles.callout} pd-callout`}>
+            <p className={`${styles.calloutEyebrow} pd-callout-eyebrow`}>Scientific Approach</p>
+            <p className="pd-callout-copy">
               My doctorate trained me to define a question precisely, to
               establish in advance what evidence would help answer it, and to
               design a study capable of producing that evidence. I approach
@@ -145,32 +145,34 @@ function DeloitteProductManagementPage() {
             </p>
           </aside>
 
-          <div className={styles.stages} aria-label="Product development flow">
+          <div className={`${styles.stages} pd-stages`} aria-label="Product development flow">
             {stages.map((stage, index) => (
               <div className={styles.stageGroup} key={stage}>
-                <div className={styles.stage}>{stage}</div>
+                <div className={`${styles.stage} pd-stage`}>{stage}</div>
                 {index < stages.length - 1 ? (
-                  <span className={styles.stageArrow} aria-hidden="true">
-                    <span className={styles.horizontalArrow}>→</span>
-                    <span className={styles.verticalArrow}>↓</span>
+                  <span className={`${styles.stageArrow} pd-stage-arrow`} aria-hidden="true">
+                    <span className={`${styles.horizontalArrow} pd-horizontal-arrow`}>→</span>
+                    <span className={`${styles.verticalArrow} pd-vertical-arrow`}>↓</span>
                   </span>
                 ) : null}
               </div>
             ))}
           </div>
 
-          <div className={styles.entryList}>
+          <div className={`${styles.entryList} pd-entry-list`}>
             {launchEntries.map(({ description, title }) => (
-              <article className={styles.entry} key={title}>
+              <article className={`${styles.entry} pd-entry`} key={title}>
                 <h3>{title}</h3>
                 <p>{description}</p>
               </article>
             ))}
           </div>
 
-          <aside className={`${styles.callout} ${styles.endCallout}`}>
-            <p className={styles.calloutEyebrow}>AI-Assisted Development</p>
-            <p>
+          <aside className={`${styles.callout} ${styles.endCallout} pd-callout pd-end-callout`}>
+            <p className={`${styles.calloutEyebrow} pd-callout-eyebrow`}>
+              AI-Assisted Development
+            </p>
+            <p className="pd-callout-copy">
               I use AI-assisted coding (ChatGPT, OpenAI Codex) alongside
               hands-on development to prototype solutions, resolve technical
               blockers, and accelerate timelines.
@@ -183,9 +185,9 @@ function DeloitteProductManagementPage() {
             <h2 id="leadership-title">Leadership and Delivery</h2>
           </header>
 
-          <div className={styles.entryList}>
+          <div className={`${styles.entryList} pd-entry-list`}>
             {leadershipEntries.map(({ description, title }) => (
-              <article className={styles.entry} key={title}>
+              <article className={`${styles.entry} pd-entry`} key={title}>
                 <h3>{title}</h3>
                 <p>{description}</p>
               </article>
@@ -199,14 +201,14 @@ function DeloitteProductManagementPage() {
           </header>
 
           <a
-            className={styles.workCard}
+            className={`${styles.workCard} pd-work-card`}
             href={selectedWorkUrl}
             rel="noreferrer"
             target="_blank"
           >
             <div>
               <h3>Supervised Machine Learning for Scientific Coding Assistance</h3>
-              <p className={styles.workMeta}>
+              <p className={`${styles.workMeta} pd-work-meta`}>
                 NIH Artificial Intelligence Symposium, 2025
               </p>
               <p>
@@ -215,13 +217,13 @@ function DeloitteProductManagementPage() {
                 categorization time.
               </p>
             </div>
-            <span className={styles.cardLinkIcon} aria-hidden="true">
+            <span className={`${styles.cardLinkIcon} pd-card-link-icon`} aria-hidden="true">
               <ExternalLink />
             </span>
           </a>
         </section>
 
-        <p className={styles.closing}>
+        <p className={`${styles.closing} pd-closing`}>
           Client work is described at a high level, and specific engagement
           details are intentionally omitted.
         </p>

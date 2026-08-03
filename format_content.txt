@@ -5,7 +5,7 @@ Use this file as the consistency baseline. Preserve existing values unless a req
 PAGE FRAME
 - Global UI font: Inter/system sans. Editorial/display headings: Georgia, "Times New Roman", serif.
 - All pages: white background, centered content, no horizontal page scrollbar.
-- Project-detail pages (Instagram, Twitter, Neuroscience): identical `.content` frame: width 838px; margin auto; padding 28px 0 68px. At <=980px and narrower use `calc(100% - 64px)` so narrow pages retain 32px side margins.
+- Project-detail pages (Instagram, Twitter, Neuroscience, Personal Website / AI Chat, Deloitte / Product Management): use the same monotonic `.content` frame: `width: min(838px, calc(100% - 64px)); margin: 0 auto; padding: 28px 0 68px`. Do not switch from fixed `838px` above a breakpoint to `calc(100% - 64px)` below it, because that makes the content column widen when the browser narrows. Also do not widen project-detail text blocks at a desktop breakpoint by changing paragraph/callout max-width from `760px` to `100%`; this makes text occupy a longer line length as the browser narrows and reads as a margin jump. Narrow/mobile refinements may keep the same 32px side margin, but must not create a visible left/right margin jump.
 - Project-detail hero: title Georgia 2.38rem/1.08, metadata .78rem, body .86rem/1.72, body max-width 760px.
 - Project-detail sections: heading Georgia 1.5rem; support text .78rem/1.5. Section rhythm is always 28px from prior content to divider, then 30px from divider to next section content.
 - Selected Projects overview has its own centered 779px content column; do not force it to match project-detail width.

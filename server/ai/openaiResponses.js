@@ -163,6 +163,8 @@ export async function streamOpenAIResponse({
 
         if (event.type === 'response.failed' || event.type === 'error') {
           writeSse(response, 'error', {});
+          response.end();
+          throw new Error('OpenAI stream failed');
         }
       });
     }

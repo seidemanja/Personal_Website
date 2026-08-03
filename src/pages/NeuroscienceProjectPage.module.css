@@ -7,7 +7,7 @@
 }
 
 .content {
-  width: 838px;
+  width: min(838px, calc(100% - 64px));
   margin: 0 auto;
   padding: 28px 0 68px;
   color: #20201e;
@@ -420,13 +420,6 @@
 
 .researchInfo a {
   color: #5f676d;
-}
-
-@media (max-width: 980px) {
-  .content {
-    width: calc(100% - 64px);
-  }
-
 }
 
 @media (hover: none) and (pointer: coarse) and (max-width: 900px) {

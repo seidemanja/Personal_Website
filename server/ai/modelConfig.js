@@ -1,5 +1,5 @@
-const DEFAULT_PRIMARY_MODEL = 'gpt-4.1';
-const DEFAULT_FAST_MODEL = 'gpt-4.1-mini';
+const DEFAULT_PRIMARY_MODEL = 'gpt-5.6-sol';
+const DEFAULT_FAST_MODEL = 'gpt-5.6-terra';
 
 export function getModelConfig() {
   return {
