@@ -53,11 +53,7 @@
 }
 
 .downloadButton {
-  margin-top: 2px;
   padding: 7px 10px;
-  position: absolute;
-  top: 0;
-  right: 0;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -68,6 +64,48 @@
   font: inherit;
   font-size: 0.76rem;
   cursor: pointer;
+}
+
+.headerControls {
+  margin-top: 2px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mobileStickyHeader {
+  display: none;
+}
+
+.newChatButton {
+  padding: 7px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #4a4a46;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.76rem;
+  cursor: pointer;
+}
+
+.newChatButton:disabled {
+  color: #9d9d99;
+  cursor: default;
+}
+
+.newChatButton:not(:disabled):hover,
+.newChatButton:not(:disabled):focus-visible {
+  color: #20201e;
+  outline: none;
+}
+
+.mobileNewChatIcon {
+  display: none;
 }
 
 .downloadButton:disabled {
@@ -146,6 +184,56 @@
   box-shadow:
     3px 6px 14px rgba(0, 0, 0, 0.075),
     7px 12px 28px rgba(0, 0, 0, 0.045);
+}
+
+.quickControls {
+  margin: 8px 16px 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.quickControlGroup {
+  position: relative;
+}
+
+.quickControlButton {
+  min-height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #4a4a46;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.quickControlButton:disabled {
+  color: #aaa9a4;
+  cursor: default;
+}
+
+.quickControlButton:not(:disabled):hover,
+.quickControlButton:not(:disabled):focus-visible {
+  color: #20201e;
+  outline: none;
+}
+
+.quickMenu {
+  right: auto;
+  bottom: calc(100% + 7px);
+  left: 0;
+}
+
+.quickControlGroup:last-child .quickMenu {
+  right: 0;
+  left: auto;
 }
 
 .optionsMenuWide {
@@ -232,6 +320,32 @@
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-gutter: stable;
+  scrollbar-color: transparent transparent;
+  scrollbar-width: thin;
+}
+
+.messages:hover {
+  scrollbar-color: #d5dae0 transparent;
+}
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  background-clip: content-box;
+}
+
+.messages:hover::-webkit-scrollbar-thumb {
+  background: #d5dae0;
+  background-clip: content-box;
 }
 
 .emptyState {
@@ -342,9 +456,15 @@
   max-width: min(560px, 78%);
   padding-left: 84px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .userMessage p {
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 10px 16px;
   border-radius: 24px;
   background: #f3f3f2;
@@ -444,8 +564,7 @@
   white-space: nowrap;
 }
 
-.copyButton:hover::after,
-.copyButton:focus-visible::after {
+.copyButton[data-copied="true"]::after {
   opacity: 1;
 }
 
@@ -512,8 +631,10 @@
 
 .form {
   min-height: 74px;
-  padding: 12px 20px;
+  padding: 10px 20px 8px;
   position: relative;
+  display: flex;
+  flex-direction: column;
   border-top: 0.5px solid rgba(0, 0, 0, 0.11);
   background: #fff;
 }
@@ -679,19 +800,115 @@
 }
 
 @media (max-width: 640px) {
+  .page {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    overflow-x: clip;
+  }
+
   .content {
-    width: calc(100% - 32px);
+    width: 100%;
+    height: auto;
     padding-top: 22px;
+    padding-bottom: 0;
+    display: block;
     gap: 14px;
   }
 
+  .mobileStickyHeader {
+    height: 0;
+    position: sticky;
+    top: 47px;
+    z-index: 19;
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .mobileStickyHeaderInner {
+    height: 44px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    color: #20201e;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition:
+      opacity 150ms ease,
+      transform 150ms ease;
+  }
+
+  .mobileStickyHeaderInner > span {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .mobileStickyHeaderControls {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  .mobileStickyHeaderVisible {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobileStickyHeaderVisible .mobileStickyHeaderInner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .header {
+    padding: 0 16px;
+    min-height: 40px;
     flex-direction: column;
     gap: 14px;
   }
 
-  .downloadButton {
+  .headerControls {
+    right: 16px;
+    gap: 13px;
+  }
+
+  .newChatButton {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .newChatButton span,
+  .desktopNewChatIcon {
     display: none;
+  }
+
+  .mobileNewChatIcon {
+    display: block;
+  }
+
+  .downloadButton {
+    width: 36px;
+    height: 36px;
+    margin-top: 0;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .downloadButton span {
+    display: none;
+  }
+
+  .downloadButton svg {
+    width: 15px;
+    height: 15px;
   }
 
   .desktopDownloadLabel {
@@ -702,8 +919,49 @@
     display: inline;
   }
 
+  .chatShell {
+    margin-top: 14px;
+    display: block;
+    overflow: visible;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   .messages {
-    padding: 18px;
+    padding: 18px 16px;
+    overflow: visible;
+    scrollbar-gutter: auto;
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+
+  .message {
+    max-width: 100%;
+  }
+
+  .userMessage {
+    max-width: calc(100% - 28px);
+    padding-left: 28px;
+  }
+
+  .assistantMessage {
+    max-width: 100%;
+  }
+
+  .messageActions {
+    padding: 0 4px;
+  }
+
+  .userMessage .messageActions {
+    padding-right: 3px;
+  }
+
+  .copyButton::after {
+    right: 0;
+    left: auto;
+    transform: none;
   }
 
   .emptyState {
@@ -711,11 +969,65 @@
   }
 
   .form {
+    position: sticky;
+    bottom: -7px;
+    z-index: 7;
+    flex-direction: column-reverse;
     padding: 10px 12px;
+  }
+
+  .form::after {
+    height: 18px;
+    position: absolute;
+    right: 0;
+    bottom: -18px;
+    left: 0;
+    z-index: -1;
+    background: #fff;
+    content: "";
+    pointer-events: none;
+  }
+
+  .quickControls {
+    margin: 0 4px 8px;
+    padding: 0 4px;
+  }
+
+  .quickControlButton {
+    font-size: 0.92rem;
+  }
+
+  .quickControlButton span {
+    display: inline-block;
+    max-width: 104px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .quickMenu {
+    bottom: calc(100% + 8px);
+    left: 0;
+  }
+
+  .quickControlGroup:last-child .quickMenu {
+    right: 0;
+    left: auto;
   }
 
   .form textarea {
     padding-right: 104px;
+  }
+
+  .menuDownloadItem {
+    display: none !important;
+  }
+
+  .scrollButton {
+    position: fixed;
+    right: 50%;
+    bottom: 118px;
+    z-index: 8;
   }
 }
 

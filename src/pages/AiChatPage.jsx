@@ -2,9 +2,11 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowUp,
+  ChevronDown,
   Copy,
   Download,
-  MoreHorizontal,
+  MessageSquarePlus,
+  Plus,
   Square,
 } from 'lucide-react';
 import Navigation from '../components/Navigation.jsx';
@@ -124,6 +126,54 @@ function stripMarkdownEmphasis(text) {
     .replace(/(^|\s)(?:\*\*|\*)(?=\s|$)/g, '$1');
 }
 
+function parseInlineLinks(text) {
+  const sourceText = stripMarkdownEmphasis(text);
+  const segments = [];
+  const linkPattern = /\[([^\]]+)\]\s*\((https?:\/\/[^)\s]+|\/[^)\s]*)\)|(https?:\/\/[^\s<]+)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkPattern.exec(sourceText))) {
+    const [fullMatch, markdownLabel, markdownHref, rawHref] = match;
+    const isRawUrl = Boolean(rawHref);
+    let label = markdownLabel || rawHref;
+    let href = markdownHref || rawHref;
+    let trailingText = '';
+
+    if (isRawUrl) {
+      const trailingMatch = href.match(/[).,;:!?]+$/);
+
+      if (trailingMatch) {
+        trailingText = trailingMatch[0];
+        href = href.slice(0, -trailingText.length);
+        label = href;
+      }
+    }
+
+    if (match.index > lastIndex) {
+      segments.push({ text: sourceText.slice(lastIndex, match.index), href: '' });
+    }
+
+    if (isSafeLinkHref(href)) {
+      segments.push({ text: stripMarkdownEmphasis(label), href });
+    } else {
+      segments.push({ text: stripMarkdownEmphasis(label), href: '' });
+    }
+
+    if (trailingText) {
+      segments.push({ text: trailingText, href: '' });
+    }
+
+    lastIndex = match.index + fullMatch.length;
+  }
+
+  if (lastIndex < sourceText.length) {
+    segments.push({ text: sourceText.slice(lastIndex), href: '' });
+  }
+
+  return segments.length ? segments : [{ text: sourceText, href: '' }];
+}
+
 function isEmptyMarkdownMarker(text) {
   return /^[*_•\-\s]+$/.test(String(text || ''));
 }
@@ -140,27 +190,80 @@ function approximatePdfTextWidth(text, fontSize) {
 }
 
 function wrapPdfText(text, maxWidth, fontSize) {
-  const words = sanitizePdfText(text).split(/\s+/).filter(Boolean);
+  return wrapPdfTextSegments([{ text, href: '' }], maxWidth, fontSize).map(
+    (line) => line.text,
+  );
+}
+
+function wrapPdfTextSegments(segments, maxWidth, fontSize) {
+  const words = [];
+
+  segments.forEach((segment) => {
+    sanitizePdfText(segment.text)
+      .split(/(\s+)/)
+      .filter(Boolean)
+      .forEach((token) => {
+        words.push({ text: token, href: segment.href || '' });
+      });
+  });
+
   const lines = [];
-  let currentLine = '';
+  let currentTokens = [];
+  let currentText = '';
+
+  function flushLine() {
+    const lineText = currentText.trim();
+
+    if (lineText) {
+      const trimStartLength = currentText.length - currentText.trimStart().length;
+      let cursor = 0;
+      const links = [];
+
+      currentTokens.forEach((token) => {
+        const tokenStart = cursor - trimStartLength;
+        const tokenEnd = tokenStart + token.text.length;
+
+        if (token.href && tokenEnd > 0 && tokenStart < lineText.length) {
+          links.push({
+            href: token.href,
+            start: Math.max(0, tokenStart),
+            text: token.text.slice(
+              Math.max(0, -tokenStart),
+              token.text.length - Math.max(0, tokenEnd - lineText.length),
+            ),
+          });
+        }
+
+        cursor += token.text.length;
+      });
+
+      lines.push({ text: lineText, links });
+    }
+
+    currentTokens = [];
+    currentText = '';
+  }
 
   words.forEach((word) => {
-    const nextLine = currentLine ? `${currentLine} ${word}` : word;
+    const nextLine = `${currentText}${word.text}`;
 
-    if (approximatePdfTextWidth(nextLine, fontSize) > maxWidth && currentLine) {
-      lines.push(currentLine);
-      currentLine = word;
+    if (
+      approximatePdfTextWidth(nextLine.trim(), fontSize) > maxWidth &&
+      currentText.trim()
+    ) {
+      flushLine();
+      currentText = word.text;
+      currentTokens = [word];
       return;
     }
 
-    currentLine = nextLine;
+    currentText = nextLine;
+    currentTokens.push(word);
   });
 
-  if (currentLine) {
-    lines.push(currentLine);
-  }
+  flushLine();
 
-  return lines.length ? lines : [''];
+  return lines.length ? lines : [{ text: '', links: [] }];
 }
 
 function getPdfMessageLines(content, maxWidth, fontSize) {
@@ -195,8 +298,8 @@ function getPdfMessageLines(content, maxWidth, fontSize) {
 
     if (block.type === 'bullets') {
       block.items.forEach((item, itemIndex) => {
-        const wrappedBulletLines = wrapPdfText(
-          item,
+        const wrappedBulletLines = wrapPdfTextSegments(
+          parseInlineLinks(item),
           maxWidth - bulletTextIndent,
           fontSize,
         );
@@ -206,22 +309,24 @@ function getPdfMessageLines(content, maxWidth, fontSize) {
           const isLastItem = itemIndex === block.items.length - 1;
 
           pdfLines.push({
-            text: wrappedLine,
+            text: wrappedLine.text,
             indent: bulletTextIndent,
             bullet: lineIndex === 0,
             extraAfter: isLastLineOfItem && !isLastItem ? bulletItemGap : 0,
+            links: wrappedLine.links || [],
           });
         });
       });
       return;
     }
 
-    wrapPdfText(block.text, maxWidth, fontSize).forEach((wrappedLine) => {
+    wrapPdfTextSegments(parseInlineLinks(block.text), maxWidth, fontSize).forEach((wrappedLine) => {
       pdfLines.push({
-        text: wrappedLine,
+        text: wrappedLine.text,
         indent: 0,
         bullet: false,
         extraAfter: 0,
+        links: wrappedLine.links || [],
       });
     });
   });
@@ -423,6 +528,7 @@ function createPdfDocument({ messages, modelLabel }) {
   const objects = [];
   const pages = [];
   let currentOps = [];
+  let currentAnnotations = [];
   let cursorY = topY;
 
   function textOp(text, x, y, fontName = 'F1', fontSize = 11) {
@@ -437,11 +543,47 @@ function createPdfDocument({ messages, modelLabel }) {
 
   function newPage() {
     if (currentOps.length) {
-      pages.push(currentOps.join('\n'));
+      pages.push({
+        content: currentOps.join('\n'),
+        annotations: currentAnnotations,
+      });
     }
 
     currentOps = [];
+    currentAnnotations = [];
     cursorY = topY;
+  }
+
+  function addLinkAnnotation(href, x, y, width, height) {
+    if (!href || width <= 0 || height <= 0) {
+      return;
+    }
+
+    const underlineY = y + 1;
+
+    currentOps.push('q');
+    currentOps.push('0.35 G');
+    currentOps.push('0.45 w');
+    currentOps.push(
+      `${Math.round(x * 100) / 100} ${Math.round(underlineY * 100) / 100} m`,
+    );
+    currentOps.push(
+      `${Math.round((x + width) * 100) / 100} ${Math.round(
+        underlineY * 100,
+      ) / 100} l`,
+    );
+    currentOps.push('S');
+    currentOps.push('Q');
+
+    currentAnnotations.push({
+      href,
+      rect: [
+        Math.round(x * 100) / 100,
+        Math.round(y * 100) / 100,
+        Math.round((x + width) * 100) / 100,
+        Math.round((y + height) * 100) / 100,
+      ],
+    });
   }
 
   function ensureSpace(height) {
@@ -533,6 +675,22 @@ function createPdfDocument({ messages, modelLabel }) {
             bodyFontSize,
           ),
         );
+
+        (line.links || []).forEach((link) => {
+          const linkX =
+            bubbleX +
+            bubblePaddingX +
+            approximatePdfTextWidth(line.text.slice(0, link.start), bodyFontSize);
+          const linkY = cursorY - bubblePaddingY - bodyFontSize - lineOffset - 2;
+
+          addLinkAnnotation(
+            link.href,
+            linkX,
+            linkY,
+            approximatePdfTextWidth(link.text, bodyFontSize),
+            bodyFontSize + 4,
+          );
+        });
         lineOffset += lineHeight + (line.extraAfter || 0);
       });
 
@@ -562,6 +720,19 @@ function createPdfDocument({ messages, modelLabel }) {
       currentOps.push(
         textOp(line.text, textX, textY, 'F1', bodyFontSize),
       );
+
+      (line.links || []).forEach((link) => {
+        const linkX =
+          textX + approximatePdfTextWidth(line.text.slice(0, link.start), bodyFontSize);
+
+        addLinkAnnotation(
+          link.href,
+          linkX,
+          textY - 2,
+          approximatePdfTextWidth(link.text, bodyFontSize),
+          bodyFontSize + 4,
+        );
+      });
       cursorY -= lineHeight + (line.extraAfter || 0);
     });
     ensureSpace(18);
@@ -570,19 +741,41 @@ function createPdfDocument({ messages, modelLabel }) {
 
   newPage();
 
-  const fontRegularObject = 3 + pages.length * 2;
+  const annotationCount = pages.reduce(
+    (count, page) => count + page.annotations.length,
+    0,
+  );
+  const fontRegularObject = 3 + pages.length * 2 + annotationCount;
   const fontBoldObject = fontRegularObject + 1;
   const pageObjectNumbers = [];
+  let nextAnnotationObjectNumber = 3 + pages.length * 2;
 
-  pages.forEach((content, index) => {
+  pages.forEach((page, index) => {
     const pageObjectNumber = 3 + index * 2;
     const contentObjectNumber = pageObjectNumber + 1;
+    const annotationObjectNumbers = page.annotations.map((annotation) => {
+      const annotationObjectNumber = nextAnnotationObjectNumber;
+      nextAnnotationObjectNumber += 1;
+      objects[annotationObjectNumber] =
+        `<< /Type /Annot /Subtype /Link /Rect [${annotation.rect.join(
+          ' ',
+        )}] /Border [0 0 0] /A << /S /URI /URI ${escapePdfLiteral(
+          annotation.href,
+        )} >> >>`;
+      return annotationObjectNumber;
+    });
     pageObjectNumbers.push(pageObjectNumber);
 
     objects[pageObjectNumber] =
-      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /Font << /F1 ${fontRegularObject} 0 R /F2 ${fontBoldObject} 0 R >> >> /Contents ${contentObjectNumber} 0 R >>`;
+      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] ${
+        annotationObjectNumbers.length
+          ? `/Annots [${annotationObjectNumbers
+              .map((objectNumber) => `${objectNumber} 0 R`)
+              .join(' ')}] `
+          : ''
+      }/Resources << /Font << /F1 ${fontRegularObject} 0 R /F2 ${fontBoldObject} 0 R >> >> /Contents ${contentObjectNumber} 0 R >>`;
     objects[contentObjectNumber] =
-      `<< /Length ${content.length} >>\nstream\n${content}\nendstream`;
+      `<< /Length ${page.content.length} >>\nstream\n${page.content}\nendstream`;
   });
 
   objects[1] = '<< /Type /Catalog /Pages 2 0 R >>';
@@ -623,21 +816,17 @@ async function downloadPdf({ messages, modelLabel }) {
   const pdf = createPdfDocument({ messages, modelLabel });
   const blob = new Blob([pdf], { type: 'application/pdf' });
   const fileName = 'ai-chat-conversation.pdf';
-  const file = new File([blob], fileName, { type: 'application/pdf' });
   const isMobileLike =
     window.matchMedia?.('(hover: none) and (pointer: coarse)').matches ||
     window.matchMedia?.('(max-width: 640px)').matches;
-
-  if (isMobileLike && navigator.canShare?.({ files: [file] })) {
-    await navigator.share({
-      files: [file],
-      title: 'AI Chat Conversation',
-    });
-    return;
-  }
-
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
+
+  if (isMobileLike) {
+    window.open(url, '_blank', 'noopener');
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    return;
+  }
 
   link.href = url;
   link.download = fileName;
@@ -723,6 +912,34 @@ function refreshStoredHistoryTimestamp(messages) {
   }
 }
 
+async function writeTextToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      // Fall through to the legacy copy path for mobile Safari/local contexts.
+    }
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.top = '-1000px';
+  textarea.style.left = '-1000px';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    return document.execCommand('copy');
+  } finally {
+    textarea.remove();
+  }
+}
+
 function AiChatPage() {
   const [messages, setMessages] = useState(() =>
     typeof window === 'undefined' ? [] : readStoredMessages(),
@@ -739,9 +956,12 @@ function AiChatPage() {
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState('');
+  const [isMobileChatLayout, setIsMobileChatLayout] = useState(false);
+  const [showMobileStickyHeader, setShowMobileStickyHeader] = useState(false);
   const [hasLoadedStoredMessages] = useState(true);
   const abortControllerRef = useRef(null);
   const chatScrollerRef = useRef(null);
+  const headerRef = useRef(null);
   const optionsMenuRef = useRef(null);
   const warmupStartedRef = useRef(false);
   const activeAssistantMessageIdRef = useRef(null);
@@ -759,6 +979,21 @@ function AiChatPage() {
 
     return formatModelLabel(rawLabel);
   }, [modelOptions, selectedModelKey]);
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 640px)');
+
+    function handleMediaChange() {
+      setIsMobileChatLayout(query.matches);
+    }
+
+    handleMediaChange();
+    query.addEventListener?.('change', handleMediaChange);
+
+    return () => {
+      query.removeEventListener?.('change', handleMediaChange);
+    };
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -872,12 +1107,21 @@ function AiChatPage() {
   }, [selectedModelKey]);
 
   useBrowserLayoutEffect(() => {
-    if (!isAutoScrollEnabled || !chatScrollerRef.current) {
+    if (!isAutoScrollEnabled) {
+      return;
+    }
+
+    if (isMobileChatLayout) {
+      window.scrollTo({ top: document.documentElement.scrollHeight });
+      return;
+    }
+
+    if (!chatScrollerRef.current) {
       return;
     }
 
     chatScrollerRef.current.scrollTop = chatScrollerRef.current.scrollHeight;
-  }, [messages, isStreaming, isAutoScrollEnabled]);
+  }, [messages, isStreaming, isAutoScrollEnabled, isMobileChatLayout]);
 
   useEffect(() => {
     return () => {
@@ -922,7 +1166,59 @@ function AiChatPage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMobileChatLayout) {
+      setShowMobileStickyHeader(false);
+      return undefined;
+    }
+
+    function handleWindowScroll() {
+      const scrollElement = document.scrollingElement || document.documentElement;
+      const distanceFromBottom =
+        scrollElement.scrollHeight - window.scrollY - window.innerHeight;
+      const isNearBottom = distanceFromBottom < 48;
+
+      setIsAutoScrollEnabled(isNearBottom);
+      setShowScrollButton(!isNearBottom);
+    }
+
+    window.addEventListener('scroll', handleWindowScroll, { passive: true });
+    handleWindowScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleWindowScroll);
+    };
+  }, [isMobileChatLayout]);
+
+  useEffect(() => {
+    if (!isMobileChatLayout || !headerRef.current) {
+      setShowMobileStickyHeader(false);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowMobileStickyHeader(!entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: '-47px 0px 0px 0px',
+        threshold: 0,
+      },
+    );
+
+    observer.observe(headerRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isMobileChatLayout]);
+
   function handleScroll() {
+    if (isMobileChatLayout) {
+      return;
+    }
+
     const scroller = chatScrollerRef.current;
 
     if (!scroller) {
@@ -938,6 +1234,16 @@ function AiChatPage() {
   }
 
   function scrollToBottom() {
+    if (isMobileChatLayout) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+      setIsAutoScrollEnabled(true);
+      setShowScrollButton(false);
+      return;
+    }
+
     const scroller = chatScrollerRef.current;
 
     if (!scroller) {
@@ -1039,7 +1345,12 @@ function AiChatPage() {
     }
 
     try {
-      await navigator.clipboard.writeText(message.content);
+      const didCopy = await writeTextToClipboard(message.content);
+
+      if (!didCopy) {
+        return;
+      }
+
       setCopiedMessageId(message.id);
       window.setTimeout(() => {
         setCopiedMessageId((currentId) =>
@@ -1271,6 +1582,16 @@ function AiChatPage() {
     await resetServerSession();
   }
 
+  function requestNewChat() {
+    if (!messages.length || isStreaming) {
+      return;
+    }
+
+    setIsOptionsMenuOpen(false);
+    setOptionsPanel('main');
+    setIsNewChatDialogOpen(true);
+  }
+
   async function downloadConversationPdf() {
     if (!messages.length) {
       return;
@@ -1292,8 +1613,49 @@ function AiChatPage() {
     <main className={styles.page}>
       <Navigation variant="projects" />
 
+      {isMobileChatLayout ? (
+        <div
+          className={`${styles.mobileStickyHeader} ${
+            showMobileStickyHeader ? styles.mobileStickyHeaderVisible : ''
+          }`}
+          aria-hidden={!showMobileStickyHeader}
+        >
+          <div className={styles.mobileStickyHeaderInner}>
+            <span>Ask about Josh</span>
+
+            <div className={styles.mobileStickyHeaderControls}>
+              {messages.length ? (
+                <button
+                  className={styles.newChatButton}
+                  type="button"
+                  aria-label="New chat"
+                  disabled={isStreaming}
+                  onClick={requestNewChat}
+                >
+                  <MessageSquarePlus
+                    className={styles.mobileNewChatIcon}
+                    size={18}
+                    aria-hidden="true"
+                  />
+                </button>
+              ) : null}
+
+              <button
+                className={styles.downloadButton}
+                type="button"
+                disabled={!messages.length}
+                onClick={downloadConversationPdf}
+                aria-label="Download conversation"
+              >
+                <Download size={15} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <div className={styles.content}>
-        <header className={styles.header}>
+        <header className={styles.header} ref={headerRef}>
           <div className={styles.headerText}>
             <h1>Ask about Josh</h1>
             <p>
@@ -1302,15 +1664,36 @@ function AiChatPage() {
             </p>
           </div>
 
-          <button
-            className={styles.downloadButton}
-            type="button"
-            disabled={!messages.length}
-            onClick={downloadConversationPdf}
-          >
-            <Download size={15} aria-hidden="true" />
-            <span>Download conversation</span>
-          </button>
+          <div className={styles.headerControls}>
+            {messages.length ? (
+              <button
+                className={styles.newChatButton}
+                type="button"
+                aria-label="New chat"
+                disabled={isStreaming}
+                onClick={requestNewChat}
+              >
+                <Plus className={styles.desktopNewChatIcon} size={13} aria-hidden="true" />
+                <MessageSquarePlus
+                  className={styles.mobileNewChatIcon}
+                  size={18}
+                  aria-hidden="true"
+                />
+                <span>New chat</span>
+              </button>
+            ) : null}
+
+            <button
+              className={styles.downloadButton}
+              type="button"
+              disabled={!messages.length}
+              onClick={downloadConversationPdf}
+              aria-label="Download conversation"
+            >
+              <Download size={15} aria-hidden="true" />
+              <span>Download conversation</span>
+            </button>
+          </div>
         </header>
 
         <section className={styles.chatShell} aria-label="AI chat">
@@ -1343,12 +1726,9 @@ function AiChatPage() {
                             : 'Copy response'
                         }
                         data-tooltip={
-                          copiedMessageId === message.id
-                            ? 'Copied'
-                            : message.role === 'user'
-                              ? 'Copy message'
-                              : 'Copy response'
+                          copiedMessageId === message.id ? 'Copied' : ''
                         }
+                        data-copied={copiedMessageId === message.id ? 'true' : 'false'}
                         onClick={() => copyMessage(message)}
                       >
                         <Copy size={15} aria-hidden="true" />
@@ -1414,129 +1794,6 @@ function AiChatPage() {
               />
 
               <div className={styles.inputControls}>
-                <div className={styles.optionsSelector} ref={optionsMenuRef}>
-                  <button
-                    type="button"
-                    className={styles.optionsButton}
-                    aria-label="Chat options"
-                    data-tooltip="Chat options"
-                    onClick={() => {
-                      setIsOptionsMenuOpen((isOpen) => !isOpen);
-                      setOptionsPanel('main');
-                    }}
-                    aria-haspopup="menu"
-                    aria-expanded={isOptionsMenuOpen}
-                  >
-                    <MoreHorizontal size={19} aria-hidden="true" />
-                  </button>
-
-                  {isOptionsMenuOpen ? (
-                    <div
-                      className={`${styles.optionsMenu} ${
-                        optionsPanel === 'examples' ? styles.optionsMenuWide : ''
-                      }`}
-                      role="menu"
-                    >
-                      {optionsPanel === 'main' ? (
-                        <>
-                          <button
-                            type="button"
-                            role="menuitem"
-                            disabled={isStreaming || isLimitReached}
-                            onClick={() => setOptionsPanel('examples')}
-                          >
-                            Example Qs
-                          </button>
-                          <button
-                            type="button"
-                            role="menuitem"
-                            disabled={!messages.length}
-                            onClick={downloadConversationPdf}
-                          >
-                            <span className={styles.desktopDownloadLabel}>
-                              Download chat
-                            </span>
-                            <span className={styles.mobileDownloadLabel}>
-                              View / save PDF
-                            </span>
-                          </button>
-                          {messages.length ? (
-                            <button
-                              type="button"
-                              role="menuitem"
-                              disabled={isStreaming}
-                              onClick={() => {
-                                setIsOptionsMenuOpen(false);
-                                setOptionsPanel('main');
-                                setIsNewChatDialogOpen(true);
-                              }}
-                            >
-                              New chat
-                            </button>
-                          ) : null}
-                          <button
-                            type="button"
-                            role="menuitem"
-                            onClick={() => setOptionsPanel('model')}
-                          >
-                            {selectedModelLabel}
-                          </button>
-                        </>
-                      ) : null}
-
-                      {optionsPanel === 'examples' ? (
-                        <>
-                          <button
-                            type="button"
-                            role="menuitem"
-                            onClick={() => setOptionsPanel('main')}
-                          >
-                            ‹ Back
-                          </button>
-                          {EXAMPLE_QUESTIONS.map((question) => (
-                            <button
-                              key={question}
-                              type="button"
-                              role="menuitem"
-                              disabled={isStreaming || isLimitReached}
-                              onClick={() => sendMessage(question)}
-                            >
-                              {question}
-                            </button>
-                          ))}
-                        </>
-                      ) : null}
-
-                      {optionsPanel === 'model' ? (
-                        <>
-                          <button
-                            type="button"
-                            role="menuitem"
-                            onClick={() => setOptionsPanel('main')}
-                          >
-                            ‹ Back
-                          </button>
-                          {modelOptions.map((model) => (
-                            <button
-                              key={model.key}
-                              type="button"
-                              role="menuitemradio"
-                              aria-checked={model.key === selectedModelKey}
-                              onClick={() => {
-                                setSelectedModelKey(model.key);
-                                setIsOptionsMenuOpen(false);
-                                setOptionsPanel('main');
-                              }}
-                            >
-                              {formatModelLabel(model.label)}
-                            </button>
-                          ))}
-                        </>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </div>
-
                 <button
                   className={styles.sendButton}
                   type={isStreaming ? 'button' : 'submit'}
@@ -1550,6 +1807,83 @@ function AiChatPage() {
                     <ArrowUp size={19} aria-hidden="true" />
                   )}
                 </button>
+              </div>
+            </div>
+
+            <div className={styles.quickControls} ref={optionsMenuRef}>
+              <div className={styles.quickControlGroup}>
+                <button
+                  className={styles.quickControlButton}
+                  type="button"
+                  disabled={isStreaming || isLimitReached}
+                  onClick={() => {
+                    setIsOptionsMenuOpen((isOpen) =>
+                      optionsPanel === 'examples' ? !isOpen : true,
+                    );
+                    setOptionsPanel('examples');
+                  }}
+                  aria-haspopup="menu"
+                  aria-expanded={isOptionsMenuOpen && optionsPanel === 'examples'}
+                >
+                  Example questions
+                </button>
+
+                {isOptionsMenuOpen && optionsPanel === 'examples' ? (
+                  <div
+                    className={`${styles.optionsMenu} ${styles.optionsMenuWide} ${styles.quickMenu}`}
+                    role="menu"
+                  >
+                    {EXAMPLE_QUESTIONS.map((question) => (
+                      <button
+                        key={question}
+                        type="button"
+                        role="menuitem"
+                        disabled={isStreaming || isLimitReached}
+                        onClick={() => sendMessage(question)}
+                      >
+                        {question}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+
+              <div className={styles.quickControlGroup}>
+                <button
+                  className={styles.quickControlButton}
+                  type="button"
+                  onClick={() => {
+                    setIsOptionsMenuOpen((isOpen) =>
+                      optionsPanel === 'model' ? !isOpen : true,
+                    );
+                    setOptionsPanel('model');
+                  }}
+                  aria-haspopup="menu"
+                  aria-expanded={isOptionsMenuOpen && optionsPanel === 'model'}
+                >
+                  <span>{selectedModelLabel}</span>
+                  <ChevronDown size={13} aria-hidden="true" />
+                </button>
+
+                {isOptionsMenuOpen && optionsPanel === 'model' ? (
+                  <div className={`${styles.optionsMenu} ${styles.quickMenu}`} role="menu">
+                    {modelOptions.map((model) => (
+                      <button
+                        key={model.key}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={model.key === selectedModelKey}
+                        onClick={() => {
+                          setSelectedModelKey(model.key);
+                          setIsOptionsMenuOpen(false);
+                          setOptionsPanel('main');
+                        }}
+                      >
+                        {formatModelLabel(model.label)}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </div>
           </form>
