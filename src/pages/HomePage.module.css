@@ -291,37 +291,10 @@
 
   .heroGrid {
     width: calc(100% - 32px);
-    margin-top: 88px;
   }
 
   .portraitWrap {
     width: 180px;
-  }
-
-  .title {
-    font-size: 2.064rem;
-  }
-
-  .subtitle {
-    margin-top: 16px;
-    font-size: 0.991rem;
-  }
-
-  .rule {
-    margin-top: 28px;
-  }
-
-  .profileLinks {
-    margin-top: 38px;
-    justify-content: center;
-  }
-
-  .profileLink {
-    gap: 12px;
-  }
-
-  .dividerItem {
-    padding: 0 14px;
   }
 
   .emailMenu {
