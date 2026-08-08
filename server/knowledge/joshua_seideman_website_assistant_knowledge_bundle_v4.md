@@ -739,10 +739,6 @@ PMP Certified
 
 Requests often arrive already framed as solutions. I took a step back to understand and validate the problems behind them, then tested potential solutions with customers using prototypes, scoped first releases that delivered value quickly, and launched in stages against metrics established in advance.
 
-### Scientific Approach
-
-My doctorate trained me to define a question precisely, to establish in advance what evidence would help answer it, and to design a study capable of producing that evidence. I approach products the same way: problem definition and success metrics come before development begins, so that once a product ships we can measure early, from data, how well it is solving the problem it was built for.
-
 ### Product Development Flow
 
 Problem

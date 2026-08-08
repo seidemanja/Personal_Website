@@ -185,8 +185,63 @@ function escapePdfLiteral(text) {
     .replace(/\)/g, '\\)')})`;
 }
 
+const PDF_HELVETICA_WIDTHS = {
+  ' ': 0.278,
+  '!': 0.278,
+  '"': 0.355,
+  '#': 0.556,
+  '$': 0.556,
+  '%': 0.889,
+  '&': 0.667,
+  "'": 0.191,
+  '(': 0.333,
+  ')': 0.333,
+  '*': 0.389,
+  '+': 0.584,
+  ',': 0.278,
+  '-': 0.333,
+  '.': 0.278,
+  '/': 0.278,
+  ':': 0.278,
+  ';': 0.278,
+  '<': 0.584,
+  '=': 0.584,
+  '>': 0.584,
+  '?': 0.556,
+  '@': 1.015,
+  '[': 0.278,
+  '\\': 0.278,
+  ']': 0.278,
+  '^': 0.469,
+  '_': 0.556,
+  '`': 0.222,
+  '{': 0.334,
+  '|': 0.26,
+  '}': 0.334,
+  '~': 0.584,
+};
+
 function approximatePdfTextWidth(text, fontSize) {
-  return sanitizePdfText(text).length * fontSize * 0.48;
+  const normalizedText = sanitizePdfText(text);
+  let width = 0;
+
+  for (const character of normalizedText) {
+    if (PDF_HELVETICA_WIDTHS[character] != null) {
+      width += PDF_HELVETICA_WIDTHS[character];
+    } else if (/[A-Z]/.test(character)) {
+      width += 0.667;
+    } else if (/[mw]/.test(character)) {
+      width += 0.778;
+    } else if (/[fijltI]/.test(character)) {
+      width += 0.278;
+    } else if (/[0-9]/.test(character)) {
+      width += 0.556;
+    } else {
+      width += 0.5;
+    }
+  }
+
+  return width * fontSize;
 }
 
 function wrapPdfText(text, maxWidth, fontSize) {
@@ -456,12 +511,43 @@ function renderInlineMessageText(text, keyPrefix) {
   return parts.length ? parts : normalizedText;
 }
 
-function renderMessageContent(message) {
+function getStreamingSafeMessageContent(content) {
+  const text = String(content || '');
+  const lastMarkdownLinkStart = text.lastIndexOf('[');
+
+  if (lastMarkdownLinkStart >= 0) {
+    const trailingText = text.slice(lastMarkdownLinkStart);
+    const isIncompleteMarkdownLink =
+      /^\[[^\]]*$/.test(trailingText) ||
+      /^\[[^\]]+\]\s*$/.test(trailingText) ||
+      /^\[[^\]]+\]\s*\([^)]*$/.test(trailingText);
+
+    if (isIncompleteMarkdownLink) {
+      return text.slice(0, lastMarkdownLinkStart).replace(/\s+$/, '');
+    }
+  }
+
+  const trailingRawUrlMatch = text.match(/(^|[\s(])https?:\/\/[^\s<>)]+$/);
+
+  if (trailingRawUrlMatch) {
+    const trailingUrlStart =
+      trailingRawUrlMatch.index + trailingRawUrlMatch[1].length;
+
+    return text.slice(0, trailingUrlStart).replace(/\s+$/, '');
+  }
+
+  return text;
+}
+
+function renderMessageContent(message, options = {}) {
   if (isThinkingMessage(message)) {
     return <p className={styles.thinkingText}>Thinking</p>;
   }
 
-  const blocks = parseChatMessageBlocks(message.content);
+  const visibleContent = options.isStreaming
+    ? getStreamingSafeMessageContent(message.content)
+    : message.content;
+  const blocks = parseChatMessageBlocks(visibleContent);
 
   return blocks.map((block, index) => {
     if (block.type === 'bullets') {
@@ -541,6 +627,10 @@ function createPdfDocument({ messages, modelLabel }) {
     return `${gray} g`;
   }
 
+  function setRgbFillColor(r, g, b) {
+    return `${r} ${g} ${b} rg`;
+  }
+
   function newPage() {
     if (currentOps.length) {
       pages.push({
@@ -554,16 +644,18 @@ function createPdfDocument({ messages, modelLabel }) {
     cursorY = topY;
   }
 
-  function addLinkAnnotation(href, x, y, width, height) {
-    if (!href || width <= 0 || height <= 0) {
+  function addLinkAnnotation(href, x, baselineY, width, fontSize) {
+    if (!href || width <= 0 || fontSize <= 0) {
       return;
     }
 
-    const underlineY = y + 1;
+    const annotationBottom = baselineY - 2;
+    const annotationHeight = fontSize + 4;
+    const underlineY = baselineY - 1.35;
 
     currentOps.push('q');
-    currentOps.push('0.35 G');
-    currentOps.push('0.45 w');
+    currentOps.push('0.16 0.16 0.15 RG');
+    currentOps.push('0.5 w');
     currentOps.push(
       `${Math.round(x * 100) / 100} ${Math.round(underlineY * 100) / 100} m`,
     );
@@ -579,11 +671,61 @@ function createPdfDocument({ messages, modelLabel }) {
       href,
       rect: [
         Math.round(x * 100) / 100,
-        Math.round(y * 100) / 100,
+        Math.round(annotationBottom * 100) / 100,
         Math.round((x + width) * 100) / 100,
-        Math.round((y + height) * 100) / 100,
+        Math.round((annotationBottom + annotationHeight) * 100) / 100,
       ],
     });
+  }
+
+  function renderPdfTextLine(line, x, y, fontSize) {
+    const sortedLinks = [...(line.links || [])]
+      .filter((link) => link.href && link.text)
+      .sort((a, b) => a.start - b.start);
+
+    if (!sortedLinks.length) {
+      currentOps.push(textOp(line.text, x, y, 'F1', fontSize));
+      return;
+    }
+
+    let cursorIndex = 0;
+    let cursorX = x;
+
+    sortedLinks.forEach((link) => {
+      const linkStart = Math.max(cursorIndex, link.start);
+      const normalText = line.text.slice(cursorIndex, linkStart);
+
+      if (normalText) {
+        currentOps.push(textOp(normalText, cursorX, y, 'F1', fontSize));
+        cursorX += approximatePdfTextWidth(normalText, fontSize);
+      }
+
+      const linkText = line.text.slice(linkStart, linkStart + link.text.length);
+
+      if (linkText) {
+        currentOps.push('q');
+        currentOps.push(setRgbFillColor(0.16, 0.16, 0.15));
+        currentOps.push(textOp(linkText, cursorX, y, 'F2', fontSize));
+        currentOps.push('Q');
+
+        addLinkAnnotation(
+          link.href,
+          cursorX,
+          y,
+          approximatePdfTextWidth(linkText, fontSize),
+          fontSize,
+        );
+        cursorX += approximatePdfTextWidth(linkText, fontSize);
+      }
+
+      cursorIndex = linkStart + link.text.length;
+    });
+
+    const remainingText = line.text.slice(cursorIndex);
+
+    if (remainingText) {
+      currentOps.push(textOp(remainingText, cursorX, y, 'F1', fontSize));
+    }
   }
 
   function ensureSpace(height) {
@@ -666,31 +808,12 @@ function createPdfDocument({ messages, modelLabel }) {
           return;
         }
 
-        currentOps.push(
-          textOp(
-            line.text,
-            bubbleX + bubblePaddingX,
-            cursorY - bubblePaddingY - bodyFontSize - lineOffset,
-            'F1',
-            bodyFontSize,
-          ),
+        renderPdfTextLine(
+          line,
+          bubbleX + bubblePaddingX,
+          cursorY - bubblePaddingY - bodyFontSize - lineOffset,
+          bodyFontSize,
         );
-
-        (line.links || []).forEach((link) => {
-          const linkX =
-            bubbleX +
-            bubblePaddingX +
-            approximatePdfTextWidth(line.text.slice(0, link.start), bodyFontSize);
-          const linkY = cursorY - bubblePaddingY - bodyFontSize - lineOffset - 2;
-
-          addLinkAnnotation(
-            link.href,
-            linkX,
-            linkY,
-            approximatePdfTextWidth(link.text, bodyFontSize),
-            bodyFontSize + 4,
-          );
-        });
         lineOffset += lineHeight + (line.extraAfter || 0);
       });
 
@@ -717,22 +840,7 @@ function createPdfDocument({ messages, modelLabel }) {
         currentOps.push('Q');
       }
 
-      currentOps.push(
-        textOp(line.text, textX, textY, 'F1', bodyFontSize),
-      );
-
-      (line.links || []).forEach((link) => {
-        const linkX =
-          textX + approximatePdfTextWidth(line.text.slice(0, link.start), bodyFontSize);
-
-        addLinkAnnotation(
-          link.href,
-          linkX,
-          textY - 2,
-          approximatePdfTextWidth(link.text, bodyFontSize),
-          bodyFontSize + 4,
-        );
-      });
+      renderPdfTextLine(line, textX, textY, bodyFontSize);
       cursorY -= lineHeight + (line.extraAfter || 0);
     });
     ensureSpace(18);
@@ -1112,7 +1220,11 @@ function AiChatPage() {
     }
 
     if (isMobileChatLayout) {
-      window.scrollTo({ top: document.documentElement.scrollHeight });
+      if (messages.length || isStreaming) {
+        window.scrollTo({ top: document.documentElement.scrollHeight });
+      } else {
+        window.scrollTo({ top: 0 });
+      }
       return;
     }
 
@@ -1122,6 +1234,14 @@ function AiChatPage() {
 
     chatScrollerRef.current.scrollTop = chatScrollerRef.current.scrollHeight;
   }, [messages, isStreaming, isAutoScrollEnabled, isMobileChatLayout]);
+
+  useBrowserLayoutEffect(() => {
+    if (!isMobileChatLayout || messages.length || isStreaming) {
+      return;
+    }
+
+    window.scrollTo({ top: 0 });
+  }, [messages.length, isMobileChatLayout, isStreaming]);
 
   useEffect(() => {
     return () => {
@@ -1713,7 +1833,12 @@ function AiChatPage() {
                   }`}
                   key={message.id}
                 >
-                  {renderMessageContent(message)}
+                  {renderMessageContent(message, {
+                    isStreaming:
+                      isStreaming &&
+                      message.role === 'assistant' &&
+                      message.id === activeAssistantMessageIdRef.current,
+                  })}
 
                   {!isThinkingMessage(message) ? (
                     <div className={styles.messageActions}>
@@ -1740,8 +1865,13 @@ function AiChatPage() {
             ) : (
               <div className={styles.emptyState}>
                 <p>
-                  Try out an example question, or ask a custom question of your
-                  own.
+                  <span className={styles.desktopEmptyPrompt}>
+                    Try out an example question, or ask a custom question of your
+                    own.
+                  </span>
+                  <span className={styles.mobileEmptyPrompt}>
+                    Try an example question, or ask a question of your own.
+                  </span>
                 </p>
 
                 <div className={styles.emptyExamples}>

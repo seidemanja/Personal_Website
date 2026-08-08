@@ -36,6 +36,43 @@
   overflow-wrap: break-word;
 }
 
+.projectSections {
+  display: grid;
+  gap: 42px;
+}
+
+.projectSection {
+  min-width: 0;
+}
+
+.sectionHeader {
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.14);
+}
+
+.sectionTitle {
+  flex: none;
+  margin: 0;
+  color: #1a1a1a;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.28rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.sectionDescription {
+  min-width: 0;
+  margin: 0;
+  color: #777773;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
 .projectList {
   display: grid;
   grid-auto-rows: 1fr;
@@ -178,6 +215,26 @@
   transform-origin: center;
 }
 
+:global(.sp-image-neuroscience) {
+  background: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+:global(.sp-image-neuroscience) .cardPicture {
+  background: #fff;
+  background-image: var(--sp-desktop-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+:global(.sp-image-neuroscience) .cardImage {
+  object-fit: contain;
+  object-position: center;
+}
+
 @media (min-width: 861px) {
   .cardPicture {
     background-image: var(--sp-desktop-image);
@@ -258,6 +315,16 @@
 }
 
 @media (max-width: 860px) {
+  .projectSections {
+    gap: 38px;
+  }
+
+  .sectionHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   .projectList {
     grid-auto-rows: auto;
   }
@@ -345,6 +412,22 @@
   :global(.sp-image-deloitte) {
     aspect-ratio: 824 / 294;
     background: #fdfdfc;
+  }
+
+  :global(.sp-image-neuroscience) {
+    background: #fff;
+    background-image: var(--sp-narrow-image);
+    background-size: contain;
+  }
+
+  :global(.sp-image-neuroscience) .cardPicture {
+    background: #fff;
+    background-image: var(--sp-narrow-image);
+    background-size: contain;
+  }
+
+  :global(.sp-image-neuroscience) .cardImage {
+    object-fit: contain;
   }
 
   :global(.sp-image-personal-website) .cardImage {

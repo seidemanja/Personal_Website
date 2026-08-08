@@ -119,6 +119,43 @@
         overflow-wrap: break-word;
       }
 
+      .sp-project-sections {
+        display: grid;
+        gap: 42px;
+      }
+
+      .sp-project-section {
+        min-width: 0;
+      }
+
+      .sp-section-header {
+        margin-bottom: 18px;
+        padding-bottom: 8px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.14);
+      }
+
+      .sp-section-title {
+        flex: none;
+        margin: 0;
+        color: #1a1a1a;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 1.28rem;
+        font-weight: 500;
+        line-height: 1.15;
+      }
+
+      .sp-section-description {
+        min-width: 0;
+        margin: 0;
+        color: #777773;
+        font-size: 0.88rem;
+        line-height: 1.35;
+      }
+
       .sp-list {
         display: grid;
         grid-auto-rows: 1fr;
@@ -217,6 +254,26 @@
         transform-origin: center;
       }
 
+      .sp-image-neuroscience {
+        background: #fff;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .sp-image-neuroscience .sp-card-picture {
+        background: #fff;
+        background-image: var(--sp-desktop-image);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .sp-image-neuroscience .sp-img {
+        object-fit: contain;
+        object-position: center;
+      }
+
       .sp-card-content {
         min-width: 0;
         padding: 17px 23px 19px;
@@ -278,6 +335,16 @@
       }
 
       @media (max-width: 860px) {
+        .sp-project-sections {
+          gap: 38px;
+        }
+
+        .sp-section-header {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 4px;
+        }
+
         .sp-content {
           width: min(779px, calc(100% - 64px));
           -webkit-text-size-adjust: 100%;
@@ -363,6 +430,22 @@
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
+        }
+
+        .sp-image-neuroscience {
+          background: #fff;
+          background-image: var(--sp-narrow-image);
+          background-size: contain;
+        }
+
+        .sp-image-neuroscience .sp-card-picture {
+          background: #fff;
+          background-image: var(--sp-narrow-image);
+          background-size: contain;
+        }
+
+        .sp-image-neuroscience .sp-img {
+          object-fit: contain;
         }
 
         .sp-image-personal-website .sp-card-picture {
@@ -1453,14 +1536,14 @@
     />
     <link
       rel="preload"
-      href="/images/CS_Task_Saccade.png"
+      href="/images/tach_curve_w_labels_sq.png"
       as="image"
       media="(min-width: 861px)"
       fetchpriority="high"
     />
     <link
       rel="preload"
-      href="/images/CS_Task_Saccade_narrow.png"
+      href="/images/tach_curve_w_labels_sq.png"
       as="image"
       media="(max-width: 860px)"
       fetchpriority="high"
@@ -1514,7 +1597,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v9'
+            && snapshot?.version === 'project-detail-refresh-v12'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

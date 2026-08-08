@@ -4,7 +4,7 @@ import styles from './Navigation.module.css';
 
 const rightItems = [
   { label: 'Resume', to: '/resume' },
-  { label: 'Selected Projects', to: '/projects' },
+  { label: 'Selected Work', to: '/projects' },
   { label: 'AI Chat', shortLabel: 'AI', to: '/ai-chat' },
 ];
 

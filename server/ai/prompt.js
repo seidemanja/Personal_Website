@@ -20,6 +20,47 @@ function normalizeRole(role) {
   return role === 'assistant' ? 'assistant' : 'user';
 }
 
+function extractLinksFromText(content) {
+  const sourceText = String(content || '');
+  const links = new Set();
+  const linkPattern =
+    /\[[^\]]+\]\s*\((https?:\/\/[^)\s]+|\/[^)\s]*|mailto:[^)\s]+)\)|(https?:\/\/[^\s<>)]+)/g;
+  let match;
+
+  while ((match = linkPattern.exec(sourceText))) {
+    const href = match[1] || match[2] || '';
+    const normalizedHref = href.replace(/[).,;:!?]+$/, '');
+
+    if (normalizedHref) {
+      links.add(normalizedHref);
+    }
+  }
+
+  return [...links];
+}
+
+function getRecentlyUsedAssistantLinks(history) {
+  return history
+    .filter((item) => item?.role === 'assistant' && item.content)
+    .slice(-2)
+    .flatMap((item) => extractLinksFromText(item.content));
+}
+
+function buildLinkAvoidanceInstruction(recentLinks) {
+  const uniqueLinks = [...new Set(recentLinks)].slice(0, 10);
+
+  if (!uniqueLinks.length) {
+    return '';
+  }
+
+  return [
+    'Recent assistant responses already included these links:',
+    ...uniqueLinks.map((link) => `- ${link}`),
+    '',
+    'For the current answer, do not include these exact same links again unless the user explicitly asks for that same page, source, publication, project, proof, or where to learn more. You may discuss the same subject matter and use the same words, but omit the repeated link. If a different, more specific link is directly useful, use that instead.',
+  ].join('\n');
+}
+
 export function buildChatInput({ history = [], message, isWarmup = false }) {
   if (isWarmup) {
     return [
@@ -39,13 +80,19 @@ export function buildChatInput({ history = [], message, isWarmup = false }) {
     }))
     .filter((item) => item.content);
 
+  const linkAvoidanceInstruction = buildLinkAvoidanceInstruction(
+    getRecentlyUsedAssistantLinks(history),
+  );
   const currentMessage = normalizeContent(message);
+  const currentMessageWithContext = linkAvoidanceInstruction
+    ? `${linkAvoidanceInstruction}\n\nCurrent user question:\n${currentMessage}`
+    : currentMessage;
 
   return [
     ...recentHistory,
     {
       role: 'user',
-      content: currentMessage,
+      content: currentMessageWithContext,
     },
   ];
 }

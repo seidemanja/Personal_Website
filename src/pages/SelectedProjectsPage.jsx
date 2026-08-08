@@ -8,6 +8,36 @@ const personalWebsiteNarrowCardImage = '/images/homepage_skinny_v2.png';
 
 const projects = [
   {
+    category: 'professional',
+    description:
+      'Owned roadmap and requirements for 30+ data analytics products, including AI-enabled products with LLM integration and semantic search.',
+    imageClassName: 'sp-image-deloitte',
+    imageSrc: '/images/deloitte-card-wireframe-square.svg',
+    narrowImageSrc: '/images/deloitte-card-wireframe-square-narrow.png',
+    technologies: ['Product Management', 'AI/ML', 'Analytics', 'PMP'],
+    title: 'Product Management for Data & AI Products',
+    to: '/projects/product-management-data-ai',
+  },
+  {
+    category: 'professional',
+    imageClassName: 'sp-image-neuroscience',
+    description:
+      'Conducted a research program investigating perceptual decision making. Designed experiments, built real-time research software, analyzed data, and published findings in leading journals.',
+    desktopDescription:
+      'Conducted a research program investigating perceptual decision making. Designed experiments, built real-time research software, analyzed data, and published findings in leading journals.',
+    imageSrc: '/images/tach_curve_w_labels_sq.png',
+    narrowImageSrc: '/images/tach_curve_w_labels_sq.png',
+    technologies: [
+      'Experimental Design',
+      'MATLAB',
+      'Data Analysis',
+      'Computational Modeling',
+    ],
+    title: 'PhD Research in Neuroscience',
+    to: '/projects/neuroscience-research',
+  },
+  {
+    category: 'independent',
     description:
       'Built a responsive personal portfolio with a grounded AI assistant, using AI-coding tools (Codex) to accelerate implementation.',
     imageClassName: 'sp-image-personal-website',
@@ -21,16 +51,7 @@ const projects = [
     to: '/projects/personal-website-ai-assistant',
   },
   {
-    description:
-      'Owned roadmap and requirements for 30+ data analytics products, including AI-enabled products with LLM integration and semantic search.',
-    imageClassName: 'sp-image-deloitte',
-    imageSrc: '/images/deloitte-card-wireframe-square.svg',
-    narrowImageSrc: '/images/deloitte-card-wireframe-square-narrow.png',
-    technologies: ['Product Management', 'AI/ML', 'Analytics', 'PMP'],
-    title: 'Product Management for Data & AI Products',
-    to: '/projects/product-management-data-ai',
-  },
-  {
+    category: 'independent',
     imageClassName: 'sp-image-instagram',
     description:
       'Built an end-to-end system that generates AI-powered content, publishes to Instagram, and engages with relevant accounts without manual intervention. Grew account to 2,000+ followers.',
@@ -43,23 +64,7 @@ const projects = [
     to: '/projects/instagram-automation',
   },
   {
-    imageClassName: 'sp-image-neuroscience',
-    description:
-      'Conducted a multi-year research program investigating perceptual decision making. Designed experiments, developed real-time research software, analyzed behavioral and neural data. Published findings in leading journals.',
-    desktopDescription:
-      'Conducted a multi-year research program investigating perceptual decision making. Designed experiments, developed real-time research software, analyzed behavioral and neural data, and published findings in leading scientific journals.',
-    imageSrc: '/images/CS_Task_Saccade.png',
-    narrowImageSrc: '/images/CS_Task_Saccade_narrow.png',
-    technologies: [
-      'Experimental Design',
-      'MATLAB',
-      'Data Analysis',
-      'Computational Modeling',
-    ],
-    title: 'PhD Research in Neuroscience',
-    to: '/projects/neuroscience-research',
-  },
-  {
+    category: 'independent',
     description:
       'Built an end-to-end system that automates giveaway discovery and engagement workflows on Twitter. Won 700+ digital assets through automated participation.',
     imageClassName: 'sp-image-twitter',
@@ -72,6 +77,19 @@ const projects = [
   },
 ];
 
+const projectSections = [
+  {
+    description: 'Representative work from industry and academia',
+    id: 'professional',
+    title: 'Professional & Research',
+  },
+  {
+    description: 'Self-directed work in software and applied AI',
+    id: 'independent',
+    title: 'Independent Projects',
+  },
+];
+
 function SelectedProjectsPage() {
   return (
     <main className={`${styles.page} sp-page`} id="selected-projects">
@@ -80,16 +98,35 @@ function SelectedProjectsPage() {
       <section className={`${styles.content} sp-content`} aria-labelledby="projects-title">
         <header className={`${styles.header} sp-header`}>
           <h1 className={`${styles.title} sp-title`} id="projects-title">
-            Selected Projects
+            Selected Work
           </h1>
           <p className={`${styles.subtitle} sp-subtitle`}>
-            Selected projects spanning software development, automation,
-            applied AI, and neuroscience research.
+            Work spanning product management, software development, applied AI, and
+            scientific research.
           </p>
         </header>
 
-        <div className={`${styles.projectList} sp-list`}>
-          {projects.map((project) => {
+        <div className={`${styles.projectSections} sp-project-sections`}>
+          {projectSections.map((section) => (
+            <section
+              className={`${styles.projectSection} sp-project-section`}
+              key={section.id}
+              aria-labelledby={`${section.id}-projects-title`}
+            >
+              <header className={`${styles.sectionHeader} sp-section-header`}>
+                <h2
+                  className={`${styles.sectionTitle} sp-section-title`}
+                  id={`${section.id}-projects-title`}
+                >
+                  {section.title}
+                </h2>
+                <p className={`${styles.sectionDescription} sp-section-description`}>
+                  {section.description}
+                </p>
+              </header>
+
+              <div className={`${styles.projectList} sp-list`}>
+                {projects.filter((project) => project.category === section.id).map((project) => {
             const isDarkImageFrame = project.imageFrameClassName === styles.imageInsetDark;
             const cardContent = (
                 <>
@@ -216,7 +253,10 @@ function SelectedProjectsPage() {
                 {cardContent}
               </article>
             );
-          })}
+                })}
+              </div>
+            </section>
+          ))}
         </div>
       </section>
     </main>
