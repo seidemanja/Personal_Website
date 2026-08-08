@@ -534,10 +534,29 @@
           background-image: none;
         }
 
-        .sp-image-twitter .sp-img {
-          width: auto !important;
+        .sp-image-twitter .sp-img-desktop {
+          display: none !important;
+        }
+
+        .sp-image-twitter .sp-img-narrow {
+          display: block !important;
+          width: 60% !important;
           max-width: 100% !important;
-          height: 100% !important;
+          height: auto !important;
+          max-height: 100% !important;
+          aspect-ratio: 533 / 299;
+          object-fit: contain !important;
+          object-position: center center !important;
+          transform: none !important;
+          justify-self: center;
+          align-self: center;
+          background: #fff;
+        }
+
+        .sp-image-twitter .sp-img {
+          width: 60% !important;
+          max-width: 100% !important;
+          height: auto !important;
           max-height: 100% !important;
           object-fit: contain !important;
           object-position: center center !important;
@@ -1695,7 +1714,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v19'
+            && snapshot?.version === 'project-detail-refresh-v20'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

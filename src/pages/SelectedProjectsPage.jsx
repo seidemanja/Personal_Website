@@ -182,17 +182,17 @@ function SelectedProjectsPage() {
                           className={`${styles.cardImage} ${styles.narrowCardImage} sp-img sp-img-narrow`}
                           src={project.narrowImageSrc}
                           alt=""
-                          width="824"
-                          height="294"
+                          width={project.imageClassName === 'sp-image-twitter' ? '533' : '824'}
+                          height={project.imageClassName === 'sp-image-twitter' ? '299' : '294'}
                           loading="eager"
                           decoding="sync"
                           fetchpriority="high"
                           style={
                             project.imageClassName === 'sp-image-twitter'
                               ? {
-                                  width: 'auto',
+                                  width: '60%',
                                   maxWidth: '100%',
-                                  height: '100%',
+                                  height: 'auto',
                                   maxHeight: '100%',
                                   objectFit: 'contain',
                                   objectPosition: 'center center',
