@@ -175,8 +175,8 @@
         background: #fff;
         text-decoration: none;
         box-shadow:
-          3px 6px 14px rgba(0, 0, 0, 0.075),
-          7px 12px 28px rgba(0, 0, 0, 0.045);
+          1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
+          3px 6px 28px 4px rgba(0, 0, 0, 0.05);
         transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
       }
 
@@ -206,8 +206,8 @@
       .sp-card:focus-visible {
         background: #f9f9f9;
         box-shadow:
-          4px 8px 18px rgba(0, 0, 0, 0.1),
-          9px 16px 34px rgba(0, 0, 0, 0.06);
+          1px 4px 18px 4px rgba(0, 0, 0, 0.1075),
+          4px 8px 34px 5px rgba(0, 0, 0, 0.065);
         outline: none;
         transform: translateY(-1px);
       }
@@ -440,8 +440,8 @@
           background: #fff;
           text-decoration: none;
           box-shadow:
-            3px 6px 14px rgba(0, 0, 0, 0.075),
-            7px 12px 28px rgba(0, 0, 0, 0.045);
+            1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
+            3px 6px 28px 4px rgba(0, 0, 0, 0.05);
         }
 
         .sp-card > .sp-card-link-icon {
@@ -1208,8 +1208,8 @@
         border-radius: 8px;
         background: #fff;
         box-shadow:
-          2px 4px 12px rgba(0, 0, 0, 0.07),
-          4px 8px 24px rgba(0, 0, 0, 0.04);
+          1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
+          3px 6px 28px 4px rgba(0, 0, 0, 0.05);
         text-decoration: none;
       }
 
@@ -1445,8 +1445,8 @@
         color: inherit;
         text-decoration: none;
         box-shadow:
-          2px 4px 12px rgba(0, 0, 0, 0.07),
-          4px 8px 24px rgba(0, 0, 0, 0.04);
+          1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
+          3px 6px 28px 4px rgba(0, 0, 0, 0.05);
       }
 
       .pd-example-media {
@@ -1511,6 +1511,12 @@
 
       .pd-nft-card .pd-example-meta {
         padding: 9px 42px 13px 12px;
+      }
+
+      .pd-nft-card {
+        box-shadow:
+          2px 4px 12px rgba(0, 0, 0, 0.07),
+          4px 8px 24px rgba(0, 0, 0, 0.04);
       }
 
       .pd-nft-card .pd-example-meta strong {
@@ -1782,7 +1788,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v21'
+            && snapshot?.version === 'project-detail-refresh-v26'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

@@ -398,8 +398,8 @@
   border-radius: 10px;
   background: #fff;
   box-shadow:
-    2px 4px 12px rgba(0, 0, 0, 0.07),
-    4px 8px 24px rgba(0, 0, 0, 0.04);
+    1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
+    3px 6px 28px 4px rgba(0, 0, 0, 0.05);
 }
 
 .exampleLinkCard {
@@ -416,8 +416,8 @@
 .exampleLinkCard:focus-visible {
   background: #f9f9f9;
   box-shadow:
-    3px 6px 18px rgba(0, 0, 0, 0.1),
-    6px 12px 32px rgba(0, 0, 0, 0.06);
+    1px 4px 18px 4px rgba(0, 0, 0, 0.1075),
+    4px 8px 34px 5px rgba(0, 0, 0, 0.065);
   outline: none;
   transform: translateY(-1px);
 }
@@ -500,6 +500,19 @@
 
 .nftCard .exampleMeta {
   padding: 9px 42px 13px 12px;
+}
+
+.nftCard {
+  box-shadow:
+    2px 4px 12px rgba(0, 0, 0, 0.07),
+    4px 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.nftCard:hover,
+.nftCard:focus-visible {
+  box-shadow:
+    3px 6px 18px rgba(0, 0, 0, 0.1),
+    6px 12px 32px rgba(0, 0, 0, 0.06);
 }
 
 .nftCard .exampleMeta strong {

@@ -91,8 +91,8 @@
   border-radius: 7.6px;
   background: #ffffff;
   box-shadow:
-    3px 6px 14px rgba(0, 0, 0, 0.075),
-    7px 12px 28px rgba(0, 0, 0, 0.045);
+    1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
+    3px 6px 28px 4px rgba(0, 0, 0, 0.05);
   text-decoration: none;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -128,8 +128,8 @@
 .card:hover {
   background: #f9f9f9;
   box-shadow:
-    4px 8px 18px rgba(0, 0, 0, 0.1),
-    9px 16px 34px rgba(0, 0, 0, 0.06);
+    1px 4px 18px 4px rgba(0, 0, 0, 0.1075),
+    4px 8px 34px 5px rgba(0, 0, 0, 0.065);
   outline: none;
   transform: translateY(-1px);
 }
