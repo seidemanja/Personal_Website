@@ -12,8 +12,8 @@ const projects = [
     description:
       'Owned roadmap and requirements for 30+ data analytics products, including AI-enabled products with LLM integration and semantic search.',
     imageClassName: 'sp-image-deloitte',
-    imageSrc: '/images/deloitte-card-wireframe-square.svg',
-    narrowImageSrc: '/images/deloitte-card-wireframe-square-narrow.png',
+    imageSrc: '/images/pm_roadmap.png',
+    narrowImageSrc: '/images/pm_roadmap_narrow.png',
     technologies: ['Product Management', 'AI/ML', 'Analytics', 'PMP'],
     title: 'Product Management for Data & AI Products',
     to: '/projects/product-management-data-ai',
@@ -22,9 +22,9 @@ const projects = [
     category: 'professional',
     imageClassName: 'sp-image-neuroscience',
     description:
-      'Conducted a research program investigating perceptual decision making. Designed experiments, built real-time research software, analyzed data, and published findings in leading journals.',
+      'Conducted a research program on rapid decision making. Designed experiments, built real-time software, analyzed data, and published findings in leading journals.',
     desktopDescription:
-      'Conducted a research program investigating perceptual decision making. Designed experiments, built real-time research software, analyzed data, and published findings in leading journals.',
+      'Conducted a research program on rapid decision making. Designed experiments, built real-time software, analyzed data, and published findings in leading journals.',
     imageSrc: '/images/Tach_Curve_mod.png',
     narrowImageSrc: '/images/3_tach_curves_mod.png',
     technologies: [
@@ -182,8 +182,20 @@ function SelectedProjectsPage() {
                           className={`${styles.cardImage} ${styles.narrowCardImage} sp-img sp-img-narrow`}
                           src={project.narrowImageSrc}
                           alt=""
-                          width={project.imageClassName === 'sp-image-twitter' ? '533' : '824'}
-                          height={project.imageClassName === 'sp-image-twitter' ? '299' : '294'}
+                          width={
+                            project.imageClassName === 'sp-image-twitter'
+                              ? '533'
+                              : project.imageClassName === 'sp-image-deloitte'
+                                ? '1123'
+                                : '824'
+                          }
+                          height={
+                            project.imageClassName === 'sp-image-twitter'
+                              ? '299'
+                              : project.imageClassName === 'sp-image-deloitte'
+                                ? '434'
+                                : '294'
+                          }
                           loading="eager"
                           decoding="sync"
                           fetchpriority="high"

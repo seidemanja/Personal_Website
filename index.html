@@ -135,7 +135,7 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 4px;
-        border-bottom: 0.5px solid rgba(0, 0, 0, 0.14);
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
       }
 
       .sp-section-title {
@@ -177,6 +177,45 @@
         box-shadow:
           3px 6px 14px rgba(0, 0, 0, 0.075),
           7px 12px 28px rgba(0, 0, 0, 0.045);
+        transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      }
+
+      .sp-card-link-icon {
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        color: #777773;
+        border: 0.5px solid rgba(0, 0, 0, 0.14);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.88);
+        pointer-events: none;
+      }
+
+      .sp-card-link-icon svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 1.7;
+      }
+
+      .sp-card:hover,
+      .sp-card:focus-visible {
+        background: #f9f9f9;
+        box-shadow:
+          4px 8px 18px rgba(0, 0, 0, 0.1),
+          9px 16px 34px rgba(0, 0, 0, 0.06);
+        outline: none;
+        transform: translateY(-1px);
+      }
+
+      .sp-card:hover .sp-card-link-icon,
+      .sp-card:focus-visible .sp-card-link-icon {
+        color: #292927;
+        border-color: rgba(0, 0, 0, 0.24);
       }
 
       .sp-image-slot {
@@ -215,11 +254,6 @@
           background-size: cover;
         }
 
-        .sp-image-personal-website .sp-img {
-          transform: scaleY(1.055);
-          transform-origin: top center;
-        }
-
       }
 
       .sp-image-dark {
@@ -246,13 +280,13 @@
       }
 
       .sp-image-deloitte {
-        background: #eef1f4;
+        background: #fff;
       }
 
       .sp-image-deloitte .sp-img {
+        object-fit: contain;
         object-position: center;
-        transform: scale(1.18);
-        transform-origin: center;
+        transform: none;
       }
 
       .sp-image-neuroscience {
@@ -325,6 +359,40 @@
 
       .sp-img-narrow {
         display: none;
+      }
+
+      @media (min-width: 861px) {
+        .sp-image-personal-website,
+        .sp-image-twitter {
+          padding: 0;
+        }
+
+        .sp-image-deloitte .sp-card-picture,
+        .sp-image-neuroscience .sp-card-picture,
+        .sp-image-twitter .sp-card-picture,
+        .sp-image-personal-website .sp-card-picture {
+          display: grid;
+          place-items: center;
+          background: #fff !important;
+          background-image: none !important;
+        }
+
+        .sp-image-personal-website .sp-card-picture picture {
+          display: grid;
+          place-items: center;
+        }
+
+        .sp-image-deloitte .sp-img,
+        .sp-image-neuroscience .sp-img,
+        .sp-image-twitter .sp-img,
+        .sp-image-personal-website .sp-img {
+          width: 88% !important;
+          height: 88% !important;
+          margin: 0 !important;
+          object-fit: contain !important;
+          object-position: center !important;
+          transform: none !important;
+        }
       }
 
       .sp-desktop-copy {
@@ -1611,14 +1679,14 @@
     <link rel="preload" href="/images/Google_Scholar_logo.svg" as="image" />
     <link
       rel="preload"
-      href="/images/deloitte-card-wireframe-square.svg"
+      href="/images/pm_roadmap.png"
       as="image"
       media="(min-width: 861px)"
       fetchpriority="high"
     />
     <link
       rel="preload"
-      href="/images/deloitte-card-wireframe-square-narrow.png"
+      href="/images/pm_roadmap_narrow.png"
       as="image"
       media="(max-width: 860px)"
       fetchpriority="high"
@@ -1714,7 +1782,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v20'
+            && snapshot?.version === 'project-detail-refresh-v21'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

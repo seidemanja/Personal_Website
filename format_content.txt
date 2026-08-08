@@ -9,6 +9,7 @@ PAGE FRAME
 - Project-detail hero: title Georgia 2.38rem/1.08, metadata .78rem, body .86rem/1.72, body max-width 760px.
 - Project-detail sections: heading Georgia 1.5rem; support text .78rem/1.5. Section rhythm is always 28px from prior content to divider, then 30px from divider to next section content.
 - Selected Projects overview has its own centered 779px content column; do not force it to match project-detail width.
+- Selected Projects section header dividers are quiet grouping cues: keep the rule at `0.5px solid rgba(0, 0, 0, 0.08)` unless intentionally restyling the overview.
 - Navbar dimensions/typography and 56px left/right inset are shared and must not shift between routes, viewport widths or while scrolling. It remains 47px high with .94rem links and .99rem brand; narrow breakpoints may reduce only gaps between items. Keep sticky interior navigation opaque.
 - Resume pages are fixed-layout documents. Changing viewport width must never reflow or rewrap resume text; every word must keep the same relative position on the resume page. For narrow widths, scale the complete resume surface uniformly from the fixed desktop layout instead of changing the resume document width, padding, font size, or line wrapping independently.
 

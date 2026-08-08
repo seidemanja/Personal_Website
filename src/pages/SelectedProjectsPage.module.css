@@ -52,7 +52,7 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 4px;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.14);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
 }
 
 .sectionTitle {
@@ -94,6 +94,7 @@
     3px 6px 14px rgba(0, 0, 0, 0.075),
     7px 12px 28px rgba(0, 0, 0, 0.045);
   text-decoration: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .cardLinkIcon {
@@ -109,6 +110,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.88);
   pointer-events: none;
+  z-index: 2;
 }
 
 .cardLinkIcon svg {
@@ -207,13 +209,13 @@
 }
 
 :global(.sp-image-deloitte) {
-  background: #eef1f4;
+  background: #fff;
 }
 
 :global(.sp-image-deloitte) .cardImage {
+  object-fit: contain;
   object-position: center;
-  transform: scale(1.18);
-  transform-origin: center;
+  transform: none;
 }
 
 :global(.sp-image-neuroscience) {
@@ -244,11 +246,6 @@
     background-size: cover;
   }
 
-  :global(.sp-image-personal-website) .cardImage {
-    transform: scaleY(1.055);
-    transform-origin: top center;
-  }
-
 }
 
 .desktopCardImage {
@@ -257,6 +254,40 @@
 
 .narrowCardImage {
   display: none;
+}
+
+@media (min-width: 861px) {
+  :global(.sp-image-personal-website).imageContainFrame,
+  :global(.sp-image-twitter).imageInset {
+    padding: 0;
+  }
+
+  :global(.sp-image-deloitte) .cardPicture,
+  :global(.sp-image-neuroscience) .cardPicture,
+  :global(.sp-image-twitter) .cardPicture,
+  :global(.sp-image-personal-website) .cardPicture {
+    display: grid;
+    place-items: center;
+    background: #fff !important;
+    background-image: none !important;
+  }
+
+  :global(.sp-image-personal-website) .cardPicture picture {
+    display: grid;
+    place-items: center;
+  }
+
+  :global(.sp-image-deloitte) .cardImage,
+  :global(.sp-image-neuroscience) .cardImage,
+  :global(.sp-image-twitter) .cardImage,
+  :global(.sp-image-personal-website) .cardImage {
+    width: 88% !important;
+    height: 88% !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+  }
 }
 
 .cardContent {
