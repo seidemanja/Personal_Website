@@ -183,6 +183,7 @@
   width: 100%;
   height: 100%;
   display: block;
+  position: relative;
   overflow: hidden;
 }
 
@@ -341,6 +342,35 @@
     gap: 21px;
   }
 
+  .card > .cardLinkIcon {
+    position: absolute !important;
+    right: 20px !important;
+    bottom: 20px !important;
+    left: auto !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    box-sizing: border-box;
+    line-height: 1;
+    color: #777773;
+    border: 0.5px solid rgba(0, 0, 0, 0.14);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.88);
+    transform: none !important;
+  }
+
+  .card > .cardLinkIcon svg {
+    width: 14px !important;
+    height: 14px !important;
+    display: block;
+    flex: none;
+  }
+
   .imagePlaceholder {
     width: calc(100% - 36px);
     max-width: 680px;
@@ -350,7 +380,7 @@
     border-right: 0;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
     background: #fff;
-    background-image: var(--sp-narrow-image);
+    background-image: none;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -372,11 +402,18 @@
     background-image: none;
   }
 
+  :global(.sp-image-twitter).imageInset {
+    aspect-ratio: 824 / 294;
+    padding: 0;
+    background: #fff;
+    background-image: none;
+  }
+
   .imageContainFrame {
     aspect-ratio: 824 / 294;
     padding: 0;
     background: #f4f4f2;
-    background-image: var(--sp-narrow-image);
+    background-image: none;
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
@@ -390,8 +427,17 @@
     background: #000;
   }
 
+  :global(.sp-image-twitter).imageInset .cardPicture {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    background-image: none;
+  }
+
   .imagePlaceholder:not(.imageInsetDark):not(.imageContainFrame) .cardPicture {
-    background-image: var(--sp-narrow-image);
+    background-image: none;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -412,22 +458,57 @@
   :global(.sp-image-deloitte) {
     aspect-ratio: 824 / 294;
     background: #fdfdfc;
+    background-image: none;
+    background-position: center;
+    background-size: contain;
+  }
+
+  :global(.sp-image-deloitte) .cardPicture {
+    background: #fff;
+    background-image: none;
+    background-position: center;
+    background-size: contain;
+  }
+
+  :global(.sp-image-deloitte) .cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
   }
 
   :global(.sp-image-neuroscience) {
     background: #fff;
-    background-image: var(--sp-narrow-image);
+    background-image: none;
+    background-position: center;
     background-size: contain;
   }
 
   :global(.sp-image-neuroscience) .cardPicture {
     background: #fff;
-    background-image: var(--sp-narrow-image);
+    background-image: none;
+    background-position: center;
     background-size: contain;
   }
 
   :global(.sp-image-neuroscience) .cardImage {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+    object-position: center;
+    transform: none;
+  }
+
+  :global(.sp-image-neuroscience) .cardPicture::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: #fff;
+    pointer-events: none;
   }
 
   :global(.sp-image-personal-website) .cardImage {
@@ -441,6 +522,16 @@
     width: 62%;
     height: 58%;
     object-fit: contain;
+  }
+
+  :global(.sp-image-twitter).imageInset .cardImage {
+    width: auto !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
   }
 
   .cardContent {
@@ -500,6 +591,24 @@
   :global(.sp-image-personal-website) .cardImage {
     object-fit: cover !important;
     object-position: center top !important;
+  }
+
+  :global(.sp-image-neuroscience) {
+    background-image: none;
+    background-position: center;
+    background-size: contain;
+  }
+
+  :global(.sp-image-neuroscience) .cardPicture {
+    background-image: none;
+    background-position: center;
+    background-size: contain;
+  }
+
+  :global(.sp-image-neuroscience) .cardImage {
+    object-fit: contain;
+    object-position: center;
+    transform: none;
   }
 
   .imageInsetDark {

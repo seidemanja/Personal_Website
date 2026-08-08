@@ -197,6 +197,7 @@
         width: 100%;
         height: 100%;
         display: block;
+        position: relative;
         overflow: hidden;
       }
 
@@ -375,6 +376,35 @@
             7px 12px 28px rgba(0, 0, 0, 0.045);
         }
 
+        .sp-card > .sp-card-link-icon {
+          position: absolute !important;
+          right: 20px !important;
+          bottom: 20px !important;
+          left: auto !important;
+          width: 24px !important;
+          height: 24px !important;
+          min-width: 24px !important;
+          min-height: 24px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          display: grid !important;
+          place-items: center !important;
+          box-sizing: border-box;
+          line-height: 1;
+          color: #777773;
+          border: 0.5px solid rgba(0, 0, 0, 0.14);
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.88);
+          transform: none !important;
+        }
+
+        .sp-card > .sp-card-link-icon svg {
+          width: 14px !important;
+          height: 14px !important;
+          display: block;
+          flex: none;
+        }
+
         .sp-image-slot {
           box-sizing: border-box;
           width: calc(100% - 36px);
@@ -385,7 +415,7 @@
           border-right: 0;
           border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
           background: #fff;
-          background-image: var(--sp-narrow-image);
+          background-image: none;
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
@@ -426,26 +456,92 @@
         }
 
         .sp-image-slot:not(.sp-image-dark):not(.sp-image-personal-website) .sp-card-picture {
-          background-image: var(--sp-narrow-image);
+          background-image: none;
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
         }
 
+        .sp-image-deloitte {
+          aspect-ratio: 824 / 294;
+          background: #fdfdfc;
+          background-image: none;
+          background-position: center;
+          background-size: contain;
+        }
+
+        .sp-image-deloitte .sp-card-picture {
+          background: #fff;
+          background-image: none;
+          background-position: center;
+          background-size: contain;
+        }
+
+        .sp-image-deloitte .sp-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: center;
+          transform: none;
+        }
+
         .sp-image-neuroscience {
           background: #fff;
-          background-image: var(--sp-narrow-image);
+          background-image: none;
+          background-position: center;
           background-size: contain;
         }
 
         .sp-image-neuroscience .sp-card-picture {
           background: #fff;
-          background-image: var(--sp-narrow-image);
+          background-image: none;
+          background-position: center;
           background-size: contain;
         }
 
         .sp-image-neuroscience .sp-img {
+          width: 100%;
+          height: 100%;
           object-fit: contain;
+          object-position: center;
+          transform: none;
+        }
+
+        .sp-image-neuroscience .sp-card-picture::after {
+          content: '';
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          height: 1px;
+          background: #fff;
+          pointer-events: none;
+        }
+
+        .sp-image-twitter {
+          aspect-ratio: 824 / 294;
+          padding: 0;
+          background: #fff;
+          background-image: none;
+        }
+
+        .sp-image-twitter .sp-card-picture {
+          width: 100%;
+          height: 100%;
+          display: grid;
+          place-items: center;
+          background: #fff;
+          background-image: none;
+        }
+
+        .sp-image-twitter .sp-img {
+          width: auto !important;
+          max-width: 100% !important;
+          height: 100% !important;
+          max-height: 100% !important;
+          object-fit: contain !important;
+          object-position: center center !important;
+          transform: none !important;
         }
 
         .sp-image-personal-website .sp-card-picture {
@@ -550,7 +646,9 @@
 
         .sp-image-deloitte {
           aspect-ratio: 824 / 294;
-          background: #eef1f4;
+          background: #fdfdfc;
+          background-position: center;
+          background-size: contain;
         }
 
         .sp-image-personal-website .sp-img {
@@ -1536,27 +1634,27 @@
     />
     <link
       rel="preload"
-      href="/images/tach_curve_w_labels_sq.png"
+      href="/images/Tach_Curve_mod.png"
       as="image"
       media="(min-width: 861px)"
       fetchpriority="high"
     />
     <link
       rel="preload"
-      href="/images/tach_curve_w_labels_sq.png"
+      href="/images/3_tach_curves_mod.png"
       as="image"
       media="(max-width: 860px)"
       fetchpriority="high"
     />
     <link
       rel="preload"
-      href="/images/NFT_Giveaway_Post_Dark.PNG"
+      href="/images/NFT_Giveaway_Post.PNG"
       as="image"
       media="(min-width: 861px)"
     />
     <link
       rel="preload"
-      href="/images/NFT_Giveaway_Post_Dark_narrow.PNG"
+      href="/images/NFT_Giveaway_Post_narrow.PNG"
       as="image"
       media="(max-width: 860px)"
       fetchpriority="high"
@@ -1597,7 +1695,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v12'
+            && snapshot?.version === 'project-detail-refresh-v19'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

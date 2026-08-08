@@ -25,8 +25,8 @@ const projects = [
       'Conducted a research program investigating perceptual decision making. Designed experiments, built real-time research software, analyzed data, and published findings in leading journals.',
     desktopDescription:
       'Conducted a research program investigating perceptual decision making. Designed experiments, built real-time research software, analyzed data, and published findings in leading journals.',
-    imageSrc: '/images/tach_curve_w_labels_sq.png',
-    narrowImageSrc: '/images/tach_curve_w_labels_sq.png',
+    imageSrc: '/images/Tach_Curve_mod.png',
+    narrowImageSrc: '/images/3_tach_curves_mod.png',
     technologies: [
       'Experimental Design',
       'MATLAB',
@@ -68,9 +68,9 @@ const projects = [
     description:
       'Built an end-to-end system that automates giveaway discovery and engagement workflows on Twitter. Won 700+ digital assets through automated participation.',
     imageClassName: 'sp-image-twitter',
-    imageFrameClassName: styles.imageInsetDark,
-    imageSrc: '/images/NFT_Giveaway_Post_Dark.PNG',
-    narrowImageSrc: '/images/NFT_Giveaway_Post_Dark_narrow.PNG',
+    imageFrameClassName: styles.imageInset,
+    imageSrc: '/images/NFT_Giveaway_Post.PNG',
+    narrowImageSrc: '/images/NFT_Giveaway_Post_narrow.PNG',
     technologies: ['Python', 'Twitter API', 'AWS'],
     title: 'Automated Twitter Giveaway Entry',
     to: '/projects/twitter-automation',
@@ -187,6 +187,20 @@ function SelectedProjectsPage() {
                           loading="eager"
                           decoding="sync"
                           fetchpriority="high"
+                          style={
+                            project.imageClassName === 'sp-image-twitter'
+                              ? {
+                                  width: 'auto',
+                                  maxWidth: '100%',
+                                  height: '100%',
+                                  maxHeight: '100%',
+                                  objectFit: 'contain',
+                                  objectPosition: 'center center',
+                                  transform: 'none',
+                                  backgroundColor: '#fff',
+                                }
+                              : undefined
+                          }
                         />
                           ) : null}
                         </>
@@ -238,7 +252,7 @@ function SelectedProjectsPage() {
                     ))}
                   </ul>
                 </div>
-                <span className={styles.cardLinkIcon} aria-hidden="true">
+                <span className={`${styles.cardLinkIcon} sp-card-link-icon`} aria-hidden="true">
                   <ChevronRight />
                 </span>
               </>
