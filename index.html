@@ -178,6 +178,7 @@
           1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
           3px 6px 28px 4px rgba(0, 0, 0, 0.05);
         transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        will-change: transform;
       }
 
       .sp-card-link-icon {
@@ -1211,6 +1212,7 @@
           1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
           3px 6px 28px 4px rgba(0, 0, 0, 0.05);
         text-decoration: none;
+        will-change: transform;
       }
 
       .pd-work-card h3 {
@@ -1447,6 +1449,7 @@
         box-shadow:
           1px 3px 14px 3px rgba(0, 0, 0, 0.0825),
           3px 6px 28px 4px rgba(0, 0, 0, 0.05);
+        will-change: transform;
       }
 
       .pd-example-media {
@@ -1788,7 +1791,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v26'
+            && snapshot?.version === 'project-detail-refresh-v32'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

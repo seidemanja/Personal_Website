@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import {
-  getNIHGrantUrl,
-  NIH_GRANT_FALLBACK_URL,
-  refreshNIHGrantUrl,
-  subscribeToNIHGrantUrl,
-} from '../nihGrant.js';
+  getNIHGrantSearchUrl,
+  NIH_GRANT_SEARCH_FALLBACK_URL,
+  refreshNIHGrantSearchUrl,
+  subscribeToNIHGrantSearchUrl,
+} from '../nihGrantSearch.js';
 import styles from './ResumePage.module.css';
 
 function NIHGrantLink({ children }) {
-  const [grantUrl, setGrantUrl] = useState(NIH_GRANT_FALLBACK_URL);
+  const [grantUrl, setGrantUrl] = useState(NIH_GRANT_SEARCH_FALLBACK_URL);
 
   useEffect(() => {
-    setGrantUrl(getNIHGrantUrl());
-    const unsubscribe = subscribeToNIHGrantUrl(setGrantUrl);
-    void refreshNIHGrantUrl().then(setGrantUrl);
+    setGrantUrl(getNIHGrantSearchUrl());
+    const unsubscribe = subscribeToNIHGrantSearchUrl(setGrantUrl);
+    void refreshNIHGrantSearchUrl().then(setGrantUrl);
 
     return unsubscribe;
   }, []);
@@ -28,7 +28,7 @@ function NIHGrantLink({ children }) {
 const workExperience = [
   {
     organization: 'Deloitte Consulting',
-    role: 'Senior Product Manager',
+    role: 'Manager, Product Management',
     dates: '09/2021 – Present',
     bullets: [
       'Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, prioritizing features and release timelines based on user needs and capacity',
@@ -318,9 +318,10 @@ function ResumePage() {
       <article className={`${styles.pageShell} ${styles.resumeDocument}`}>
         <header className={styles.resumeHeader}>
           <h1>Joshua Seideman, Ph.D.</h1>
-          <p className={styles.resumeSubtitle}>Senior Product Manager</p>
+          <p className={styles.resumeSubtitle}>Product Manager</p>
           <p className={styles.contactLine}>
-            josh.seideman@me.com |{' '}
+            <a href="mailto:josh.seideman@me.com">josh.seideman@me.com</a>
+            {' | '}
             <a href="https://www.seidemanphd.com/" rel="noreferrer" target="_blank">
               seidemanphd.com
             </a>
@@ -335,7 +336,7 @@ function ResumePage() {
           </p>
           <p className={styles.resumeSummary}>
             <span className={styles.summaryLine}>
-              Senior Product Manager with 6+ years of experience driving
+              Product Manager with 5+ years of experience driving
               roadmaps, prioritization, and delivery across a
             </span>
             <span className={styles.summaryLine}>

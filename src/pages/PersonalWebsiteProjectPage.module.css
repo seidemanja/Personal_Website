@@ -336,6 +336,7 @@
     background-color 200ms ease,
     box-shadow 200ms ease,
     transform 200ms ease;
+  will-change: transform;
 }
 
 .galleryCard:hover,

@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Check, Copy, Mail } from 'lucide-react';
 import Navigation from '../components/Navigation.jsx';
-import { refreshNIHGrantUrl } from '../nihGrant.js';
+import { refreshNIHGrantSearchUrl } from '../nihGrantSearch.js';
 import styles from './HomePage.module.css';
 
 const EMAIL_ADDRESS = 'josh.seideman@me.com';
@@ -34,7 +34,7 @@ function HomePage() {
   const emailMenuRef = useRef(null);
 
   useEffect(() => {
-    void refreshNIHGrantUrl({ force: true });
+    void refreshNIHGrantSearchUrl({ force: true });
   }, []);
 
   useEffect(() => {

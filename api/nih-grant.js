@@ -1,7 +1,5 @@
 const NIH_API_URL = 'https://api.reporter.nih.gov/v2/projects/search';
-const PROJECT_NUMBER = '1F31EY029154-01';
-const PROJECT_TITLE =
-  'Elucidating the role of the lateral intraparietal area in visually-guided choice behavior';
+const PROJECT_NUMBER = 'F31EY029154';
 
 export default async function handler(request, response) {
   if (request.method !== 'GET') {
@@ -23,6 +21,7 @@ export default async function handler(request, response) {
           'ProjectNum',
           'ProjectTitle',
           'ApplId',
+          'FiscalYear',
           'ProjectDetailUrl',
         ],
         offset: 0,
@@ -35,15 +34,23 @@ export default async function handler(request, response) {
     }
 
     const data = await nihResponse.json();
-    const grant = data.results?.find(
-      (result) =>
-        result.project_num === PROJECT_NUMBER &&
-        result.project_title?.toLowerCase() === PROJECT_TITLE.toLowerCase(),
+    const searchId = data.meta?.search_id;
+    const grants = data.results?.filter((result) =>
+      result.project_num?.includes(PROJECT_NUMBER),
+    );
+    const originalGrant = grants?.find(
+      (grant) => grant.project_num === '1F31EY029154-01',
     );
 
-    if (!grant?.project_detail_url) {
+    if (
+      !/^[A-Za-z0-9_-]+$/.test(searchId ?? '') ||
+      !grants?.length ||
+      !originalGrant?.project_detail_url
+    ) {
       throw new Error('The requested grant was not found');
     }
+
+    const grantSearchUrl = `https://reporter.nih.gov/search/${searchId}/projects`;
 
     response.setHeader(
       'Cache-Control',
@@ -51,9 +58,11 @@ export default async function handler(request, response) {
     );
 
     return response.status(200).json({
-      projectDetailUrl: grant.project_detail_url,
-      projectNumber: grant.project_num,
-      projectTitle: grant.project_title,
+      grantSearchUrl,
+      projectDetailUrl: originalGrant.project_detail_url,
+      projectNumber: PROJECT_NUMBER,
+      resultCount: grants.length,
+      fiscalYears: grants.map((grant) => grant.fiscal_year).sort((a, b) => a - b),
       refreshedAt: new Date().toISOString(),
     });
   } catch (error) {

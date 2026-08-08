@@ -3,11 +3,11 @@ import { ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
 import {
-  getNIHGrantUrl,
-  NIH_GRANT_FALLBACK_URL,
-  refreshNIHGrantUrl,
-  subscribeToNIHGrantUrl,
-} from '../nihGrant.js';
+  getNIHGrantSearchUrl,
+  NIH_GRANT_SEARCH_FALLBACK_URL,
+  refreshNIHGrantSearchUrl,
+  subscribeToNIHGrantSearchUrl,
+} from '../nihGrantSearch.js';
 import styles from './NeuroscienceProjectPage.module.css';
 
 const scopeOfWork = [
@@ -63,12 +63,12 @@ const publications = [
 ];
 
 function NeuroscienceProjectPage() {
-  const [grantUrl, setGrantUrl] = useState(NIH_GRANT_FALLBACK_URL);
+  const [grantUrl, setGrantUrl] = useState(NIH_GRANT_SEARCH_FALLBACK_URL);
 
   useEffect(() => {
-    setGrantUrl(getNIHGrantUrl());
-    const unsubscribe = subscribeToNIHGrantUrl(setGrantUrl);
-    void refreshNIHGrantUrl().then(setGrantUrl);
+    setGrantUrl(getNIHGrantSearchUrl());
+    const unsubscribe = subscribeToNIHGrantSearchUrl(setGrantUrl);
+    void refreshNIHGrantSearchUrl().then(setGrantUrl);
 
     return unsubscribe;
   }, []);
