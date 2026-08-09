@@ -1,105 +1,117 @@
-# Joshua Seideman — Personal Website
+# Joshua Seideman, PhD — Personal Website
 
-Personal portfolio website for Joshua Seideman, PhD.
+[www.seidemanphd.com](https://www.seidemanphd.com)
 
-Live site: [add deployed URL here]
+A personal portfolio and professional case-study site for Joshua Seideman, PhD, a product manager and scientist working across data, AI, software, and research.
 
-The site presents Josh's professional background, resume, selected projects, research work, publications, and an AI chat assistant grounded in a private Markdown knowledge document covering his work and research.
+The site is designed as both a concise professional profile and a deeper record of how Josh approaches product discovery, delivery, experimentation, and technical problem-solving. It pairs a traditional resume and selected-work portfolio with a grounded AI assistant that lets visitors explore the same material conversationally.
 
-<!-- Optional: add 1-2 screenshots here, e.g. -->
-<!-- ![Homepage screenshot](./readme-assets/homepage.png) -->
+## Site Contents
 
-## Features
+| Area | Purpose |
+| --- | --- |
+| [Home](https://www.seidemanphd.com/) | Professional identity, contact points, and primary navigation |
+| [Resume](https://www.seidemanphd.com/resume) | Product leadership, scientific experience, education, publications, and technical skills |
+| [Selected Work](https://www.seidemanphd.com/projects) | A curated portfolio spanning professional, research, and independent projects |
+| [AI Chat](https://www.seidemanphd.com/ai-chat) | A grounded conversational interface for questions about Josh's background and work |
 
-- Responsive personal homepage
-- Resume page
-- Selected projects overview
-- Project detail pages for:
-  - Instagram content creation and engagement automation
-  - Automated Twitter giveaway entry
-  - PhD research in neuroscience
-- Server-side AI Chat page for questions about Josh's work, projects, research, publications, and technical background
-- PDF export for visible AI chat conversations
-- PWA/service-worker image caching for smoother local and production refresh behavior
+Selected Work includes detailed case studies covering:
 
-## Tech stack
+- Product management for data and AI products
+- PhD research in neuroscience
+- The design and development of this website and its grounded AI assistant
+- Automated Instagram content creation and engagement
+- Automated Twitter giveaway discovery and entry
 
-- JavaScript
-- React / JSX
-- CSS Modules
-- HTML
-- Markdown
-- Node.js server-side API handlers
-- Vite
-- React Router
-- OpenAI API for the AI Chat feature
+The project pages are written to communicate outcomes and decision-making, not just implementation. Depending on the work, they document problem framing, product strategy, experimental design, system architecture, delivery methods, metrics, publications, or representative outputs.
 
-## Local development
+## Product and Engineering Approach
 
-Install dependencies:
+### Content-first responsive design
+
+Layouts are intentionally composed for wide desktop, narrow desktop, and mobile contexts. Responsive behavior includes purpose-selected image variants, breakpoint-specific content treatments, and mobile interaction patterns rather than relying only on proportional scaling.
+
+### Prerendered React application
+
+The site is built as a React application with route-level static prerendering. The production build renders each public route to HTML, inlines critical CSS, and then hydrates the application in the browser. This preserves client-side interactions while improving first render stability and ensuring that core content exists before JavaScript executes.
+
+### Grounded AI assistant
+
+The AI Chat experience is constrained to a server-side knowledge document covering Josh's professional experience, projects, publications, and research. The implementation:
+
+- Keeps the OpenAI API key and grounding source out of the browser bundle
+- Uses an explicit system prompt to define scope, tone, and disclosure boundaries
+- Streams responses from a server-side API for low perceived latency
+- Offers a server-controlled model allowlist rather than accepting arbitrary model names
+- Limits conversation history and input size before forwarding requests
+- Applies session-based request pacing and conversation limits
+- Stores browser chat history in session storage and supports client-side PDF export
+
+### Stable external references
+
+The NIH RePORTER grant link is resolved through a server-side endpoint instead of relying on a permanently hard-coded search URL. The endpoint refreshes the search against the NIH API and returns the current results page for grant `F31EY029154`, with cache and stale-while-revalidate behavior to balance freshness and reliability.
+
+### Performance and interaction stability
+
+The build includes image-focused service-worker caching, critical CSS injection, and route snapshots used to reduce visible layout changes during repeat navigation and refreshes. Interactive controls use semantic labels, and reduced-motion preferences are respected where motion is present.
+
+## Technical Architecture
+
+| Layer | Implementation |
+| --- | --- |
+| UI | React 18, React Router, CSS Modules, Lucide icons |
+| Build | Vite with a custom SSR/prerender pass |
+| Client delivery | Prerendered HTML hydrated in the browser |
+| Server APIs | Node.js serverless handlers |
+| AI | OpenAI Responses API with server-side grounding and streamed SSE responses |
+| External data | NIH RePORTER API for grant-search resolution |
+| Caching | Workbox image caching plus HTTP caching for selected server responses |
+| Hosting | Vercel configuration for static routes, serverless functions, rewrites, and asset headers |
+
+## Repository Structure
+
+```text
+api/                 Serverless endpoints for AI chat, model options, and NIH data
+public/              Images, downloadable documents, and other static assets
+scripts/             Production prerender pipeline
+server/ai/           Grounding, prompting, model selection, streaming, and rate limits
+server/knowledge/    Server-side grounding source for the AI assistant
+src/components/      Shared interface components
+src/pages/           Route-level pages and CSS Modules
+src/entry-server.jsx Server-rendering entry point
+```
+
+## Development and Deployment
+
+The repository uses a small command surface:
 
 ```bash
 npm install
-```
-
-Run the local development server:
-
-```bash
-npm run dev -- --host 0.0.0.0
-```
-
-Desktop local URL:
-
-```text
-http://localhost:5173/
-```
-
-Mobile testing URL:
-
-Use the `Network:` URL printed by Vite, for example:
-
-```text
-http://<your-local-ip>:5173/
-```
-
-The AI Chat API is available during local development through the Vite middleware.
-
-## Production build
-
-```bash
+npm run dev
 npm run build
+npm run preview
 ```
 
-Preview the production build:
+`npm run build` creates the client bundle, builds the server-rendering entry point, prerenders the public routes, injects critical styles, and removes the temporary SSR bundle.
 
-```bash
-npm run preview -- --host 0.0.0.0
-```
+The AI assistant requires the following server-side environment variables:
 
-Vite preview serves the static production build. For local AI Chat API testing, use `npm run dev`.
+| Variable | Purpose |
+| --- | --- |
+| `OPENAI_API_KEY` | Authenticates server-side OpenAI requests |
+| `OPENAI_MODEL` | Configures the primary allowed model |
+| `OPENAI_FALLBACK_MODEL` | Configures the alternate allowed model |
+| `GROUNDING_DOC_VERSION` | Versions the static prompt context for cache management |
 
-## AI Chat configuration
+Optional stream diagnostics can be enabled with `CHAT_STREAM_DEBUG` on the server and `VITE_CHAT_STREAM_DEBUG` in the client build.
 
-The AI Chat feature uses server-side OpenAI API calls. Required environment variables:
+## Author
 
-```text
-OPENAI_API_KEY
-OPENAI_MODEL
-OPENAI_FALLBACK_MODEL
-GROUNDING_DOC_VERSION
-```
-
-The API key must remain server-side and should never be committed to GitHub.
-
-The grounding document is stored server-side under `server/knowledge/` and is intentionally excluded from the public/static asset directory.
-
-## About
-
-Built by Joshua Seideman, PhD.
+Joshua Seideman, PhD
 
 - [LinkedIn](https://www.linkedin.com/in/joshua-a-seideman/)
 - [Email](mailto:josh.seideman@me.com)
 
 ## License
 
-All rights reserved.
+All rights reserved. Site content, writing, visual assets, and source code may not be reused without permission.
