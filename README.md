@@ -1,23 +1,21 @@
 # Joshua Seideman, PhD — Personal Website
 
-[www.seidemanphd.com](https://www.seidemanphd.com)
+[www.seidemanphd.com](https://www.seidemanphd.com/)
 
-A personal portfolio featuring detailed project case studies for Joshua Seideman, PhD, a product manager and scientist working across data, AI, software, and research.
+Personal portfolio and project case studies. Product manager working in data and AI, with a background in neuroscience research.
 
-Joshua Seideman designed and built the site using OpenAI Codex as an AI-assisted coding tool.
-
-The site is designed as both a concise professional profile and a deeper record of how Josh approaches product discovery, delivery, experimentation, and technical problem-solving. It pairs a traditional resume and selected-work portfolio with a grounded AI assistant that lets visitors explore the same material conversationally.
+The site pairs a resume and selected-work portfolio with a grounded AI assistant that lets visitors explore the same material conversationally. Built with AI-assisted development (OpenAI Codex).
 
 ## Site Contents
 
 | Area | Purpose |
 | --- | --- |
-| [Home](https://www.seidemanphd.com/) | Professional identity, contact points, and primary navigation |
-| [Resume](https://www.seidemanphd.com/resume) | Product leadership, scientific experience, education, publications, and technical skills |
-| [Selected Work](https://www.seidemanphd.com/projects) | A curated portfolio spanning professional, research, and independent projects |
-| [AI Chat](https://www.seidemanphd.com/ai-chat) | A grounded conversational interface for questions about Josh's background and work |
+| [Home](https://www.seidemanphd.com/) | My professional identity, contact points, and primary navigation |
+| [Resume](https://www.seidemanphd.com/resume) | My product leadership, scientific experience, education, publications, and technical skills |
+| [Selected Work](https://www.seidemanphd.com/projects) | A curated portfolio of my professional, research, and independent projects |
+| [AI Chat](https://www.seidemanphd.com/ai-chat) | A grounded conversational interface for questions about my background and work |
 
-Selected Work includes detailed project pages covering:
+My Selected Work portfolio includes detailed project pages covering:
 
 - Product management for data and AI products
 - PhD research in neuroscience
@@ -25,37 +23,37 @@ Selected Work includes detailed project pages covering:
 - Automated Instagram content creation and engagement
 - Automated Twitter giveaway discovery and entry
 
-Each page is structured around the aspects most relevant to the work, including outcomes, decision-making, problem framing, product strategy, experimental design, system architecture, delivery methods, metrics, publications, and representative outputs.
+I structured each page around the aspects most relevant to the work, including outcomes, decision-making, problem framing, product strategy, experimental design, system architecture, delivery methods, metrics, publications, and representative outputs.
 
 ## Product and Engineering Approach
 
 ### Content-first responsive design
 
-Layouts are intentionally composed for wide desktop, narrow desktop, and mobile contexts. Responsive behavior includes purpose-selected image variants, breakpoint-specific content treatments, and mobile interaction patterns rather than relying only on proportional scaling.
+I intentionally composed layouts for wide desktop, narrow desktop, and mobile contexts. The responsive design uses purpose-selected image variants, breakpoint-specific content treatments, and mobile interaction patterns rather than relying only on proportional scaling.
 
 ### Prerendered React application
 
-The site is built as a React application with route-level static prerendering. The production build renders each public route to HTML, inlines critical CSS, and then hydrates the application in the browser. This preserves client-side interactions while improving first render stability and ensuring that core content exists before JavaScript executes.
+I built the site as a React application with route-level static prerendering. The production build renders each public route to HTML, inlines critical CSS, and then hydrates the application in the browser. This preserves client-side interactions while improving first render stability and ensuring that core content exists before JavaScript executes.
 
 ### Grounded AI assistant
 
-The AI Chat experience is constrained to a server-side knowledge document covering Josh's professional experience, projects, publications, and research. The implementation:
+I constrained the AI Chat experience to a server-side knowledge document covering my professional experience, projects, publications, and research. I made the following design and engineering choices:
 
-- Keeps the OpenAI API key and grounding source out of the browser bundle
-- Uses an explicit system prompt to define scope, tone, and disclosure boundaries
-- Streams responses from a server-side API for low perceived latency
-- Offers a server-controlled model allowlist rather than accepting arbitrary model names
-- Limits conversation history and input size before forwarding requests
-- Applies session-based request pacing and conversation limits
-- Stores browser chat history in session storage and supports client-side PDF export
+- I keep my OpenAI API key and grounding source out of the browser bundle
+- I use an explicit system prompt to define scope, tone, and disclosure boundaries
+- I stream responses from a server-side API for low perceived latency
+- I offer a server-controlled model allowlist rather than accepting arbitrary model names
+- I limit conversation history and input size before forwarding requests
+- I apply session-based request pacing and conversation limits
+- I store browser chat history in session storage and support client-side PDF export
 
 ### Stable external references
 
-The NIH RePORTER grant link is resolved through a server-side endpoint instead of relying on a permanently hard-coded search URL. The endpoint refreshes the search against the NIH API and returns the current results page for grant `F31EY029154`, with cache and stale-while-revalidate behavior to balance freshness and reliability.
+I resolve my NIH RePORTER grant link through a server-side endpoint instead of relying on a permanently hard-coded search URL. The endpoint refreshes the search against the NIH API and returns the current results page for grant `F31EY029154`, with cache and stale-while-revalidate behavior to balance freshness and reliability.
 
 ### Performance and interaction stability
 
-The build includes image-focused service-worker caching, critical CSS injection, and route snapshots used to reduce visible layout changes during repeat navigation and refreshes. Interactive controls use semantic labels, and reduced-motion preferences are respected where motion is present.
+I use image-focused service-worker caching, critical CSS injection, and route snapshots to reduce visible layout changes during repeat navigation and refreshes. I added semantic labels to interactive controls and respect reduced-motion preferences where motion is present.
 
 ## Technical Architecture
 
@@ -85,7 +83,7 @@ src/entry-server.jsx Server-rendering entry point
 
 ## Development and Deployment
 
-The repository uses a small command surface:
+I keep the repository's command surface small:
 
 ```bash
 npm install
@@ -96,7 +94,7 @@ npm run preview
 
 `npm run build` creates the client bundle, builds the server-rendering entry point, prerenders the public routes, injects critical styles, and removes the temporary SSR bundle.
 
-The AI assistant requires the following server-side environment variables:
+My AI assistant requires the following server-side environment variables:
 
 | Variable | Purpose |
 | --- | --- |
@@ -109,7 +107,7 @@ Optional stream diagnostics can be enabled with `CHAT_STREAM_DEBUG` on the serve
 
 ## Author
 
-Joshua Seideman, PhD
+I am Joshua Seideman, PhD.
 
 ## License
 
