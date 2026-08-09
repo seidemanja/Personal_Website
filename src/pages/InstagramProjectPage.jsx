@@ -123,7 +123,7 @@ function InstagramProjectPage() {
             <h1 className={`${styles.instagramTitle} pd-project-title pd-instagram-title`} id="project-title">
               Instagram Content Creation and Engagement Automation
             </h1>
-            <p className={`${styles.years} pd-years`}>11/2024 – Present</p>
+            <p className={`${styles.years} pd-years`}>11/2024 – 05/2026</p>
             <p className={`${styles.intro} pd-intro`}>
               Designed and built an end-to-end system that automates content
               generation, posting, audience targeting, and engagement for

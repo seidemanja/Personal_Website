@@ -110,7 +110,7 @@ const workExperience = [
           rel="noreferrer"
           target="_blank"
         >
-          six first-author publications
+          five first-author publications
         </a>,
         ', including two in ',
         <cite key="journal">Nature Communications</cite>,
@@ -151,15 +151,15 @@ const independentProjects = [
     ),
     dates: '05/2026 – Present',
     bullets: [
-      'Defined product requirements and directed AI-assisted design (Claude, ChatGPT) of the site UX for a personal portfolio with an integrated AI chat assistant',
+      'Defined product requirements and designed the site for a personal portfolio with an integrated AI chat assistant; used Claude and ChatGPT to evaluate architectural options and iterate on design',
       'Directed AI-assisted development (Codex) to implement, debug, and iterate on a React/Vite system',
-      'Directed AI-assisted architecture of a grounded AI chat feature (OpenAI API, streamed responses, private knowledge base) with guardrails restricting responses to on-topic questions and sensitive content',
+      'Built a grounded AI chat assistant (OpenAI API, streamed responses, private knowledge base), authoring the prompt and guardrail logic to keep responses on-topic and prevent disclosure of sensitive content',
     ],
   },
   {
     organization:
       'Instagram Bot – Web Automation System with AI-Enabled Content Generation',
-    dates: '11/2024 – Present',
+    dates: '11/2024 – 05/2026',
     bullets: [
       <>
         Designed and built an end-to-end web automation system (Python,
@@ -321,11 +321,11 @@ function ResumePage() {
           <p className={styles.resumeSubtitle}>Product Manager</p>
           <p className={styles.contactLine}>
             <a href="mailto:josh.seideman@me.com">josh.seideman@me.com</a>
-            {' | '}
+            {'\u00a0\u00a0|\u00a0\u00a0'}
             <a href="https://www.seidemanphd.com/" rel="noreferrer" target="_blank">
               seidemanphd.com
             </a>
-            {' | '}
+            {'\u00a0\u00a0|\u00a0\u00a0'}
             <a
               href="https://www.linkedin.com/in/joshua-a-seideman/"
               rel="noreferrer"

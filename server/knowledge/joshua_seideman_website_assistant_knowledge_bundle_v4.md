@@ -494,7 +494,7 @@ For more information about the research topics, experimental paradigms, and broa
 
 Page URL: https://www.seidemanphd.com/projects/instagram-automation
 
-11/2024 – Present
+11/2024 – 05/2026
 
 Designed and built an end-to-end system that automates content generation, posting, audience targeting, and engagement for Instagram. The system has grown the account to 2,000+ followers through AI-powered content creation and fully automated engagement workflows.
 
@@ -737,7 +737,7 @@ PMP Certified
 
 ## Zero-to-Launch Product Management
 
-Requests often arrive already framed as solutions. I took a step back to understand and validate the problems behind them, then tested potential solutions with customers using prototypes, scoped first releases that delivered value quickly, and launched in stages against metrics established in advance.
+Requests often arrive already framed as solutions. I took a step back to understand and validate the problems behind them, then tested potential solutions with customers using prototypes, scoped first releases that delivered value quickly, and launched in stages against metrics established in advance where possible.
 
 ### Product Development Flow
 
@@ -755,15 +755,15 @@ Met with customers to understand their day-to-day work, especially what was time
 
 ### Testing the Solution
 
-Once my team and I had a candidate solution, often after an analysis of alternatives, wireframes and prototypes went in front of customers before engineering committed. Sessions focused on whether customers could complete the task without being told how, where their instincts diverged from the design, and which requirements were still undefined.
+Once my team and I had a candidate solution, often after an analysis of alternatives, wireframes and prototypes went in front of customers before engineering committed. Sessions focused on whether customers could complete the task without being told how, where their instincts diverged from the design, and requirements still undefined.
 
 ### Scoping the Build
 
-Scoped first releases to deliver value quickly, then added value incrementally through later releases. Scope was set by risk, testing the assumption most likely to undermine the product. Success metrics were defined before development.
+Scoped first releases to deliver value quickly, then added value incrementally through later releases. Scope was set by risk, testing the assumption most likely to undermine the product. Success metrics were defined before building.
 
 ### Launching and Measuring
 
-Releases were staged: internal, then a pilot group, then broader rollout. Each stage was measured against the metric set before launch, and the result decided whether to iterate, expand to more users, or stop.
+Releases were staged: internal, then a pilot group, then broader rollout. Each stage was measured against the metric set before launch, and the result decided whether to iterate or expand to more users.
 
 ### AI-Assisted Development
 
@@ -781,7 +781,7 @@ Managed product owners and project managers across concurrent initiatives, setti
 
 ### Risk and Transparency
 
-Fostered an environment where team members raised risks early and throughout projects. Ensured each risk had an impact, owner, mitigation, and trigger. Kept customers informed of timelines, assumptions, and risks to align expectations.
+Fostered an environment where team members raised risks early and throughout projects. Ensured each risk had an impact, owner, mitigation and trigger. Kept clients informed of timelines, assumptions, and risks to align expectations.
 
 ## Selected Work
 
@@ -789,7 +789,7 @@ Fostered an environment where team members raised risks early and throughout pro
 
 NIH Artificial Intelligence Symposium, 2025
 
-Delivered an ML-based classification tool for scientific grants to support funding decisions, significantly reducing manual categorization time. Link: https://irp.nih.gov/system/files/media/file/2025-05/nih_artificial_intelligence_symposium_2025-05-16_program_booklet_v1.pdf#page=61
+Delivered an ML-based classification tool that recommends scientific codes for grant applications, achieving over 85% accuracy, recall, and precision and reducing manual curation effort. Link: https://irp.nih.gov/system/files/media/file/2025-05/nih_artificial_intelligence_symposium_2025-05-16_program_booklet_v1.pdf#page=61
 
 
 ## SOURCE DOCUMENTS — EXTRACTED TEXT
@@ -828,15 +828,14 @@ Work Experience
 
  Lexical Intelligence                                                                        08/2020 – 09/2021
  Consultant – Scientific Portfolio Analyst
-   • Contributed to a publicly published strategic plan for the National Institutes of Health (NIH) Office of
-     Portfolio Analysis, authoring a section on measuring data and resource sharing
    • Conducted user research to define requirements and scope for web-based analytics products
    • Served as project manager for select initiatives, coordinating analysts and ensuring timely delivery
-   • Delivered analytical products (slide decks, datasets) to support portfolio analysis and decision-making
+   • Contributed to a publicly published strategic plan for the National Institutes of Health (NIH) Office of
+     Portfolio Analysis, authoring a section on measuring data and resource sharing
    • Wrote custom Python code (Pandas, Jupyter, Matplotlib) to clean, analyze, visualize, and statistically
      summarize large-scale grant and publication datasets (Python; Pandas, Jupyter Notebook, Matplotlib)
+   • Delivered analytical products (slide decks, datasets) to support portfolio analysis and decision-making
    • Taught virtual classes to train NIH staff to perform grant data analyses
-
 
  Wake Forest Graduate School                                                                 08/2014 – 07/2020
  Graduate Research Assistant (PhD)
@@ -848,15 +847,14 @@ Work Experience
    • Programmed an optimization algorithm to fit decision-making model to data (MATLAB)
    • Applied advanced statistical methods – bootstrap, permutation test, linear regression, AUROC
    • Presented findings at numerous national and international conferences
-   • Wrote six first-author publications — including two in Nature Communications (pdf-1, pdf-2)
+   • Wrote five first-author publications — including two in Nature Communications (pdf-1 link https://www.nature.com/articles/s41467-018-05319-w.pdf, pdf-2 link https://www.nature.com/articles/s41467-022-32209-z.pdf)
 
 Independent Projects
  
  Personal Website & AI-Chat Assistant – seidemanphd.com 05/2026 – Present
-   • Defined product requirements and directed AI-assisted design (Claude, ChatGPT) of the site UX for a personal portfolio with an integrated AI chat assistant
+   • Defined product requirements and designed the site for a personal portfolio with an integrated AI chat assistant; used Claude and ChatGPT to evaluate architectural options and iterate on design
    • Directed AI-assisted development (Codex) to implement, debug, and iterate on a React/Vite system
-   • Directed AI-assisted architecture of a grounded AI chat feature (OpenAI API, streamed responses,
-     private knowledge base) with guardrails restricting responses to on-topic questions and sensitive content
+   • Built a grounded AI chat assistant (OpenAI API, streamed responses, private knowledge base), authoring the prompt and guardrail logic to keep responses on-topic and prevent disclosure of sensitive content
 
  Instagram Bot – Web Automation System with AI-Enabled Content Generation                 11/2024 – Present
    • Designed and built an end-to-end web automation system (Python, Selenium) to orchestrate daily content
@@ -905,40 +903,44 @@ Education
 
 
 Published Articles
-Seideman JA, Stanford TR, & Salinas E. (2022). A conflict between spatial selection and evidenceaccumulation in area LIP. Nature communications, 13:4463.Seideman JA, Stanford TR, & Salinas E. (2021). The spatial signal in area LIP is not an obligatorycorrelate of perceptual evidence during informed saccadic choices. bioRxiv, 2021-02.Seideman JA. (2020). The roles of frontal and parietal neurons in informing perceptual choices madeunder urgent temporal uncertainty (Doctoral dissertation, Wake Forest University). ProQuest, 28088659.Stonebarger GA, Urbanski HF, Woltjer RL, Vaughan KL, Ingram DK, Schultz PL, Calderazzo SM,Seideman JA, Mattison JA, Rosene DL, Kohama SG. (2020). Amyloidosis increase is not attenuated bylong-term calorie restriction or related to neuron density in the prefrontal cortex of extremely aged rhesusmacaques. GeroScience, 42, 1733-1749.Seideman JA, Salinas E, Stanford TR. (2019). Perceptual modulation of parietal activity during urgent saccadic choices. bioRxiv, 2019-12.Seideman JA. (2019). A dynamic, imperturbable link between midbrain activity and saccade velocity.Journal of Neurophysiology, 123(2), 451-453.Salinas E, Seideman JA, Stanford TR. (2018). When the simplest voluntary decisions appear patentlysuboptimal. Behavioral and Brain Sciences, 41:e240.Seideman JA, Stanford TR, Salinas E. (2018). Saccade metrics reflect decision-making dynamics duringurgent choices. Nature communications, 9:2907.
+Seideman JA, Stanford TR, & Salinas E. (2022). A conflict between spatial selection and evidence accumulation in area LIP. Nature communications, 13:4463.
+
+Seideman JA, Stanford TR, & Salinas E. (2021). The spatial signal in area LIP is not an obligatory correlate of perceptual evidence during informed saccadic choices. bioRxiv, 2021-02.
+
+Seideman JA. (2020). The roles of frontal and parietal neurons in informing perceptual choices made under urgent temporal uncertainty (Doctoral dissertation, Wake Forest University). ProQuest, 28088659.
+
+Stonebarger GA, Urbanski HF, Woltjer RL, Vaughan KL, Ingram DK, Schultz PL, Calderazzo SM, Seideman JA, Mattison JA, Rosene DL, Kohama SG. (2020). Amyloidosis increase is not attenuated by long-term calorie restriction or related to neuron density in the prefrontal cortex of extremely aged rhesus macaques. GeroScience, 42, 1733-1749.
+
+Seideman JA, Salinas E, Stanford TR. (2019). Perceptual modulation of parietal activity during urgent saccadic choices. bioRxiv, 2019-12.
+
+Seideman JA. (2019). A dynamic, imperturbable link between midbrain activity and saccade velocity. Journal of Neurophysiology, 123(2), 451-453.
+
+Salinas E, Seideman JA, Stanford TR. (2018). When the simplest voluntary decisions appear patently suboptimal. Behavioral and Brain Sciences, 41:e240.
+
+Seideman JA, Stanford TR, Salinas E. (2018). Saccade metrics reflect decision-making dynamics during urgent choices. Nature communications, 9:2907.
+
 
 Published Abstracts / Presentations
- Seideman J, Do W, Tembo M, Opsahl-Ong L, Meyer A, Saraiya D, Footer K, Desai A, Lee L, Nguyen L,
- Croghan J, Rosenthal A, Tartakovsky M. Supervised Machine Learning for Scientific Coding Assistance.
- NIH Artificial Intelligence Symposium Abstracts 2025, Online.
+Seideman J, Do W, Tembo M, Opsahl-Ong L, Meyer A, Saraiya D, Footer K, Desai A, Lee L, Nguyen L, Croghan J, Rosenthal A, Tartakovsky M. Supervised Machine Learning for Scientific Coding Assistance. NIH Artificial Intelligence Symposium Abstracts 2025, Online.
 
- Mollerus P, Seideman J, Saraiya D, Meyer A, Footer K, Chang R, Nguyen L, Croghan J, Rosenthal A,
- Klinkenberg L, Meyers J. Scientific Review NLP Conflict of Interest Identification. NIH Artificial
- Intelligence Symposium Abstracts 2025, Online.
+Mollerus P, Seideman J, Saraiya D, Meyer A, Footer K, Chang R, Nguyen L, Croghan J, Rosenthal A, Klinkenberg L, Meyers J. Scientific Review NLP Conflict of Interest Identification. NIH Artificial Intelligence Symposium Abstracts 2025, Online.
 
- Salinas E, Seideman J, Stanford T. Spatial differentiation in area LIP dissociated from evidence
- accumulation. COSYNE Abstracts 2021, Online.
+Salinas E, Seideman J, Stanford T. Spatial differentiation in area LIP dissociated from evidence accumulation. COSYNE Abstracts 2021, Online.
 
- Seideman J, Salinas E, Stanford T. Rapid perceptual modulation of PPC activity predicts concomitant
- changes in urgent-decision accuracy. COSYNE Abstracts 2019, Lisbon, PT.
+Seideman J, Salinas E, Stanford T. Rapid perceptual modulation of PPC activity predicts concomitant changes in urgent-decision accuracy. COSYNE Abstracts 2019, Lisbon, PT.
 
- Oor EE, Seideman JA, Stanford TR, Salinas E. Target-feature and outcome histories prime perceptual speed
- and efficiency in an urgent visual search task. Prog. No. 061.22. Society for Neuroscience, 2018.
+Oor EE, Seideman JA, Stanford TR, Salinas E. Target-feature and outcome histories prime perceptual speed and efficiency in an urgent visual search task. Prog. No. 061.22. Society for Neuroscience, 2018.
 
- Seideman J, Stanford T, Salinas E. Saccade kinematics communicate covert decision-related computations
- during urgent choices. COSYNE Abstracts 2018, Denver, CO, USA.
+Seideman J, Stanford T, Salinas E. Saccade kinematics communicate covert decision-related computations during urgent choices. COSYNE Abstracts 2018, Denver, CO, USA.
 
- Seideman J, Salinas E, Stanford TR. Sensory cue processing time modulates LIP neuronal activity in parallel
- with urgent choice accuracy. Prog. No. 060.25. Society for Neuroscience, 2017.
+Seideman J, Salinas E, Stanford TR. Sensory cue processing time modulates LIP neuronal activity in parallel with urgent choice accuracy. Prog. No. 060.25. Society for Neuroscience, 2017.
 
- Seideman J, Scerra VE, Salinas E, Stanford TR. Saccade metrics reflect decision-making dynamics during
- urgent choices. Prog. No. 717.05. San Diego, CA: Society for Neuroscience, 2016.
+Seideman J, Scerra VE, Salinas E, Stanford TR. Saccade metrics reflect decision-making dynamics during
+urgent choices. Prog. No. 717.05. San Diego, CA: Society for Neuroscience, 2016.
 
- Putrino D, Wong YT, Weiss A, Seideman J, Pesaran B. Using virtual reality environments to train high-
- dimensional control of a virtual upper limb prosthetic. Prog. No. 80.16. Society for Neuroscience, 2013.
+Putrino D, Wong YT, Weiss A, Seideman J, Pesaran B. Using virtual reality environments to train high- dimensional control of a virtual upper limb prosthetic. Prog. No. 80.16. Society for Neuroscience, 2013.
 
- Wylie A, Seideman J, Yu D, Blackwell C, Mishkin M, Turchi J. Dopaminergic and cholinergic mediation of
- within session concurrent discrimination learning. Prog. No. 580.04. Society for Neuroscience, 2013.
+Wylie A, Seideman J, Yu D, Blackwell C, Mishkin M, Turchi J. Dopaminergic and cholinergic mediation of within session concurrent discrimination learning. Prog. No. 580.04. Society for Neuroscience, 2013.
 
 Awards and Honors
  Outstanding Performance Award, Deloitte Consulting                                             2023, 2026
