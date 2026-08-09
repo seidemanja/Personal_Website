@@ -351,6 +351,11 @@
 }
 
 @media (max-width: 868px) {
+  .page {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   .desktopResumeContent {
     width: calc(100vw - 80px);
     height: calc((100vw - 80px) * 5.224880383);
