@@ -1059,6 +1059,16 @@
   }
 }
 
+@media (hover: hover) and (pointer: fine) and (max-width: 640px) {
+  .headerControls {
+    right: 24px;
+  }
+
+  .mobileStickyHeaderInner {
+    padding-right: 24px;
+  }
+}
+
 @media (orientation: landscape) and (max-height: 520px) and (max-width: 900px) {
   .content {
     padding-top: 24px;

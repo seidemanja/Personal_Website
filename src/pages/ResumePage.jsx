@@ -32,7 +32,7 @@ const workExperience = [
     dates: '09/2021 – Present',
     bullets: [
       'Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, prioritizing features and release timelines based on user needs and capacity',
-      'Oversaw delivery across concurrent workstreams, managing project managers and product owners to align priorities, timelines, and dependencies.',
+      'Oversaw delivery across concurrent workstreams, managing project managers and product owners to align priorities, timelines, and dependencies',
       <>
         Drove execution for key initiatives by leading cross-functional teams
         (engineering, data science, design), defining scope and timelines, and

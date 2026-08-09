@@ -30,7 +30,7 @@ const projects = [
     technologies: [
       'Experimental Design',
       'MATLAB',
-      'Data Analysis',
+      'Analysis',
       'Computational Modeling',
     ],
     title: 'PhD Research in Neuroscience',
@@ -258,11 +258,26 @@ function SelectedProjectsPage() {
                     aria-label={`${project.title} technologies`}
                   >
                     {project.technologies.map((technology) => (
-                      <li className={`${styles.technology} sp-technology`} key={technology}>
-                        {project.title === 'Product Management for Data & AI Products' && technology === 'AI/ML' ? (
+                      <li
+                        className={`${styles.technology} sp-technology ${
+                          project.title === 'PhD Research in Neuroscience' && technology === 'MATLAB'
+                            ? 'sp-mobile-hidden-technology sp-narrow-desktop-hidden-technology'
+                            : (project.title === 'Product Management for Data & AI Products' && technology === 'PMP')
+                              || (project.title === 'Instagram Content Creation and Engagement Automation' && technology === 'Selenium')
+                              ? 'sp-mobile-hidden-technology'
+                              : ''
+                        }`}
+                        key={technology}
+                      >
+                        {project.title === 'PhD Research in Neuroscience' && technology === 'Computational Modeling' ? (
                           <>
-                            <span className={styles.desktopCopy}>AI/ML</span>
-                            <span className={styles.mobileCopy}>AI</span>
+                            <span className="sp-tag-desktop-copy">Computational Modeling</span>
+                            <span className="sp-tag-mobile-copy">Modeling</span>
+                          </>
+                        ) : project.title === 'PhD Research in Neuroscience' && technology === 'Analysis' ? (
+                          <>
+                            <span className="sp-tag-desktop-copy">Data Analysis</span>
+                            <span className="sp-tag-mobile-copy">Analysis</span>
                           </>
                         ) : (
                           technology

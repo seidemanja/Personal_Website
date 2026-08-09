@@ -1,5 +1,5 @@
 import { ExternalLink, Volume2, VolumeX } from 'lucide-react';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
 import { useArchitectureLayout } from '../hooks/useArchitectureLayout.js';
@@ -60,6 +60,7 @@ const examplePosts = [
 
 function InstagramProjectPage() {
   const [videoMuted, setVideoMuted] = useState(true);
+  const [isPostsHighlighted, setIsPostsHighlighted] = useState(false);
   const videoRef = useRef(null);
   const architectureContainerRef = useRef(null);
   const contentGenerationRef = useRef(null);
@@ -94,6 +95,18 @@ function InstagramProjectPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!isPostsHighlighted) {
+      return undefined;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setIsPostsHighlighted(false);
+    }, 1300);
+
+    return () => window.clearTimeout(timeout);
+  }, [isPostsHighlighted]);
+
   return (
     <main className={`${styles.page} pd-page`}>
       <Navigation variant="projects" />
@@ -116,7 +129,10 @@ function InstagramProjectPage() {
               generation, posting, audience targeting, and engagement for
               Instagram, using AI-assisted coding to accelerate implementation.
               The system has grown the account to 2,000+ followers through{' '}
-              <a href="#posts-title">AI-powered content creation</a> and fully
+              <a href="#posts-title" onClick={() => setIsPostsHighlighted(true)}>
+                AI-powered content creation
+              </a>{' '}
+              and fully
               automated engagement workflows.
             </p>
           </div>
@@ -338,7 +354,11 @@ function InstagramProjectPage() {
         </section>
 
         <section className={`${styles.section} pd-section`} aria-labelledby="posts-title">
-          <header className={`${styles.sectionHeader} pd-section-header`}>
+          <header
+            className={`${styles.sectionHeader} pd-section-header ${
+              isPostsHighlighted ? styles.anchorHighlight : ''
+            }`}
+          >
             <h2 id="posts-title">Example Posts</h2>
             <p>A few examples of AI-generated content published to the Instagram account.</p>
           </header>

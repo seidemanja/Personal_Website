@@ -600,7 +600,7 @@
 
   .cardContent {
     min-height: 0;
-    padding: 0 23px 38px;
+    padding: 0 23px 32px;
     overflow: visible;
   }
 
@@ -615,8 +615,8 @@
   }
 
   .technology {
-    border-color: transparent;
-    box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.28);
+    border: 1px solid transparent;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
   }
 
   .desktopCopy {
@@ -706,7 +706,7 @@
   }
 
   .cardContent {
-    padding: 0 19px 36px;
+    padding: 0 19px 30px;
   }
 }
 

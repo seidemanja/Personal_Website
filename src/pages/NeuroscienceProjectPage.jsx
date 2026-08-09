@@ -64,6 +64,7 @@ const publications = [
 
 function NeuroscienceProjectPage() {
   const [grantUrl, setGrantUrl] = useState(NIH_GRANT_SEARCH_FALLBACK_URL);
+  const [highlightedSection, setHighlightedSection] = useState(null);
 
   useEffect(() => {
     setGrantUrl(getNIHGrantSearchUrl());
@@ -72,6 +73,28 @@ function NeuroscienceProjectPage() {
 
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    if (!highlightedSection) {
+      return undefined;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setHighlightedSection(null);
+    }, 1300);
+
+    return () => window.clearTimeout(timeout);
+  }, [highlightedSection]);
+
+  const handlePublicationsLinkClick = () => {
+    setHighlightedSection('publications');
+  };
+
+  const handleScopeClick = (event) => {
+    if (event.target.closest?.('a[href="#funding-title"]')) {
+      setHighlightedSection('funding');
+    }
+  };
 
   return (
     <main className={styles.page}>
@@ -129,7 +152,7 @@ function NeuroscienceProjectPage() {
               mechanisms underlying perceptual decision making. Designed
               experiments, developed real-time research software, analyzed
               behavioral and neural data, secured NIH funding, and{' '}
-              <a href="#publications-title">
+              <a href="#publications-title" onClick={handlePublicationsLinkClick}>
                 <span className={styles.defaultInline}>published findings</span>
                 <span className={styles.portraitInline}>published</span>
               </a>{' '}
@@ -141,6 +164,7 @@ function NeuroscienceProjectPage() {
         <section
           className={`${styles.section} ${styles.scopeSection}`}
           aria-labelledby="scope-title"
+          onClick={handleScopeClick}
         >
           <header className={styles.sectionHeader}>
             <h2 id="scope-title">Scope of Work</h2>
@@ -175,7 +199,11 @@ function NeuroscienceProjectPage() {
           className={`${styles.section} ${styles.publicationsSection}`}
           aria-labelledby="publications-title"
         >
-          <header className={styles.sectionHeader}>
+          <header
+            className={`${styles.sectionHeader} ${
+              highlightedSection === 'publications' ? styles.anchorHighlight : ''
+            }`}
+          >
             <h2 id="publications-title">Selected Publications</h2>
           </header>
 
@@ -219,7 +247,11 @@ function NeuroscienceProjectPage() {
           className={`${styles.section} ${styles.fundingSection}`}
           aria-labelledby="funding-title"
         >
-          <header className={styles.sectionHeader}>
+          <header
+            className={`${styles.sectionHeader} ${
+              highlightedSection === 'funding' ? styles.anchorHighlight : ''
+            }`}
+          >
             <h2 id="funding-title">Research Awards</h2>
           </header>
 

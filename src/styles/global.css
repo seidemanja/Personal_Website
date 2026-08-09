@@ -31,6 +31,31 @@ a {
   color: inherit;
 }
 
+.sp-tag-desktop-copy {
+  display: inline !important;
+}
+
+.sp-tag-mobile-copy {
+  display: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) and (max-width: 860px) {
+  .sp-narrow-desktop-hidden-technology {
+    display: none !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) and (max-width: 900px) {
+  .sp-mobile-hidden-technology,
+  .sp-tag-desktop-copy {
+    display: none !important;
+  }
+
+  .sp-tag-mobile-copy {
+    display: inline !important;
+  }
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;

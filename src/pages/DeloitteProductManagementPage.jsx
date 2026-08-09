@@ -103,7 +103,8 @@ function DeloitteProductManagementPage() {
               Owned the roadmap for a portfolio of 30+ data analytics products,
               including AI-powered products with LLM integration and semantic
               search. Managed product owners and project managers across
-              concurrent initiatives. Certified Project Management Professional.
+              concurrent initiatives. Certified Project Management Professional
+              <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}> (PMP)</span>.
             </p>
           </div>
         </section>

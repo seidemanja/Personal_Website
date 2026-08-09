@@ -89,13 +89,13 @@ const galleryItems = [
     title: 'Homepage',
     description: 'the portfolio entry point',
     imageSrc: '/images/homepagenew.png',
-    to: '/',
+    href: 'https://seidemanphd.com/',
   },
   {
     title: 'AI Chat',
     description: 'the grounded assistant',
     imageSrc: '/images/askaboutjoshnew.png',
-    to: '/ai-chat',
+    href: 'https://seidemanphd.com/ai-chat',
   },
 ];
 
@@ -228,7 +228,7 @@ function PersonalWebsiteProjectPage() {
 
           <div className={styles.galleryGrid}>
             {galleryItems.map((item) => (
-              <Link className={styles.galleryCard} key={item.title} to={item.to}>
+              <a className={styles.galleryCard} href={item.href} key={item.title}>
                 <div className={styles.galleryImageFrame}>
                   <img src={item.imageSrc} alt="" loading="eager" decoding="sync" />
                 </div>
@@ -238,7 +238,7 @@ function PersonalWebsiteProjectPage() {
                 <span className={styles.galleryLinkIcon} aria-hidden="true">
                   <ExternalLink />
                 </span>
-              </Link>
+              </a>
             ))}
           </div>
         </section>

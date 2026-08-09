@@ -192,6 +192,23 @@
   scroll-margin-top: 88px;
 }
 
+.anchorHighlight h2 {
+  display: inline-block;
+  border-radius: 4px;
+  animation: sectionAnchorHighlight 1000ms ease-out;
+}
+
+@keyframes sectionAnchorHighlight {
+  0%,
+  40% {
+    background-color: rgba(244, 218, 132, 0.5);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
 .scopeList {
   margin-top: 12px;
 }

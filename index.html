@@ -416,6 +416,31 @@
         display: none;
       }
 
+      .sp-tag-desktop-copy {
+        display: inline !important;
+      }
+
+      .sp-tag-mobile-copy {
+        display: none !important;
+      }
+
+      @media (hover: hover) and (pointer: fine) and (max-width: 860px) {
+        .sp-narrow-desktop-hidden-technology {
+          display: none !important;
+        }
+      }
+
+      @media (hover: none) and (pointer: coarse) and (max-width: 900px) {
+        .sp-mobile-hidden-technology,
+        .sp-tag-desktop-copy {
+          display: none !important;
+        }
+
+        .sp-tag-mobile-copy {
+          display: inline !important;
+        }
+      }
+
       @media (max-width: 860px) {
         .sp-project-sections {
           gap: 38px;
@@ -664,7 +689,7 @@
 
         .sp-card-content {
           min-height: 0;
-          padding: 0 23px 38px;
+          padding: 0 23px 32px;
           overflow: visible;
         }
 
@@ -707,10 +732,10 @@
         .sp-technology {
           padding: 3px 6px;
           color: #4e4e4a;
-          border: 0.5px solid transparent;
+          border: 1px solid transparent;
           border-radius: 4px;
           background: transparent;
-          box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.28);
+          box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
           font-size: 0.76rem;
           line-height: 1.15;
           white-space: nowrap;
@@ -770,7 +795,7 @@
         }
 
         .sp-card-content {
-          padding: 0 19px 36px;
+          padding: 0 19px 30px;
         }
       }
 
@@ -1927,7 +1952,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v80'
+            && snapshot?.version === 'project-detail-refresh-v105'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

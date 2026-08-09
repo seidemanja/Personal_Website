@@ -1,5 +1,5 @@
 import { ExternalLink } from 'lucide-react';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
 import { useArchitectureLayout } from '../hooks/useArchitectureLayout.js';
@@ -82,6 +82,7 @@ const nftExamples = [
 ];
 
 function TwitterProjectPage() {
+  const [isNftsHighlighted, setIsNftsHighlighted] = useState(false);
   const architectureContainerRef = useRef(null);
   const accountRef = useRef(null);
   const centerRef = useRef(null);
@@ -107,6 +108,18 @@ function TwitterProjectPage() {
     width: 900,
   });
 
+  useEffect(() => {
+    if (!isNftsHighlighted) {
+      return undefined;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setIsNftsHighlighted(false);
+    }, 1300);
+
+    return () => window.clearTimeout(timeout);
+  }, [isNftsHighlighted]);
+
   return (
     <main className={`${styles.page} pd-page`}>
       <Navigation variant="projects" />
@@ -127,7 +140,10 @@ function TwitterProjectPage() {
               discovery, entry requirement evaluation, and engagement workflows
               on Twitter. The system operated without manual intervention and
               {' '}
-              <a href="#nfts-title">won 700+ digital assets</a> through
+              <a href="#nfts-title" onClick={() => setIsNftsHighlighted(true)}>
+                won 700+ digital assets
+              </a>{' '}
+              through
               automated giveaway participation.
             </p>
           </div>
@@ -310,7 +326,11 @@ function TwitterProjectPage() {
         </section>
 
         <section className={`${styles.section} pd-section`} aria-labelledby="nfts-title">
-          <header className={`${styles.sectionHeader} pd-section-header`}>
+          <header
+            className={`${styles.sectionHeader} pd-section-header ${
+              isNftsHighlighted ? styles.anchorHighlight : ''
+            }`}
+          >
             <h2 id="nfts-title">Example Digital Assets Won</h2>
             <p>A sample of digital assets won through automated engagement.</p>
           </header>
