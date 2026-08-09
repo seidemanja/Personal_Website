@@ -153,7 +153,7 @@ const independentProjects = [
     bullets: [
       'Defined product requirements and designed the site for a personal portfolio with an integrated AI chat assistant; used Claude and ChatGPT to evaluate architectural options and iterate on design',
       'Directed AI-assisted development (Codex) to implement, debug, and iterate on a React/Vite system',
-      'Built a grounded AI chat assistant (OpenAI API, streamed responses, private knowledge base), authoring the prompt and guardrail logic to keep responses on-topic and prevent disclosure of sensitive content',
+      'Built a grounded AI chat assistant (OpenAI API, streamed responses, server-side knowledge base), authoring the prompt and guardrail logic to keep responses grounded and on-topic',
     ],
   },
   {

@@ -36,7 +36,7 @@ const scopeOfWork = [
   {
     title: 'Privacy & Abuse Controls',
     description:
-      'Defined privacy constraints so the API key and grounding document stay server-side and conversations are not stored in a database. Built anonymous-session controls with a 30-message cap and minimum request gap.',
+      'Defined server-side boundaries so the API key remains private, the grounding context stays out of the browser bundle, and conversations are not stored in a database. Built anonymous-session controls with a 30-message cap and minimum request gap.',
   },
 ];
 
@@ -50,13 +50,13 @@ const pipelineSteps = [
   {
     index: '02',
     title: 'Prompt guardrails',
-    items: ['Stays within scope', 'Won’t reveal system prompts or source material'],
+    items: ['Stays within scope', 'Declines requests for system prompts or source material'],
     caption: 'Set in system prompt',
   },
   {
     index: '03',
     title: 'Grounded context',
-    items: ['Private Markdown knowledge base', 'Never sent to the browser'],
+    items: ['Curated Markdown knowledge base', 'Never sent to the browser'],
     caption: 'Source of truth',
   },
   {
@@ -69,7 +69,7 @@ const pipelineSteps = [
     index: '05',
     title: 'Answer streams back',
     items: ['Renders as generated', 'Can be stopped mid-answer'],
-    caption: 'Delivered to the user',
+    caption: 'Delivered to the visitor',
   },
 ];
 
@@ -181,7 +181,7 @@ function PersonalWebsiteProjectPage() {
         <section className={`${styles.section} pd-section`} aria-labelledby="assistant-title">
           <header className={`${styles.sectionHeader} pd-section-header`}>
             <h2 id="assistant-title">How the Assistant Works</h2>
-            <p>What happens between a visitor’s question and a grounded answer.</p>
+            <p>What happens between a visitor's question and a grounded answer.</p>
           </header>
 
           <div className={styles.pipeline} aria-label="Assistant request flow">

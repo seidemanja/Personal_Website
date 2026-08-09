@@ -653,7 +653,7 @@ Authored the grounding document and prompt guardrails defining what the assistan
 
 ### Privacy & Abuse Controls
 
-Defined privacy constraints so the API key and grounding document stay server-side and conversations are not stored in a database. Built anonymous-session controls with a 30-message cap and minimum request gap.
+Defined server-side boundaries so the API key remains private, the grounding context stays out of the browser bundle, and conversations are not stored in a database. Built anonymous-session controls with a 30-message cap and minimum request gap.
 
 ## How the Assistant Works
 
@@ -671,13 +671,13 @@ Starts the request
 
 Stays within scope
 
-Won’t reveal system prompts or source material
+Declines requests for system prompts or source material
 
 Set in system prompt
 
 ### Grounded context
 
-Private Markdown knowledge base
+Curated Markdown knowledge base
 
 Never sent to the browser
 
@@ -854,9 +854,9 @@ Independent Projects
  Personal Website & AI-Chat Assistant – seidemanphd.com 05/2026 – Present
    • Defined product requirements and designed the site for a personal portfolio with an integrated AI chat assistant; used Claude and ChatGPT to evaluate architectural options and iterate on design
    • Directed AI-assisted development (Codex) to implement, debug, and iterate on a React/Vite system
-   • Built a grounded AI chat assistant (OpenAI API, streamed responses, private knowledge base), authoring the prompt and guardrail logic to keep responses on-topic and prevent disclosure of sensitive content
+   • Built a grounded AI chat assistant (OpenAI API, streamed responses, server-side knowledge base), authoring the prompt and guardrail logic to keep responses grounded and on-topic
 
- Instagram Bot – Web Automation System with AI-Enabled Content Generation                 11/2024 – Present
+ Instagram Bot – Web Automation System with AI-Enabled Content Generation                 11/2024 – 05/2026
    • Designed and built an end-to-end web automation system (Python, Selenium) to orchestrate daily content
      generation, posting, and engagement workflows without manual intervention
    • Integrated OpenAI and Gemini APIs for multimodal content generation, and for image-based
