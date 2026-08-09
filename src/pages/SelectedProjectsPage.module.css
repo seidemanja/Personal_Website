@@ -278,6 +278,18 @@
     place-items: center;
   }
 
+  :global(.sp-image-personal-website) .cardPicture::after {
+    content: "";
+    position: absolute;
+    right: 6%;
+    bottom: calc(6% - 2px);
+    left: 6%;
+    z-index: 2;
+    height: 8px;
+    background: #fff;
+    pointer-events: none;
+  }
+
   :global(.sp-image-deloitte) .cardImage,
   :global(.sp-image-neuroscience) .cardImage,
   :global(.sp-image-twitter) .cardImage,

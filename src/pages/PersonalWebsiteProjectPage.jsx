@@ -31,7 +31,7 @@ const scopeOfWork = [
   {
     title: 'Grounded AI Assistant',
     description:
-      'Authored the grounding document and prompt guardrails defining what the assistant can answer and in what tone. Implemented server-side LLM integration with streamed responses, model selection, and client-side PDF export of conversations.',
+      'Authored the grounding document and system prompt defining what the assistant can answer and in what tone. Built server-side LLM integration with streamed responses, model selection, and client-side PDF export of conversations.',
   },
   {
     title: 'Privacy & Abuse Controls',

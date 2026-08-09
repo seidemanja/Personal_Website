@@ -144,11 +144,11 @@ function InstagramProjectPage() {
           <header className={`${styles.sectionHeader} pd-section-header`}>
             <h2 id="architecture-title">Architecture</h2>
             <p>
-              <span className={styles.desktopCopy}>
+              <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
                 An end-to-end pipeline for AI-powered content generation,
                 automated posting, and targeted engagement.
               </span>
-              <span className={styles.mobileCopy}>
+              <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>
                 An end-to-end pipeline for AI-powered content creation,
                 automated posting, and targeted engagement.
               </span>
@@ -183,13 +183,13 @@ function InstagramProjectPage() {
                 style={architectureLayout.positions.top}
               >
                 <h3>AI Content Generation</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Images</p>
                   <p>Videos</p>
                   <p>Music</p>
                   <p>Captions</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Generates content for posting
                 </p>
               </div>
@@ -200,12 +200,12 @@ function InstagramProjectPage() {
                 style={architectureLayout.positions.account}
               >
                 <h3>Account Discovery &amp; Filtering</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Computer vision</p>
                   <p>Behavioral profiling</p>
                   <p>Interest characterization</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Selects target accounts for engagement
                 </p>
               </article>
@@ -216,11 +216,11 @@ function InstagramProjectPage() {
                 style={architectureLayout.positions.center}
               >
                 <h3>Coordination Layer</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Workflow coordination</p>
                   <p>Execution timing</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Coordinates system behavior
                 </p>
               </article>
@@ -231,12 +231,12 @@ function InstagramProjectPage() {
                 style={architectureLayout.positions.browser}
               >
                 <h3>Browser Automation</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Post content</p>
                   <p>Follow / Unfollow</p>
                   <p>Like</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Executes Instagram actions
                 </p>
               </article>
@@ -247,74 +247,74 @@ function InstagramProjectPage() {
                 style={architectureLayout.positions.bottom}
               >
                 <h3>Data &amp; Behavioral Tracking</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Action logs</p>
                   <p>Engagement received</p>
                   <p>Public account metrics</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Tracks actions and system inputs
                 </p>
               </article>
             </div>
 
-            <div className={styles.mobileArchitectureDiagram}>
-              <article className={`${styles.mobileArchBox} ${styles.mobileRootBox}`}>
+            <div className={`${styles.mobileArchitectureDiagram} pd-mobile-architecture-diagram`}>
+              <article className={`${styles.mobileArchBox} ${styles.mobileRootBox} pd-mobile-arch-box pd-mobile-root-box`}>
                 <h3>Coordination Layer</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Workflow coordination</p>
                   <p>Execution timing</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Coordinates system behavior
                 </p>
               </article>
 
-              <article className={styles.mobileArchBox}>
+              <article className={`${styles.mobileArchBox} pd-mobile-arch-box`}>
                 <h3>AI Content Generation</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Images</p>
                   <p>Videos</p>
                   <p>Music</p>
                   <p>Captions</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Generates content for posting
                 </p>
               </article>
 
-              <article className={styles.mobileArchBox}>
+              <article className={`${styles.mobileArchBox} pd-mobile-arch-box`}>
                 <h3>Account Discovery &amp; Filtering</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Computer vision</p>
                   <p>Behavioral profiling</p>
                   <p>Interest characterization</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Selects target accounts for engagement
                 </p>
               </article>
 
-              <article className={styles.mobileArchBox}>
+              <article className={`${styles.mobileArchBox} pd-mobile-arch-box`}>
                 <h3>Browser Automation</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Post content</p>
                   <p>Follow / Unfollow</p>
                   <p>Like</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Executes Instagram actions
                 </p>
               </article>
 
-              <article className={styles.mobileArchBox}>
+              <article className={`${styles.mobileArchBox} pd-mobile-arch-box`}>
                 <h3>Data &amp; Behavioral Tracking</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Action logs</p>
                   <p>Engagement received</p>
                   <p>Public account metrics</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Tracks actions and system inputs
                 </p>
               </article>

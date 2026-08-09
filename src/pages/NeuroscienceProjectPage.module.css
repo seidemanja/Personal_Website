@@ -164,7 +164,7 @@
 .sectionHeader p {
   margin: 8px 0 0;
   color: #666662;
-  font-size: 0.78rem;
+  font-size: 0.8775rem;
   line-height: 1.5;
 }
 
@@ -235,7 +235,7 @@
   max-width: 760px;
   margin: 8px 0 0;
   color: #3f3f3c;
-  font-size: 0.84rem;
+  font-size: 0.8775rem;
   line-height: 1.65;
 }
 
@@ -309,14 +309,14 @@
 .publicationCard h3 {
   margin: 0;
   color: #242422;
-  font-size: 0.84rem;
+  font-size: 0.8775rem;
   font-weight: 600;
 }
 
 .publicationCard p {
   margin: 8px 0 0;
   color: #555550;
-  font-size: 0.84rem;
+  font-size: 0.8775rem;
   line-height: 1.5;
 }
 
@@ -334,7 +334,7 @@
   align-items: center;
   gap: 8px;
   color: #4a4a46;
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   text-decoration: none;
 }
 
@@ -396,14 +396,14 @@
 .fundingCard h3 {
   margin: 0;
   color: #242422;
-  font-size: 0.84rem;
+  font-size: 0.8775rem;
   font-weight: 600;
 }
 
 .fundingCard p {
   margin: 7px 0 0;
   color: #555550;
-  font-size: 0.84rem;
+  font-size: 0.8775rem;
   line-height: 1.5;
 }
 
@@ -428,7 +428,7 @@
   .breadcrumbs,
   .metaRow,
   .researchInfo {
-    font-size: 0.84rem;
+    font-size: 0.82rem;
   }
 
   .intro {
@@ -446,7 +446,7 @@
   }
 
   .scholarLink {
-    font-size: 0.84rem;
+    font-size: 0.82rem;
   }
 }
 

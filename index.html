@@ -383,6 +383,18 @@
           place-items: center;
         }
 
+        .sp-image-personal-website .sp-card-picture::after {
+          content: "";
+          position: absolute;
+          right: 6%;
+          bottom: calc(6% - 2px);
+          left: 6%;
+          z-index: 2;
+          height: 8px;
+          background: #fff;
+          pointer-events: none;
+        }
+
         .sp-image-deloitte .sp-img,
         .sp-image-neuroscience .sp-img,
         .sp-image-twitter .sp-img,
@@ -1361,11 +1373,69 @@
         margin-top: 2px;
       }
 
+      .pd-arch-items {
+        margin: 0;
+      }
+
+      .pd-arch-items p {
+        margin: 0;
+        color: #4f4f4a;
+        font-size: 0.8rem;
+        line-height: 1.32;
+        white-space: nowrap;
+      }
+
+      .pd-arch-items p + p {
+        margin-top: 2px;
+      }
+
       .pd-arch-box > p:last-child {
         color: #80807a;
         font-size: 0.7rem;
         font-style: italic;
         line-height: 1.32;
+      }
+
+      .pd-box-note {
+        margin: 0;
+        color: #80807a;
+        font-size: 0.7rem;
+        font-style: italic;
+        line-height: 1.32;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .pd-mobile-architecture-diagram {
+        display: none;
+      }
+
+      .pd-mobile-arch-box {
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-rows: auto auto auto;
+        align-content: start;
+        row-gap: 10px;
+        padding: 14px 18px 11px;
+        border: 1px solid var(--diagram-box-border);
+        border-radius: 10px;
+        background: var(--diagram-box-fill);
+        box-shadow: none;
+        text-align: center;
+      }
+
+      .pd-mobile-root-box {
+        background: #efefec;
+      }
+
+      .pd-mobile-arch-box h3 {
+        margin: 0;
+        color: #20201e;
+        font-size: 0.87rem;
+        font-weight: 500;
+        line-height: 1.35;
       }
 
       .pd-instagram-top {
@@ -1413,7 +1483,7 @@
       .pd-technology-label {
         margin: 0;
         color: #9a9a95;
-        font-size: 0.72rem;
+        font-size: 0.8775rem;
         font-weight: 500;
         letter-spacing: 0.12em;
         text-transform: uppercase;
@@ -1434,7 +1504,7 @@
         border: 0.5px solid rgba(0, 0, 0, 0.28);
         border-radius: 4px;
         background: transparent;
-        font-size: 0.76rem;
+        font-size: 0.8775rem;
         line-height: 1.15;
         white-space: nowrap;
       }
@@ -1569,10 +1639,6 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        .pd-metrics-three {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
         .pd-product-metrics-three {
           width: calc(100% - 20px);
           grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1603,6 +1669,19 @@
       @media (max-width: 640px) {
         .pd-architecture-diagram {
           display: none;
+        }
+
+        .pd-mobile-architecture-diagram {
+          width: calc(100vw - 70px);
+          display: grid;
+          gap: 16px;
+          margin: 0 auto;
+          background:
+            linear-gradient(
+              var(--diagram-box-border),
+              var(--diagram-box-border)
+            )
+            center / 1px 100% no-repeat;
         }
 
         .pd-metrics {
@@ -1651,11 +1730,46 @@
           font-size: 0.9rem;
         }
 
+        .pd-section-intro {
+          font-size: 0.95rem;
+        }
+
+        .pd-callout-copy,
+        .pd-entry p,
+        .pd-work-card p {
+          font-size: 0.95rem;
+        }
+
+        .pd-work-card h3 {
+          font-size: 0.95rem;
+        }
+
+        .pd-work-card .pd-work-meta {
+          font-size: 0.9rem;
+        }
+
+        .pd-arch-box p,
+        .pd-arch-box > p:last-child {
+          font-size: 0.8775rem;
+        }
+
+        .pd-arch-items p {
+          font-size: 0.9rem;
+        }
+
+        .pd-box-note {
+          font-size: 0.8775rem;
+        }
+
         .pd-technology-label {
-          font-size: 0.8rem;
+          font-size: 0.8775rem;
         }
 
         .pd-technology-pill {
+          font-size: 0.8775rem;
+        }
+
+        .pd-example-meta p {
           font-size: 0.86rem;
         }
       }
@@ -1668,10 +1782,10 @@
           column-gap: 12px;
         }
 
-        .pd-metrics-three {
-          width: 100%;
+        .pd-product-metrics-three {
+          width: calc(100% - 20px);
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 8px;
+          gap: 10px;
         }
 
         .pd-metric-card {
@@ -1813,7 +1927,7 @@
 
           if (
             root
-            && snapshot?.version === 'project-detail-refresh-v53'
+            && snapshot?.version === 'project-detail-refresh-v80'
             && typeof snapshot.html === 'string'
           ) {
             root.innerHTML = snapshot.html;

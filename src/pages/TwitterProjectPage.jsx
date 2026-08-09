@@ -191,12 +191,12 @@ function TwitterProjectPage() {
                 style={architectureLayout.positions.account}
               >
                 <h3>Content Discovery</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Search and find giveaways</p>
                   <p>Screen entry requirements</p>
                   <p>Detect giveaway blockchain</p>
                 </div>
-                <p className={styles.boxNote}>Finds relevant opportunities</p>
+                <p className={`${styles.boxNote} pd-box-note`}>Finds relevant opportunities</p>
               </article>
 
               <article
@@ -205,12 +205,12 @@ function TwitterProjectPage() {
                 style={architectureLayout.positions.center}
               >
                 <h3>Coordination Layer</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Evaluate entry requirements</p>
                   <p>Select participation actions</p>
                   <p>Match blockchain to wallet</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Coordinates system behavior
                 </p>
               </article>
@@ -221,13 +221,13 @@ function TwitterProjectPage() {
                 style={architectureLayout.positions.browser}
               >
                 <h3>Automated Engagement</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Like giveaway posts</p>
                   <p>Retweet giveaway posts</p>
                   <p>Follow accounts</p>
                   <p>Comment to enter</p>
                 </div>
-                <p className={styles.boxNote}>Executes Twitter actions</p>
+                <p className={`${styles.boxNote} pd-box-note`}>Executes Twitter actions</p>
               </article>
 
               <article
@@ -236,57 +236,57 @@ function TwitterProjectPage() {
                 style={architectureLayout.positions.bottom}
               >
                 <h3>Data &amp; Activity Tracking</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Giveaway metadata</p>
                   <p>Action logs</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Tracks giveaways and actions
                 </p>
               </article>
             </div>
 
-            <div className={styles.mobileArchitectureDiagram}>
-              <article className={`${styles.mobileArchBox} ${styles.mobileRootBox}`}>
+            <div className={`${styles.mobileArchitectureDiagram} pd-mobile-architecture-diagram`}>
+              <article className={`${styles.mobileArchBox} ${styles.mobileRootBox} pd-mobile-arch-box pd-mobile-root-box`}>
                 <h3>Coordination Layer</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Evaluate entry requirements</p>
                   <p>Select participation actions</p>
                   <p>Match blockchain to wallet</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Coordinates system behavior
                 </p>
               </article>
 
-              <article className={styles.mobileArchBox}>
+              <article className={`${styles.mobileArchBox} pd-mobile-arch-box`}>
                 <h3>Content Discovery</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Search and find giveaways</p>
                   <p>Screen entry requirements</p>
                   <p>Detect giveaway blockchain</p>
                 </div>
-                <p className={styles.boxNote}>Finds relevant opportunities</p>
+                <p className={`${styles.boxNote} pd-box-note`}>Finds relevant opportunities</p>
               </article>
 
-              <article className={styles.mobileArchBox}>
+              <article className={`${styles.mobileArchBox} pd-mobile-arch-box`}>
                 <h3>Automated Engagement</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Like giveaway posts</p>
                   <p>Retweet giveaway posts</p>
                   <p>Follow accounts</p>
                   <p>Comment to enter</p>
                 </div>
-                <p className={styles.boxNote}>Executes Twitter actions</p>
+                <p className={`${styles.boxNote} pd-box-note`}>Executes Twitter actions</p>
               </article>
 
-              <article className={styles.mobileArchBox}>
+              <article className={`${styles.mobileArchBox} pd-mobile-arch-box`}>
                 <h3>Data &amp; Activity Tracking</h3>
-                <div className={styles.archItems}>
+                <div className={`${styles.archItems} pd-arch-items`}>
                   <p>Giveaway metadata</p>
                   <p>Action logs</p>
                 </div>
-                <p className={styles.boxNote}>
+                <p className={`${styles.boxNote} pd-box-note`}>
                   Tracks giveaways and actions
                 </p>
               </article>

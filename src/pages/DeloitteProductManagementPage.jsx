@@ -30,6 +30,8 @@ const launchEntries = [
     title: 'Framing the Problem',
     description:
       'Met with customers to understand their day-to-day work, especially what was time-consuming or repetitive, and to learn about recurring problems they found intractable. These discussions established whether a problem was costing meaningful time and money or was simply an annoyance already worked around at little cost.',
+    mobileDescription:
+      'Met with customers to understand their day-to-day work, especially what was time-consuming or repetitive, and to learn about recurring problems they found intractable. Discussion established whether a problem was costing meaningful time and money or was simply an annoyance already worked around at little cost.',
   },
   {
     title: 'Testing the Solution',
@@ -101,8 +103,7 @@ function DeloitteProductManagementPage() {
               Owned the roadmap for a portfolio of 30+ data analytics products,
               including AI-powered products with LLM integration and semantic
               search. Managed product owners and project managers across
-              concurrent initiatives. Certified Project Management Professional
-              (PMP).
+              concurrent initiatives. Certified Project Management Professional.
             </p>
           </div>
         </section>
@@ -160,10 +161,23 @@ function DeloitteProductManagementPage() {
           </div>
 
           <div className={`${styles.entryList} pd-entry-list`}>
-            {launchEntries.map(({ description, title }) => (
+            {launchEntries.map(({ description, mobileDescription, title }) => (
               <article className={`${styles.entry} pd-entry`} key={title}>
                 <h3>{title}</h3>
-                <p>{description}</p>
+                <p>
+                  {mobileDescription ? (
+                    <>
+                      <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
+                        {description}
+                      </span>
+                      <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>
+                        {mobileDescription}
+                      </span>
+                    </>
+                  ) : (
+                    description
+                  )}
+                </p>
               </article>
             ))}
           </div>
@@ -174,8 +188,12 @@ function DeloitteProductManagementPage() {
             </p>
             <p className="pd-callout-copy">
               I use AI-assisted coding (ChatGPT, OpenAI Codex) alongside
-              hands-on development to prototype solutions, resolve technical
-              blockers, and accelerate timelines.
+              hands-on development to prototype solutions, resolve{' '}
+              <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
+                technical blockers
+              </span>
+              <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>blockers</span>, and
+              accelerate timelines.
             </p>
           </aside>
         </section>

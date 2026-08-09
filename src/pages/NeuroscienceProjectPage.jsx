@@ -154,10 +154,10 @@ function NeuroscienceProjectPage() {
                   <p>
                     {mobileDescription ? (
                       <>
-                        <span className={styles.desktopCopy}>
+                        <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
                           {description}
                         </span>
-                        <span className={styles.mobileCopy}>
+                        <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>
                           {mobileDescription}
                         </span>
                       </>

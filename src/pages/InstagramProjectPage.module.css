@@ -137,7 +137,7 @@
 .metricCard p {
   margin: 5px 0 0;
   color: #555550;
-  font-size: 0.86rem;
+  font-size: 0.8775rem;
   line-height: 1.15;
 }
 
@@ -166,7 +166,7 @@
 .sectionHeader p {
   margin: 8px 0 0;
   color: #666662;
-  font-size: 0.78rem;
+  font-size: 0.8775rem;
   line-height: 1.5;
 }
 
@@ -359,7 +359,7 @@
 .technologyLabel {
   margin: 0;
   color: #9a9a95;
-  font-size: 0.72rem;
+  font-size: 0.8775rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -380,7 +380,7 @@
   border: 0.5px solid rgba(0, 0, 0, 0.28);
   border-radius: 4px;
   background: transparent;
-  font-size: 0.76rem;
+  font-size: 0.8775rem;
   line-height: 1.15;
   white-space: nowrap;
 }
@@ -674,11 +674,11 @@
   }
 
   .archBox p {
-    font-size: 0.84rem;
+    font-size: 0.8775rem;
   }
 
   .boxNote {
-    font-size: 0.78rem;
+    font-size: 0.8775rem;
   }
 
   .archItems p {
@@ -686,11 +686,11 @@
   }
 
   .technologyLabel {
-    font-size: 0.8rem;
+    font-size: 0.8775rem;
   }
 
   .technologyPill {
-    font-size: 0.86rem;
+    font-size: 0.8775rem;
   }
 
   .exampleMeta p {
