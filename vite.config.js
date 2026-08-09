@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import aiChatHandler from './api/ai-chat.js';
 import aiChatModelsHandler from './api/ai-chat-models.js';
 import nihGrantHandler from './api/nih-grant.js';
+import metricsHandler from './api/metrics.js';
 
 function prerenderRoutesInDevelopment() {
   let developmentServer;
@@ -38,6 +39,10 @@ function prerenderRoutesInDevelopment() {
         };
 
         await nihGrantHandler(request, apiResponse);
+      });
+
+      server.middlewares.use('/api/metrics', async (request, response) => {
+        await metricsHandler(request, response);
       });
     },
     transformIndexHtml: {

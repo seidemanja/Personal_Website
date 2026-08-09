@@ -92,6 +92,21 @@
   text-decoration-color: currentColor;
 }
 
+.externalTextLink::after {
+  content: "↗";
+  margin-left: 0.25em;
+  font-size: 0.82em;
+  line-height: 1;
+}
+
+.githubLinkIcon {
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.28em;
+  vertical-align: -0.08em;
+  stroke-width: 1.8;
+}
+
 .intro {
   max-width: 760px;
   margin: 20px 0 0;

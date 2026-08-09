@@ -2,7 +2,13 @@ import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
+import {
+  applyAnalyticsExclusionFromUrl,
+  scheduleAnalyticsInitialization,
+} from './analytics.js';
 import './styles/global.css';
+
+applyAnalyticsExclusionFromUrl();
 
 const rootElement = document.getElementById('root');
 const projectDetailSnapshotPaths = new Set([
@@ -51,3 +57,4 @@ if (rootElement.hasChildNodes()) {
 }
 
 window.addEventListener('pagehide', saveProjectDetailSnapshot);
+scheduleAnalyticsInitialization();

@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation.jsx';
 import styles from './PersonalWebsiteProjectPage.module.css';
@@ -131,10 +131,12 @@ function PersonalWebsiteProjectPage() {
             <p className={`${styles.years} pd-years`}>
               05/2026 – Present <span aria-hidden="true">•</span>{' '}
               <a
+                className={styles.externalTextLink}
                 href="https://github.com/seidemanja/Personal_Website"
                 rel="noreferrer"
                 target="_blank"
               >
+                <Github className={styles.githubLinkIcon} aria-hidden="true" />
                 GitHub
               </a>
             </p>

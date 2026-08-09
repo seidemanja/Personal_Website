@@ -57,11 +57,12 @@ export async function streamOpenAIResponse({
   isWarmup = false,
   signal,
   debugLog,
+  onMetric,
 }) {
+  const startedAt = Date.now();
   const selectedModel = resolveModel(modelKey);
   const staticPromptPrefix = await buildStaticPromptPrefix();
   const input = buildChatInput({ history, message, isWarmup });
-  const startedAt = Date.now();
 
   debugLog?.('server.openai_request_start', {
     modelKey: selectedModel.key,
@@ -110,6 +111,7 @@ export async function streamOpenAIResponse({
   let hasLoggedFirstClientWrite = false;
   let clientWriteLogCount = 0;
   let cumulativeCharacters = 0;
+  let hasRecordedFirstToken = false;
 
   try {
     while (true) {
@@ -134,6 +136,11 @@ export async function streamOpenAIResponse({
           const writeReturned = writeSse(response, 'delta', {
             text: event.delta,
           });
+
+          if (!hasRecordedFirstToken) {
+            hasRecordedFirstToken = true;
+            onMetric?.('first_token', Date.now() - startedAt);
+          }
 
           if (!hasLoggedFirstClientWrite) {
             hasLoggedFirstClientWrite = true;
@@ -178,6 +185,7 @@ export async function streamOpenAIResponse({
     debugLog?.('server.stream_complete', {
       cumulative_characters: cumulativeCharacters,
     });
+    onMetric?.('response_completed', Date.now() - startedAt);
     writeSse(response, 'done', {
       usage: {
         input_tokens: completedUsage?.input_tokens ?? null,

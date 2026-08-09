@@ -10,6 +10,11 @@ import {
   Square,
 } from 'lucide-react';
 import Navigation from '../components/Navigation.jsx';
+import {
+  getMetricsExclusionHeaders,
+  sendChatMetric,
+  trackAnalyticsEvent,
+} from '../analytics.js';
 import styles from './AiChatPage.module.css';
 
 const WARMUP_INTERVAL_MS = 10 * 60 * 1000;
@@ -1079,6 +1084,7 @@ function AiChatPage() {
   const firstStateUpdateScheduledRef = useRef(false);
   const firstVisibleUpdateLoggedRef = useRef(false);
   const firstVisibleTextFlushedRef = useRef(false);
+  const activeRequestStartedAtRef = useRef(0);
 
   const selectedModelLabel = useMemo(() => {
     const rawLabel =
@@ -1187,6 +1193,7 @@ function AiChatPage() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...getMetricsExclusionHeaders(),
       },
       body: JSON.stringify({
         type: 'warmup',
@@ -1380,6 +1387,12 @@ function AiChatPage() {
     const hasVisiblePendingText = Boolean(pendingStreamTextRef.current.trim());
 
     activeDebugLogRef.current?.('client.abort');
+    if (activeRequestStartedAtRef.current) {
+      sendChatMetric('response_stopped', {
+        modelKey: selectedModelKey,
+        value: Date.now() - activeRequestStartedAtRef.current,
+      });
+    }
     abortControllerRef.current?.abort();
     abortControllerRef.current = null;
     clearStreamFlushTimer();
@@ -1520,6 +1533,7 @@ function AiChatPage() {
     setOptionsPanel('main');
     setIsStreaming(true);
     setIsAutoScrollEnabled(true);
+    activeRequestStartedAtRef.current = Date.now();
 
     try {
       responseTimeoutId = window.setTimeout(() => {
@@ -1531,6 +1545,7 @@ function AiChatPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...getMetricsExclusionHeaders(),
         },
         body: JSON.stringify({
           type: 'chat',
@@ -1659,6 +1674,7 @@ function AiChatPage() {
       pendingStreamTextRef.current = '';
       activeDebugLogRef.current = null;
       firstVisibleTextFlushedRef.current = false;
+      activeRequestStartedAtRef.current = 0;
       setIsStreaming(false);
     }
   }
@@ -1674,6 +1690,7 @@ function AiChatPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...getMetricsExclusionHeaders(),
         },
         body: JSON.stringify({ type: 'reset' }),
       });
@@ -1719,6 +1736,7 @@ function AiChatPage() {
 
     try {
       await downloadPdf({ messages, modelLabel: selectedModelLabel });
+      trackAnalyticsEvent('chat_pdf_export');
     } catch (error) {
       if (error?.name !== 'AbortError') {
         throw error;
@@ -2004,6 +2022,11 @@ function AiChatPage() {
                         role="menuitemradio"
                         aria-checked={model.key === selectedModelKey}
                         onClick={() => {
+                          if (model.key !== selectedModelKey) {
+                            sendChatMetric('model_selected', {
+                              modelKey: model.key,
+                            });
+                          }
                           setSelectedModelKey(model.key);
                           setIsOptionsMenuOpen(false);
                           setOptionsPanel('main');

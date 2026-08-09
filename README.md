@@ -73,11 +73,12 @@ The build includes image-focused service-worker caching, critical CSS injection,
 ## Repository Structure
 
 ```text
-api/                 Serverless endpoints for AI chat, model options, and NIH data
+api/                 Serverless endpoints for AI chat, analytics, and NIH data
 public/              Images, downloadable documents, and other static assets
 scripts/             Production prerender pipeline
 server/ai/           Grounding, prompting, model selection, streaming, and rate limits
 server/knowledge/    Server-side grounding source for the AI assistant
+server/metrics/      Privacy controls and anonymous event delivery
 src/components/      Shared interface components
 src/pages/           Route-level pages and CSS Modules
 src/entry-server.jsx Server-rendering entry point
@@ -106,6 +107,26 @@ The AI assistant requires the following server-side environment variables:
 | `GROUNDING_DOC_VERSION` | Versions the static prompt context for cache management |
 
 Optional stream diagnostics can be enabled with `CHAT_STREAM_DEBUG` on the server and `VITE_CHAT_STREAM_DEBUG` in the client build.
+
+### Analytics configuration
+
+Cookieless page analytics and fixed-schema interaction events use the free Umami Cloud service. Analytics is production-only, is never awaited by user-facing interactions, and fails silently if the tracker or collection endpoint is unavailable. Custom chat metrics never include question text, response text, message length, IP addresses, user agents, or referrers. Reporting is viewed directly in the private Umami dashboard; the site does not expose an analytics report page or require Umami API access.
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_UMAMI_WEBSITE_ID` | Loads the browser tracker for the configured Umami website |
+| `UMAMI_WEBSITE_ID` | Identifies the website for anonymous server-side chat events |
+| `EXCLUDED_IP_HASHES` | Comma-separated SHA-256 hashes excluded from server-side chat metrics |
+| `ANALYTICS_PRODUCTION_HOSTS` | Optional production hostname allowlist |
+| `UMAMI_COLLECT_URL` | Optional override for the Umami collection endpoint |
+
+Visiting any site page with `?exclude-me=1` stores a browser-local analytics exclusion and immediately removes the query parameter from the address. Use `?exclude-me=0` to clear it. The exclusion also propagates to server-side chat metrics.
+
+To add a public IP to `EXCLUDED_IP_HASHES` without storing the address itself:
+
+```bash
+printf '%s' 'YOUR_PUBLIC_IP' | shasum -a 256
+```
 
 ## Author
 

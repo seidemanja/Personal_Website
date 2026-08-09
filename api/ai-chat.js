@@ -1,6 +1,7 @@
 import { checkAndTrackRequest, getSessionCookieValue, prepareSession } from '../server/ai/rateLimit.js';
 import { resolveModel } from '../server/ai/modelConfig.js';
 import { streamOpenAIResponse } from '../server/ai/openaiResponses.js';
+import { createMetricsRecorder } from '../server/metrics/recorder.js';
 
 function createServerDebugLogger() {
   if (process.env.CHAT_STREAM_DEBUG !== 'true') {
@@ -97,11 +98,17 @@ export default async function handler(request, response) {
   const isWarmup = body?.type === 'warmup';
   const resetSession = Boolean(body?.resetSession);
   const { id: sessionId, isNew } = prepareSession(request, { resetSession });
+  const metrics = createMetricsRecorder(request, sessionId);
   const rateLimit = checkAndTrackRequest(sessionId, { isWarmup });
   const sessionCookie = getSessionCookieValue(sessionId);
 
   if (!rateLimit.ok) {
-    return sendJson(
+    metrics.record(
+      rateLimit.code === 'conversation_limit'
+        ? 'session_cap_reached'
+        : 'rate_limit_hit',
+    );
+    sendJson(
       response,
       rateLimit.status,
       {
@@ -111,9 +118,21 @@ export default async function handler(request, response) {
         'Set-Cookie': sessionCookie,
       },
     );
+    await metrics.flush();
+    return;
   }
 
   const model = resolveModel(body?.modelKey);
+
+  if (!isWarmup) {
+    if (rateLimit.messageCount === 1) {
+      metrics.record('session_started', { model: model.model });
+    }
+    metrics.record('message_sent', {
+      model: model.model,
+      value: rateLimit.messageCount,
+    });
+  }
   const abortController = new AbortController();
 
   response.on?.('close', () => {
@@ -136,16 +155,29 @@ export default async function handler(request, response) {
       isWarmup,
       signal: abortController.signal,
       debugLog,
+      onMetric(event, value) {
+        if (!isWarmup) {
+          metrics.record(event, { model: model.model, value });
+        }
+      },
     });
   } catch (error) {
     debugLog?.('server.error', {
       message: error instanceof Error ? error.message : 'Unknown error',
     });
 
+    if (error?.name === 'AbortError') {
+      await metrics.flush();
+      return;
+    }
+
+    metrics.record('error', { model: model.model, value: 502 });
+
     if (response.headersSent) {
       response.write('event: error\n');
       response.write('data: {}\n\n');
       response.end();
+      await metrics.flush();
       return;
     }
 
@@ -154,8 +186,12 @@ export default async function handler(request, response) {
       message: error instanceof Error ? error.message : 'Unknown error',
     });
 
-    return sendJson(response, 502, {
+    sendJson(response, 502, {
       error: 'request_failed',
     });
+    await metrics.flush();
+    return;
   }
+
+  await metrics.flush();
 }

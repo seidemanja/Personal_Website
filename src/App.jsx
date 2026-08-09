@@ -10,6 +10,7 @@ import ResumeLayout from './pages/ResumeLayout.jsx';
 import ResumePage from './pages/ResumePage.jsx';
 import SelectedProjectsPage from './pages/SelectedProjectsPage.jsx';
 import TwitterProjectPage from './pages/TwitterProjectPage.jsx';
+import useSiteAnalytics from './hooks/useSiteAnalytics.js';
 
 const useBrowserLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect;
@@ -19,6 +20,8 @@ function App() {
   const normalizedPathname = location.pathname.replace(/\/+$/, '') || '/';
   const isResumeRoute = normalizedPathname === '/resume';
   const isProjectsRoute = normalizedPathname === '/projects';
+
+  useSiteAnalytics(normalizedPathname);
 
   useBrowserLayoutEffect(() => {
     if ('scrollRestoration' in window.history) {
