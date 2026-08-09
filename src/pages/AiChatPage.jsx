@@ -674,15 +674,15 @@ function createPdfDocument({ messages, modelLabel }) {
   const marginX = 28;
   const contentWidth = pageWidth - marginX * 2;
   // These widths reproduce the 838px desktop chat's wraps with PDF Helvetica metrics.
-  const assistantTextWidth = 516;
-  const assistantBulletWidth = 525;
-  const userBubbleMaxWidth = contentWidth * (476 / 782);
-  const bubblePaddingX = 12.5;
-  const bubblePaddingY = 8;
+  const assistantTextWidth = 488.4;
+  const assistantBulletWidth = 497.1;
+  const userBubbleMaxWidth = contentWidth * (450.9 / 782);
+  const bubblePaddingX = 11.8;
+  const bubblePaddingY = 7.6;
   const topY = 742;
   const bottomY = 50;
-  const bodyFontSize = 11.2;
-  const lineHeight = 18.2;
+  const bodyFontSize = 10.6;
+  const lineHeight = 17.2;
   const objects = [];
   const pages = [];
   let currentOps = [];
