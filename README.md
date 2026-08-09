@@ -4,6 +4,8 @@
 
 A personal portfolio featuring detailed project case studies for Joshua Seideman, PhD, a product manager and scientist working across data, AI, software, and research.
 
+Joshua Seideman designed and built the site using OpenAI Codex as an AI-assisted coding tool.
+
 The site is designed as both a concise professional profile and a deeper record of how Josh approaches product discovery, delivery, experimentation, and technical problem-solving. It pairs a traditional resume and selected-work portfolio with a grounded AI assistant that lets visitors explore the same material conversationally.
 
 ## Site Contents
@@ -108,9 +110,6 @@ Optional stream diagnostics can be enabled with `CHAT_STREAM_DEBUG` on the serve
 ## Author
 
 Joshua Seideman, PhD
-
-- [LinkedIn](https://www.linkedin.com/in/joshua-a-seideman/)
-- [Email](mailto:josh.seideman@me.com)
 
 ## License
 
