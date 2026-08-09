@@ -1,10 +1,12 @@
 # Joshua Seideman, PhD — Personal Website
 
-[www.seidemanphd.com](https://www.seidemanphd.com/)
+[www.seidemanphd.com](https://www.seidemanphd.com)
 
 Personal portfolio and project case studies. Product manager working in data and AI, with a background in neuroscience research.
 
-The site pairs a resume and selected-work portfolio with a grounded AI assistant that lets visitors explore the same material conversationally. Built with AI-assisted development (OpenAI Codex).
+The site pairs a resume and selected-work portfolio with a grounded AI assistant that lets visitors explore the same material conversationally.
+
+I designed and built the site using AI-assisted development (OpenAI Codex).
 
 ## Site Contents
 
