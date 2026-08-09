@@ -972,6 +972,11 @@
     padding: clamp(34px, 6svh, 52px) 0 48px;
   }
 
+  .emptyState p {
+    display: inline-block;
+    text-align: left;
+  }
+
   .desktopEmptyPrompt {
     display: none;
   }

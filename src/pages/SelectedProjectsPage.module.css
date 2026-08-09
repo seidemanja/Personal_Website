@@ -7,14 +7,14 @@
 .content {
   width: 779px;
   margin: 0 auto;
-  padding: 42px 0 61px;
+  padding: 28px 0 61px;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
 .header {
   min-width: 0;
-  margin-bottom: 29px;
+  margin-bottom: 42px;
 }
 
 .title {
@@ -28,10 +28,10 @@
 }
 
 .subtitle {
-  max-width: 618px;
-  margin: 12px 0 0;
+  max-width: 100%;
+  margin: 13px 0 0;
   color: #5d5d59;
-  font-size: 0.903rem;
+  font-size: 0.9rem;
   line-height: 1.45;
   overflow-wrap: break-word;
 }
@@ -314,7 +314,7 @@
   max-width: 570px;
   margin: 8px 0 0;
   color: #444440;
-  font-size: 0.855rem;
+  font-size: 0.9rem;
   line-height: 1.55;
   overflow-wrap: break-word;
 }
@@ -364,6 +364,7 @@
 
   .content {
     width: min(779px, calc(100% - 64px));
+    padding-top: 28px;
   }
 
   .card {
@@ -376,8 +377,8 @@
 
   .card > .cardLinkIcon {
     position: absolute !important;
-    right: 20px !important;
-    bottom: 20px !important;
+    right: 18px !important;
+    bottom: 18px !important;
     left: auto !important;
     width: 24px !important;
     height: 24px !important;
@@ -588,7 +589,7 @@
   .cardContent {
     min-height: 0;
     padding: 0 23px 38px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .description {
@@ -599,6 +600,11 @@
   .technologies {
     margin: 0;
     padding-top: 20px;
+  }
+
+  .technology {
+    border-color: transparent;
+    box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.28);
   }
 
   .desktopCopy {
@@ -613,7 +619,7 @@
 @media (hover: none) and (pointer: coarse) and (max-width: 720px) {
   .content {
     width: calc(100% - 48px);
-    padding: 54px 0 68px;
+    padding: 22px 0 68px;
   }
 
   .header {
@@ -625,7 +631,7 @@
   }
 
   .subtitle {
-    font-size: 0.903rem;
+    font-size: 0.9rem;
   }
 
   .imagePlaceholder {
@@ -680,7 +686,7 @@
 @media (hover: none) and (pointer: coarse) and (max-width: 420px) {
   .content {
     width: calc(100% - 40px);
-    padding-top: 44px;
+    padding-top: 22px;
   }
 
   .imagePlaceholder {

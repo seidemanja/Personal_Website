@@ -259,7 +259,14 @@ function SelectedProjectsPage() {
                   >
                     {project.technologies.map((technology) => (
                       <li className={`${styles.technology} sp-technology`} key={technology}>
-                        {technology}
+                        {project.title === 'Product Management for Data & AI Products' && technology === 'AI/ML' ? (
+                          <>
+                            <span className={styles.desktopCopy}>AI/ML</span>
+                            <span className={styles.mobileCopy}>AI</span>
+                          </>
+                        ) : (
+                          technology
+                        )}
                       </li>
                     ))}
                   </ul>

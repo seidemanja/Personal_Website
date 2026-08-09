@@ -65,9 +65,11 @@ const workExperience = [
   },
   {
     organization: 'Lexical Intelligence',
-    role: 'Consultant – Scientific Portfolio Analyst',
+    role: 'Scientific Portfolio Analyst',
     dates: '08/2020 – 09/2021',
     bullets: [
+      'Conducted user research to define requirements and scope for web-based analytics products',
+      'Served as project manager for select initiatives, coordinating analysts and ensuring timely delivery',
       <>
         Contributed to a publicly published{' '}
         <a
@@ -80,10 +82,8 @@ const workExperience = [
         for the National Institutes of Health (NIH) Office of Portfolio
         Analysis, authoring a section on measuring data and resource sharing
       </>,
-      'Conducted user research to define requirements and scope for web-based analytics products',
-      'Served as project manager for select initiatives, coordinating analysts and ensuring timely delivery',
-      'Delivered analytical products (slide decks, datasets) to support portfolio analysis and decision-making',
       'Wrote custom Python code to clean, analyze, visualize, and statistically summarize large datasets',
+      'Delivered analytical products (slide decks, datasets) to support portfolio analysis and decision-making',
     ],
   },
   {

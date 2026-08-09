@@ -34,12 +34,12 @@ const launchEntries = [
   {
     title: 'Testing the Solution',
     description:
-      'Once my team and I had a candidate solution, often after an analysis of alternatives, wireframes and prototypes went in front of customers before engineering committed. Sessions focused on whether customers could complete the task without being told how, where their instincts diverged from the design, and which requirements were still undefined.',
+      'Once my team and I had a candidate solution, often after an analysis of alternatives, wireframes and prototypes went in front of customers before engineering committed. Sessions focused on whether customers could complete the task without being told how, where their instincts diverged from the design, and requirements still undefined.',
   },
   {
     title: 'Scoping the Build',
     description:
-      'Scoped first releases to deliver value quickly, then added value incrementally through later releases. Scope was set by risk, testing the assumption most likely to undermine the product. Success metrics were defined before development.',
+      'Scoped first releases to deliver value quickly, then added value incrementally through later releases. Scope was set by risk, testing the assumption most likely to undermine the product. Success metrics were defined before building.',
   },
   {
     title: 'Launching and Measuring',
@@ -62,7 +62,7 @@ const leadershipEntries = [
   {
     title: 'Risk and Transparency',
     description:
-      'Fostered an environment where team members raised risks early and throughout projects. Ensured each risk had an impact, owner, mitigation, and trigger. Kept customers informed of timelines, assumptions, and risks to align expectations.',
+      'Fostered an environment where team members raised risks early and throughout projects. Ensured each risk had an impact, owner, mitigation and trigger. Kept clients informed of timelines, assumptions, and risks to align expectations.',
   },
 ];
 
@@ -108,7 +108,7 @@ function DeloitteProductManagementPage() {
         </section>
 
         <section
-          className={`${styles.metrics} pd-metrics pd-metrics-three`}
+          className={`${styles.metrics} pd-metrics pd-metrics-three pd-product-metrics-three`}
           aria-label="Project highlights"
         >
           {metrics.map(({ description, title }) => (
