@@ -226,7 +226,7 @@ const PDF_HELVETICA_WIDTHS = {
   '~': 0.584,
 };
 
-function approximatePdfTextWidth(text, fontSize, fontName = 'F1') {
+function approximatePdfTextWidth(text, fontSize) {
   const normalizedText = sanitizePdfText(text);
   let width = 0;
 
@@ -246,8 +246,7 @@ function approximatePdfTextWidth(text, fontSize, fontName = 'F1') {
     }
   }
 
-  const fontWeightAdjustment = fontName === 'F2' ? 1.08 : 1;
-  return width * fontSize * fontWeightAdjustment;
+  return width * fontSize;
 }
 
 function wrapPdfText(text, maxWidth, fontSize) {
@@ -630,10 +629,11 @@ function createPdfDocument({ messages, modelLabel }) {
   }
 
   function textRunsOp(runs, x, y, fontSize) {
-    const operations = [`BT ${x} ${y} Td`];
+    const operations = [`q BT ${x} ${y} Td`];
     let activeFont = '';
+    let activeStrokeWidth = 0;
 
-    runs.forEach(({ fontName = 'F1', text }) => {
+    runs.forEach(({ fontName = 'F1', strokeWidth = 0, text }) => {
       if (!text) {
         return;
       }
@@ -643,10 +643,15 @@ function createPdfDocument({ messages, modelLabel }) {
         activeFont = fontName;
       }
 
+      if (strokeWidth !== activeStrokeWidth) {
+        operations.push(strokeWidth > 0 ? `${strokeWidth} w 2 Tr` : '0 Tr');
+        activeStrokeWidth = strokeWidth;
+      }
+
       operations.push(`${escapePdfLiteral(text)} Tj`);
     });
 
-    operations.push('ET');
+    operations.push('0 Tr ET Q');
     return operations.join(' ');
   }
 
@@ -728,8 +733,8 @@ function createPdfDocument({ messages, modelLabel }) {
       const linkText = line.text.slice(linkStart, linkStart + link.text.length);
 
       if (linkText) {
-        const linkWidth = approximatePdfTextWidth(linkText, fontSize, 'F2');
-        runs.push({ text: linkText, fontName: 'F2' });
+        const linkWidth = approximatePdfTextWidth(linkText, fontSize);
+        runs.push({ text: linkText, fontName: 'F1', strokeWidth: 0.16 });
         annotations.push({ href: link.href, x: cursorX, width: linkWidth });
         cursorX += linkWidth;
       }
