@@ -2,7 +2,7 @@
 
 [www.seidemanphd.com](https://www.seidemanphd.com)
 
-A personal portfolio and professional case-study site for Joshua Seideman, PhD, a product manager and scientist working across data, AI, software, and research.
+A personal portfolio featuring detailed project case studies for Joshua Seideman, PhD, a product manager and scientist working across data, AI, software, and research.
 
 The site is designed as both a concise professional profile and a deeper record of how Josh approaches product discovery, delivery, experimentation, and technical problem-solving. It pairs a traditional resume and selected-work portfolio with a grounded AI assistant that lets visitors explore the same material conversationally.
 
