@@ -10,12 +10,12 @@ The site pairs a resume and selected-work portfolio with a grounded AI assistant
 
 | Area | Purpose |
 | --- | --- |
-| [Home](https://www.seidemanphd.com/) | My professional identity, contact points, and primary navigation |
-| [Resume](https://www.seidemanphd.com/resume) | My product leadership, scientific experience, education, publications, and technical skills |
-| [Selected Work](https://www.seidemanphd.com/projects) | A curated portfolio of my professional, research, and independent projects |
-| [AI Chat](https://www.seidemanphd.com/ai-chat) | A grounded conversational interface for questions about my background and work |
+| [Home](https://www.seidemanphd.com/) | Professional identity, contact points, and primary navigation |
+| [Resume](https://www.seidemanphd.com/resume) | Product leadership, scientific experience, education, publications, and technical skills |
+| [Selected Work](https://www.seidemanphd.com/projects) | A curated portfolio spanning professional, research, and independent projects |
+| [AI Chat](https://www.seidemanphd.com/ai-chat) | A grounded conversational interface for questions about the background and work presented on the site |
 
-My Selected Work portfolio includes detailed project pages covering:
+Selected Work includes detailed project pages covering:
 
 - Product management for data and AI products
 - PhD research in neuroscience
@@ -23,37 +23,37 @@ My Selected Work portfolio includes detailed project pages covering:
 - Automated Instagram content creation and engagement
 - Automated Twitter giveaway discovery and entry
 
-I structured each page around the aspects most relevant to the work, including outcomes, decision-making, problem framing, product strategy, experimental design, system architecture, delivery methods, metrics, publications, and representative outputs.
+Each page is structured around the aspects most relevant to the work, including outcomes, decision-making, problem framing, product strategy, experimental design, system architecture, delivery methods, metrics, publications, and representative outputs.
 
 ## Product and Engineering Approach
 
 ### Content-first responsive design
 
-I intentionally composed layouts for wide desktop, narrow desktop, and mobile contexts. The responsive design uses purpose-selected image variants, breakpoint-specific content treatments, and mobile interaction patterns rather than relying only on proportional scaling.
+Layouts are intentionally composed for wide desktop, narrow desktop, and mobile contexts. The responsive design uses purpose-selected image variants, breakpoint-specific content treatments, and mobile interaction patterns rather than relying only on proportional scaling.
 
 ### Prerendered React application
 
-I built the site as a React application with route-level static prerendering. The production build renders each public route to HTML, inlines critical CSS, and then hydrates the application in the browser. This preserves client-side interactions while improving first render stability and ensuring that core content exists before JavaScript executes.
+The site is built as a React application with route-level static prerendering. The production build renders each public route to HTML, inlines critical CSS, and then hydrates the application in the browser. This preserves client-side interactions while improving first render stability and ensuring that core content exists before JavaScript executes.
 
 ### Grounded AI assistant
 
-I constrained the AI Chat experience to a server-side knowledge document covering my professional experience, projects, publications, and research. I made the following design and engineering choices:
+The AI Chat experience is constrained to a server-side knowledge document covering the professional experience, projects, publications, and research presented throughout the site. The implementation:
 
-- I keep my OpenAI API key and grounding source out of the browser bundle
-- I use an explicit system prompt to define scope, tone, and disclosure boundaries
-- I stream responses from a server-side API for low perceived latency
-- I offer a server-controlled model allowlist rather than accepting arbitrary model names
-- I limit conversation history and input size before forwarding requests
-- I apply session-based request pacing and conversation limits
-- I store browser chat history in session storage and support client-side PDF export
+- Keeps the OpenAI API key and grounding source out of the browser bundle
+- Uses an explicit system prompt to define scope, tone, and disclosure boundaries
+- Streams responses from a server-side API for low perceived latency
+- Offers a server-controlled model allowlist rather than accepting arbitrary model names
+- Limits conversation history and input size before forwarding requests
+- Applies session-based request pacing and conversation limits
+- Stores browser chat history in session storage and supports client-side PDF export
 
 ### Stable external references
 
-I resolve my NIH RePORTER grant link through a server-side endpoint instead of relying on a permanently hard-coded search URL. The endpoint refreshes the search against the NIH API and returns the current results page for grant `F31EY029154`, with cache and stale-while-revalidate behavior to balance freshness and reliability.
+The NIH RePORTER grant link is resolved through a server-side endpoint instead of relying on a permanently hard-coded search URL. The endpoint refreshes the search against the NIH API and returns the current results page for grant `F31EY029154`, with cache and stale-while-revalidate behavior to balance freshness and reliability.
 
 ### Performance and interaction stability
 
-I use image-focused service-worker caching, critical CSS injection, and route snapshots to reduce visible layout changes during repeat navigation and refreshes. I added semantic labels to interactive controls and respect reduced-motion preferences where motion is present.
+The build includes image-focused service-worker caching, critical CSS injection, and route snapshots used to reduce visible layout changes during repeat navigation and refreshes. Interactive controls use semantic labels, and reduced-motion preferences are respected where motion is present.
 
 ## Technical Architecture
 
@@ -83,7 +83,7 @@ src/entry-server.jsx Server-rendering entry point
 
 ## Development and Deployment
 
-I keep the repository's command surface small:
+The repository uses a small command surface:
 
 ```bash
 npm install
@@ -94,7 +94,7 @@ npm run preview
 
 `npm run build` creates the client bundle, builds the server-rendering entry point, prerenders the public routes, injects critical styles, and removes the temporary SSR bundle.
 
-My AI assistant requires the following server-side environment variables:
+The AI assistant requires the following server-side environment variables:
 
 | Variable | Purpose |
 | --- | --- |
@@ -107,7 +107,7 @@ Optional stream diagnostics can be enabled with `CHAT_STREAM_DEBUG` on the serve
 
 ## Author
 
-I am Joshua Seideman, PhD.
+Joshua Seideman, PhD
 
 ## License
 
