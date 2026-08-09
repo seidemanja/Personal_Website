@@ -224,6 +224,58 @@ const PDF_HELVETICA_WIDTHS = {
   '|': 0.26,
   '}': 0.334,
   '~': 0.584,
+  A: 0.667,
+  B: 0.667,
+  C: 0.722,
+  D: 0.722,
+  E: 0.667,
+  F: 0.611,
+  G: 0.778,
+  H: 0.722,
+  I: 0.278,
+  J: 0.5,
+  K: 0.667,
+  L: 0.556,
+  M: 0.833,
+  N: 0.722,
+  O: 0.778,
+  P: 0.667,
+  Q: 0.778,
+  R: 0.722,
+  S: 0.667,
+  T: 0.611,
+  U: 0.722,
+  V: 0.667,
+  W: 0.944,
+  X: 0.667,
+  Y: 0.667,
+  Z: 0.611,
+  a: 0.556,
+  b: 0.556,
+  c: 0.5,
+  d: 0.556,
+  e: 0.556,
+  f: 0.278,
+  g: 0.556,
+  h: 0.556,
+  i: 0.222,
+  j: 0.222,
+  k: 0.5,
+  l: 0.222,
+  m: 0.833,
+  n: 0.556,
+  o: 0.556,
+  p: 0.556,
+  q: 0.556,
+  r: 0.333,
+  s: 0.5,
+  t: 0.278,
+  u: 0.556,
+  v: 0.5,
+  w: 0.722,
+  x: 0.5,
+  y: 0.5,
+  z: 0.5,
 };
 
 function approximatePdfTextWidth(text, fontSize) {
@@ -233,16 +285,10 @@ function approximatePdfTextWidth(text, fontSize) {
   for (const character of normalizedText) {
     if (PDF_HELVETICA_WIDTHS[character] != null) {
       width += PDF_HELVETICA_WIDTHS[character];
-    } else if (/[A-Z]/.test(character)) {
-      width += 0.667;
-    } else if (/[mw]/.test(character)) {
-      width += 0.778;
-    } else if (/[fijltI]/.test(character)) {
-      width += 0.278;
     } else if (/[0-9]/.test(character)) {
       width += 0.556;
     } else {
-      width += 0.5;
+      width += 0.556;
     }
   }
 
@@ -284,14 +330,24 @@ function wrapPdfTextSegments(segments, maxWidth, fontSize) {
         const tokenEnd = tokenStart + token.text.length;
 
         if (token.href && tokenEnd > 0 && tokenStart < lineText.length) {
-          links.push({
+          const link = {
             href: token.href,
             start: Math.max(0, tokenStart),
             text: token.text.slice(
               Math.max(0, -tokenStart),
               token.text.length - Math.max(0, tokenEnd - lineText.length),
             ),
-          });
+          };
+          const previousLink = links[links.length - 1];
+
+          if (
+            previousLink?.href === link.href &&
+            previousLink.start + previousLink.text.length === link.start
+          ) {
+            previousLink.text += link.text;
+          } else {
+            links.push(link);
+          }
         }
 
         cursor += token.text.length;
@@ -338,8 +394,8 @@ function getPdfMessageLines(content, maxWidth, fontSize) {
   const blocks = parseChatMessageBlocks(normalizedContent);
   const pdfLines = [];
   const bulletTextIndent = 15;
-  const bulletItemGap = 4;
-  const blockGap = 8;
+  const bulletItemGap = 5;
+  const blockGap = 11;
 
   blocks.forEach((block, blockIndex) => {
     if (blockIndex > 0) {
@@ -610,12 +666,16 @@ function circleOps(cx, cy, radius) {
 function createPdfDocument({ messages, modelLabel }) {
   const pageWidth = 612;
   const pageHeight = 792;
-  const marginX = 50;
+  const marginX = 28;
   const contentWidth = pageWidth - marginX * 2;
+  const assistantTextWidth = contentWidth * (680 / 782);
+  const userBubbleMaxWidth = contentWidth * (476 / 782);
+  const bubblePaddingX = 12.5;
+  const bubblePaddingY = 8;
   const topY = 742;
   const bottomY = 50;
   const bodyFontSize = 11;
-  const lineHeight = 15;
+  const lineHeight = 18;
   const objects = [];
   const pages = [];
   let currentOps = [];
@@ -800,7 +860,9 @@ function createPdfDocument({ messages, modelLabel }) {
 
   getPersistableMessages(messages).forEach((message) => {
     const isUser = message.role === 'user';
-    const maxTextWidth = isUser ? 330 : contentWidth;
+    const maxTextWidth = isUser
+      ? userBubbleMaxWidth - bubblePaddingX * 2
+      : assistantTextWidth;
     const lines = getPdfMessageLines(
       message.content,
       maxTextWidth,
@@ -816,11 +878,9 @@ function createPdfDocument({ messages, modelLabel }) {
         ...lines.map((line) => approximatePdfTextWidth(line.text, bodyFontSize)),
         32,
       );
-      const bubblePaddingX = 14;
-      const bubblePaddingY = 9;
       const bubbleWidth = Math.min(
         longestLineWidth + bubblePaddingX * 2,
-        contentWidth * 0.72,
+        userBubbleMaxWidth,
       );
       const bubbleHeight = textBlockHeight + bubblePaddingY * 2 - 3;
       const bubbleX = marginX + contentWidth - bubbleWidth;
