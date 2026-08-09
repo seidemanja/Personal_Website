@@ -226,7 +226,7 @@ const PDF_HELVETICA_WIDTHS = {
   '~': 0.584,
 };
 
-function approximatePdfTextWidth(text, fontSize) {
+function approximatePdfTextWidth(text, fontSize, fontName = 'F1') {
   const normalizedText = sanitizePdfText(text);
   let width = 0;
 
@@ -246,7 +246,8 @@ function approximatePdfTextWidth(text, fontSize) {
     }
   }
 
-  return width * fontSize;
+  const fontWeightAdjustment = fontName === 'F2' ? 1.08 : 1;
+  return width * fontSize * fontWeightAdjustment;
 }
 
 function wrapPdfText(text, maxWidth, fontSize) {
@@ -628,12 +629,29 @@ function createPdfDocument({ messages, modelLabel }) {
     )} Tj ET`;
   }
 
-  function setFillColor(gray) {
-    return `${gray} g`;
+  function textRunsOp(runs, x, y, fontSize) {
+    const operations = [`BT ${x} ${y} Td`];
+    let activeFont = '';
+
+    runs.forEach(({ fontName = 'F1', text }) => {
+      if (!text) {
+        return;
+      }
+
+      if (fontName !== activeFont) {
+        operations.push(`/${fontName} ${fontSize} Tf`);
+        activeFont = fontName;
+      }
+
+      operations.push(`${escapePdfLiteral(text)} Tj`);
+    });
+
+    operations.push('ET');
+    return operations.join(' ');
   }
 
-  function setRgbFillColor(r, g, b) {
-    return `${r} ${g} ${b} rg`;
+  function setFillColor(gray) {
+    return `${gray} g`;
   }
 
   function newPage() {
@@ -695,32 +713,25 @@ function createPdfDocument({ messages, modelLabel }) {
 
     let cursorIndex = 0;
     let cursorX = x;
+    const runs = [];
+    const annotations = [];
 
     sortedLinks.forEach((link) => {
       const linkStart = Math.max(cursorIndex, link.start);
       const normalText = line.text.slice(cursorIndex, linkStart);
 
       if (normalText) {
-        currentOps.push(textOp(normalText, cursorX, y, 'F1', fontSize));
+        runs.push({ text: normalText, fontName: 'F1' });
         cursorX += approximatePdfTextWidth(normalText, fontSize);
       }
 
       const linkText = line.text.slice(linkStart, linkStart + link.text.length);
 
       if (linkText) {
-        currentOps.push('q');
-        currentOps.push(setRgbFillColor(0.16, 0.16, 0.15));
-        currentOps.push(textOp(linkText, cursorX, y, 'F2', fontSize));
-        currentOps.push('Q');
-
-        addLinkAnnotation(
-          link.href,
-          cursorX,
-          y,
-          approximatePdfTextWidth(linkText, fontSize),
-          fontSize,
-        );
-        cursorX += approximatePdfTextWidth(linkText, fontSize);
+        const linkWidth = approximatePdfTextWidth(linkText, fontSize, 'F2');
+        runs.push({ text: linkText, fontName: 'F2' });
+        annotations.push({ href: link.href, x: cursorX, width: linkWidth });
+        cursorX += linkWidth;
       }
 
       cursorIndex = linkStart + link.text.length;
@@ -729,8 +740,19 @@ function createPdfDocument({ messages, modelLabel }) {
     const remainingText = line.text.slice(cursorIndex);
 
     if (remainingText) {
-      currentOps.push(textOp(remainingText, cursorX, y, 'F1', fontSize));
+      runs.push({ text: remainingText, fontName: 'F1' });
     }
+
+    currentOps.push(textRunsOp(runs, x, y, fontSize));
+    annotations.forEach((annotation) => {
+      addLinkAnnotation(
+        annotation.href,
+        annotation.x,
+        y,
+        annotation.width,
+        fontSize,
+      );
+    });
   }
 
   function ensureSpace(height) {
