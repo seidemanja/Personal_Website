@@ -848,15 +848,32 @@ function createPdfDocument({ messages, modelLabel }) {
       newPage();
     }
 
-    currentOps.push(textOp(text, marginX + indent, cursorY, fontName, fontSize));
+    const x = marginX + indent;
+    const y = cursorY;
+    currentOps.push(textOp(text, x, y, fontName, fontSize));
     cursorY -= lineHeight + extraAfter;
+    return { x, y };
   }
 
   addLine('AI Chat Conversation', {
     fontName: 'F2',
     fontSize: 18,
-    extraAfter: 8,
+    extraAfter: 7,
   });
+  addLine('Joshua Seideman, PhD', {
+    fontSize: 11,
+  });
+  const websiteLine = addLine('seidemanphd.com/ai-chat', {
+    fontSize: 10,
+    extraAfter: 7,
+  });
+  addLinkAnnotation(
+    'https://seidemanphd.com/ai-chat',
+    websiteLine.x,
+    websiteLine.y,
+    approximatePdfTextWidth('seidemanphd.com/ai-chat', 10),
+    10,
+  );
   addLine(`Export timestamp: ${new Date().toLocaleString()}`, {
     fontSize: 10,
   });
