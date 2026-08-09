@@ -382,7 +382,12 @@ function wrapPdfTextSegments(segments, maxWidth, fontSize) {
   return lines.length ? lines : [{ text: '', links: [] }];
 }
 
-function getPdfMessageLines(content, maxWidth, fontSize) {
+function getPdfMessageLines(
+  content,
+  maxWidth,
+  fontSize,
+  { bulletMaxWidth = maxWidth } = {},
+) {
   const normalizedContent = String(content || '')
     .trim()
     .replace(/\r\n?/g, '\n');
@@ -416,7 +421,7 @@ function getPdfMessageLines(content, maxWidth, fontSize) {
       block.items.forEach((item, itemIndex) => {
         const wrappedBulletLines = wrapPdfTextSegments(
           parseInlineLinks(item),
-          maxWidth - bulletTextIndent,
+          bulletMaxWidth - bulletTextIndent,
           fontSize,
         );
 
@@ -668,14 +673,16 @@ function createPdfDocument({ messages, modelLabel }) {
   const pageHeight = 792;
   const marginX = 28;
   const contentWidth = pageWidth - marginX * 2;
-  const assistantTextWidth = contentWidth * (680 / 782);
+  // These widths reproduce the 838px desktop chat's wraps with PDF Helvetica metrics.
+  const assistantTextWidth = 516;
+  const assistantBulletWidth = 525;
   const userBubbleMaxWidth = contentWidth * (476 / 782);
   const bubblePaddingX = 12.5;
   const bubblePaddingY = 8;
   const topY = 742;
   const bottomY = 50;
-  const bodyFontSize = 11;
-  const lineHeight = 18;
+  const bodyFontSize = 11.2;
+  const lineHeight = 18.2;
   const objects = [];
   const pages = [];
   let currentOps = [];
@@ -867,6 +874,9 @@ function createPdfDocument({ messages, modelLabel }) {
       message.content,
       maxTextWidth,
       bodyFontSize,
+      {
+        bulletMaxWidth: isUser ? maxTextWidth : assistantBulletWidth,
+      },
     );
     const textBlockHeight = lines.reduce(
       (height, line) => height + lineHeight + (line.extraAfter || 0),
