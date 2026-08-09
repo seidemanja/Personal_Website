@@ -46,7 +46,7 @@ const launchEntries = [
   {
     title: 'Launching and Measuring',
     description:
-      'Releases were staged: internal, then a pilot group, then broader rollout. Each stage was measured against the metric set before launch, and the result decided whether to iterate, expand to more users, or stop.',
+      'Releases were staged: internal, then a pilot group, then broader rollout. Each stage was measured against the metric set before launch, and the result decided whether to iterate or expand to more users.',
   },
 ];
 
@@ -131,7 +131,7 @@ function DeloitteProductManagementPage() {
             back to understand and validate the problems behind them, then
             tested potential solutions with customers using prototypes, scoped
             first releases that delivered value quickly, and launched in stages
-            against metrics established in advance.
+            against metrics established in advance where possible.
           </p>
 
           <aside className={`${styles.callout} pd-callout`}>
@@ -231,9 +231,10 @@ function DeloitteProductManagementPage() {
                 NIH Artificial Intelligence Symposium, 2025
               </p>
               <p>
-                Delivered an ML-based classification tool for scientific grants
-                to support funding decisions, significantly reducing manual
-                categorization time.
+                Delivered an ML-based classification tool that recommends
+                scientific codes for grant applications, achieving over 85%
+                accuracy, recall, and precision on infectious disease codes and
+                reducing manual curation effort for staff.
               </p>
             </div>
             <span className={`${styles.cardLinkIcon} pd-card-link-icon`} aria-hidden="true">

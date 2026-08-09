@@ -28,7 +28,7 @@ function saveProjectDetailSnapshot() {
       `project-detail-snapshot:${normalizedPathname}`,
       JSON.stringify({
         html: rootElement.innerHTML,
-        version: 'project-detail-refresh-v105',
+        version: 'project-detail-refresh-v107',
       }),
     );
   } catch {

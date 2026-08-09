@@ -53,8 +53,8 @@ const workExperience = [
         >
           ML-based classification tool
         </a>{' '}
-        for scientific grants to support funding decisions, reducing manual
-        categorization time by over 20%
+        that recommends scientific codes for grant applications, achieving over
+        85% accuracy, recall, and precision and reducing manual curation effort
       </>,
       <>
         Led development of a data anomaly detection product, defining
