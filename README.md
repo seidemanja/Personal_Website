@@ -15,7 +15,7 @@ The site is designed as both a concise professional profile and a deeper record 
 | [Selected Work](https://www.seidemanphd.com/projects) | A curated portfolio spanning professional, research, and independent projects |
 | [AI Chat](https://www.seidemanphd.com/ai-chat) | A grounded conversational interface for questions about Josh's background and work |
 
-Selected Work includes detailed case studies covering:
+Selected Work includes detailed project pages covering:
 
 - Product management for data and AI products
 - PhD research in neuroscience
@@ -23,7 +23,7 @@ Selected Work includes detailed case studies covering:
 - Automated Instagram content creation and engagement
 - Automated Twitter giveaway discovery and entry
 
-The project pages are written to communicate outcomes and decision-making, not just implementation. Depending on the work, they document problem framing, product strategy, experimental design, system architecture, delivery methods, metrics, publications, or representative outputs.
+Each page is structured around the aspects most relevant to the work, including outcomes, decision-making, problem framing, product strategy, experimental design, system architecture, delivery methods, metrics, publications, and representative outputs.
 
 ## Product and Engineering Approach
 
