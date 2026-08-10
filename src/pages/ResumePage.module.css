@@ -53,6 +53,10 @@
   flex: 0 0 auto;
 }
 
+.mobileDownloadButton {
+  display: none;
+}
+
 .srOnly {
   position: absolute;
   width: 1px;
@@ -380,5 +384,15 @@
   .downloadButton {
     right: 18px;
     bottom: 18px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .desktopDownloadButton {
+    display: none;
+  }
+
+  .mobileDownloadButton {
+    display: inline-flex;
   }
 }

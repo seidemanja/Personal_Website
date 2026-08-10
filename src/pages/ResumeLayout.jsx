@@ -68,16 +68,26 @@ function ResumeLayout({ children = null, isVisible = true }) {
         aria-labelledby="resume-title"
       >
         <a
-          className={styles.downloadButton}
+          className={`${styles.downloadButton} ${styles.desktopDownloadButton}`}
           href={RESUME_PDF_URL}
           download
-          target="_blank"
-          rel="noreferrer"
           aria-label="Download resume PDF"
           title="Download PDF"
         >
           <Download aria-hidden="true" strokeWidth={3} />
           <span className={styles.srOnly}>Download PDF</span>
+        </a>
+
+        <a
+          className={`${styles.downloadButton} ${styles.mobileDownloadButton}`}
+          href={RESUME_PDF_URL}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open resume PDF in a new tab"
+          title="Open PDF"
+        >
+          <Download aria-hidden="true" strokeWidth={3} />
+          <span className={styles.srOnly}>Open PDF in a new tab</span>
         </a>
 
         <h1 className={styles.srOnly} id="resume-title">
