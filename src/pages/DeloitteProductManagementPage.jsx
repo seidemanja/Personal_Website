@@ -54,7 +54,7 @@ const leadershipEntries = [
   {
     title: 'Owning the Vision and Roadmap',
     description:
-      "Owned the product vision and roadmap for a portfolio of analytics and AI products. Prioritized features by expected value and effort to build, and sequenced releases against dependencies and team capacity. Every roadmap item traced back to a validated problem. Communicated the vision so customers and the delivery team shared the same understanding of what a product was for. Worked alongside the product owner to keep the customer's voice in front of the team.",
+      "Owned the product vision and roadmap for a portfolio of analytics and AI products. Prioritized features by expected value and development effort, and sequenced releases against dependencies and team capacity. Every roadmap item traced back to a validated problem. Communicated the vision so customers and the delivery team shared the same understanding of what a product was for. Worked alongside the product owner to keep the customer's voice in front of the team.",
   },
   {
     title: 'Working Through Product Owners and Project Managers',
