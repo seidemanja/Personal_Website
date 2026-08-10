@@ -302,6 +302,20 @@
   }
 }
 
+@media (hover: none) and (pointer: coarse) and (orientation: portrait) and (max-width: 720px) {
+  .emailMenu {
+    width: max-content;
+    min-width: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .emailMenu::before {
+    left: 19px;
+    transform: rotate(45deg);
+  }
+}
+
 @media (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 520px) {
   .hero {
     min-height: 100svh;
