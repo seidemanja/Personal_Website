@@ -18,53 +18,16 @@ const metrics = [
   },
 ];
 
-const stages = [
-  'Problem',
-  'Solution',
-  'Scope',
-  'Launch',
-];
-
-const launchEntries = [
-  {
-    title: 'Framing the Problem',
-    description:
-      'Met with customers to understand their day-to-day work, especially what was time-consuming or repetitive, and to learn about recurring problems they found intractable. These discussions established whether a problem was costing meaningful time and money or was simply an annoyance already worked around at little cost.',
-    mobileDescription:
-      'Met with customers to understand their day-to-day work, especially what was time-consuming or repetitive, and to learn about recurring problems they found intractable. Discussion established whether a problem was costing meaningful time and money or was simply an annoyance already worked around at little cost.',
-  },
-  {
-    title: 'Testing the Solution',
-    description:
-      'Once my team and I had a candidate solution, often after an analysis of alternatives, wireframes and prototypes went in front of customers before engineering committed. Sessions focused on whether customers could complete the task without being told how, where their instincts diverged from the design, and requirements still undefined.',
-  },
-  {
-    title: 'Scoping the Build',
-    description:
-      'Scoped first releases to deliver value quickly, then added value incrementally through later releases. Scope was set by risk, testing the assumption most likely to undermine the product. Success metrics were defined before building.',
-  },
-  {
-    title: 'Launching and Measuring',
-    description:
-      'Releases were staged: internal, then a pilot group, then broader rollout. Each stage was measured against the metric set before launch, and the result decided whether to iterate or expand to more users.',
-  },
-];
-
 const leadershipEntries = [
   {
     title: 'Owning the Vision and Roadmap',
     description:
-      "Owned the product vision and roadmap for a portfolio of analytics and AI products. Prioritized features by expected value and development effort, and sequenced releases against dependencies and team capacity. Every roadmap item traced back to a validated problem. Communicated the vision so customers and the delivery team shared the same understanding of what a product was for. Worked alongside the product owner to keep the customer's voice in front of the team.",
+      'I own the product vision and roadmap for a portfolio of analytics and AI products. Every roadmap item traces back to a validated problem.',
   },
   {
-    title: 'Working Through Product Owners and Project Managers',
+    title: 'Serving as PM, PO, and Project Manager',
     description:
-      'Managed product owners and project managers across concurrent initiatives, setting direction and priorities while they owned backlog detail, schedule, and dependencies. On key initiatives, served as product manager, product owner, and project manager, defining scope and requirements and running delivery with engineering, data science, and design.',
-  },
-  {
-    title: 'Risk and Transparency',
-    description:
-      'Fostered an environment where team members raised risks early and throughout projects. Ensured each risk had an impact, owner, mitigation and trigger. Kept clients informed of timelines, assumptions, and risks to align expectations.',
+      'On key initiatives, I served as product manager, product owner, and project manager, defining scope and requirements and running delivery with engineering, data science, and design.',
   },
 ];
 
@@ -100,11 +63,11 @@ function DeloitteProductManagementPage() {
               </a>
             </p>
             <p className={`${styles.intro} pd-intro`}>
-              Owned the roadmap for a portfolio of 30+ data analytics products,
+              I own the roadmap for a portfolio of 30+ data analytics products,
               including AI-powered products with LLM integration and semantic
-              search. Managed product owners and project managers across
+              search. I manage product owners and project managers across
               concurrent initiatives. Certified Project Management Professional
-              <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}> (PMP)</span>.
+              (PMP).
             </p>
           </div>
         </section>
@@ -121,82 +84,36 @@ function DeloitteProductManagementPage() {
           ))}
         </section>
 
-        <section className={`${styles.section} pd-section`} aria-labelledby="launch-title">
+        <section className={`${styles.section} pd-section`} aria-labelledby="problem-first-title">
           <header className={`${styles.sectionHeader} pd-section-header`}>
-            <h2 id="launch-title">Zero-to-Launch Product Management</h2>
+            <h2 id="problem-first-title">Problem-First Product Development</h2>
           </header>
 
           <p className={`${styles.sectionIntro} pd-section-intro`}>
-            Requests often arrived already framed as solutions. I took a step
-            back to understand and validate the problems behind them, then
-            tested potential solutions with customers using prototypes, scoped
-            first releases that delivered value quickly, and launched in stages
-            against metrics established in advance where possible.
+            My doctorate trained me to define a question precisely, to establish
+            in advance what evidence would help answer it, and to design a study
+            capable of producing that evidence. I approach products the same
+            way: problem definition and success metrics come before development
+            begins, so that once a product ships we can measure early, from data,
+            how well it is solving the problem it was built for.
           </p>
+        </section>
 
-          <aside className={`${styles.callout} pd-callout`}>
-            <p className={`${styles.calloutEyebrow} pd-callout-eyebrow`}>Scientific Approach</p>
-            <p className="pd-callout-copy">
-              My doctorate trained me to define a question precisely, to
-              establish in advance what evidence would help answer it, and to
-              design a study capable of producing that evidence. I approach
-              products the same way: problem definition and success metrics come
-              before development begins, so that once a product ships we can
-              measure early, from data, how well it is solving the problem it
-              was built for.
-            </p>
-          </aside>
+        <section
+          className={`${styles.section} pd-section`}
+          aria-labelledby="ai-assisted-development-title"
+        >
+          <header className={`${styles.sectionHeader} pd-section-header`}>
+            <h2 id="ai-assisted-development-title">
+              AI-Assisted Prototyping and Development
+            </h2>
+          </header>
 
-          <div className={`${styles.stages} pd-stages`} aria-label="Product development flow">
-            {stages.map((stage, index) => (
-              <div className={styles.stageGroup} key={stage}>
-                <div className={`${styles.stage} pd-stage`}>{stage}</div>
-                {index < stages.length - 1 ? (
-                  <span className={`${styles.stageArrow} pd-stage-arrow`} aria-hidden="true">
-                    <span className={`${styles.horizontalArrow} pd-horizontal-arrow`}>→</span>
-                    <span className={`${styles.verticalArrow} pd-vertical-arrow`}>↓</span>
-                  </span>
-                ) : null}
-              </div>
-            ))}
-          </div>
-
-          <div className={`${styles.entryList} pd-entry-list`}>
-            {launchEntries.map(({ description, mobileDescription, title }) => (
-              <article className={`${styles.entry} pd-entry`} key={title}>
-                <h3>{title}</h3>
-                <p>
-                  {mobileDescription ? (
-                    <>
-                      <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
-                        {description}
-                      </span>
-                      <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>
-                        {mobileDescription}
-                      </span>
-                    </>
-                  ) : (
-                    description
-                  )}
-                </p>
-              </article>
-            ))}
-          </div>
-
-          <aside className={`${styles.callout} ${styles.endCallout} pd-callout pd-end-callout`}>
-            <p className={`${styles.calloutEyebrow} pd-callout-eyebrow`}>
-              AI-Assisted Development
-            </p>
-            <p className="pd-callout-copy">
-              I use AI-assisted coding (ChatGPT, OpenAI Codex) alongside
-              hands-on development to prototype solutions, resolve{' '}
-              <span className={`${styles.desktopCopy} pd-detail-desktop-copy`}>
-                technical blockers
-              </span>
-              <span className={`${styles.mobileCopy} pd-detail-mobile-copy`}>blockers</span>, and
-              accelerate timelines.
-            </p>
-          </aside>
+          <p className={`${styles.sectionIntro} pd-section-intro`}>
+            I use AI-assisted coding (ChatGPT, OpenAI Codex) alongside hands-on
+            development to prototype solutions, resolve technical blockers, and
+            accelerate timelines.
+          </p>
         </section>
 
         <section className={`${styles.section} pd-section`} aria-labelledby="leadership-title">

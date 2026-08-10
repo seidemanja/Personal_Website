@@ -10,7 +10,7 @@ const projects = [
   {
     category: 'professional',
     description:
-      'Owned roadmap and requirements for 30+ data analytics products, including AI-enabled products with LLM integration and semantic search.',
+      'Product roadmap ownership for 30+ data analytics products, including AI-enabled products with LLM integration and semantic search.',
     imageClassName: 'sp-image-deloitte',
     imageSrc: '/images/pm_roadmap.png',
     narrowImageSrc: '/images/pm_roadmap_narrow.png',
