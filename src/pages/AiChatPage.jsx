@@ -1185,6 +1185,7 @@ function AiChatPage() {
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState('');
+  const [modelChangeNotice, setModelChangeNotice] = useState(null);
   const [isMobileChatLayout, setIsMobileChatLayout] = useState(false);
   const [showMobileStickyHeader, setShowMobileStickyHeader] = useState(false);
   const [hasLoadedStoredMessages] = useState(true);
@@ -1192,6 +1193,7 @@ function AiChatPage() {
   const chatScrollerRef = useRef(null);
   const headerRef = useRef(null);
   const optionsMenuRef = useRef(null);
+  const modelChangeNoticeTimerRef = useRef(null);
   const warmupStartedRef = useRef(false);
   const activeAssistantMessageIdRef = useRef(null);
   const pendingStreamTextRef = useRef('');
@@ -1209,6 +1211,9 @@ function AiChatPage() {
 
     return formatModelLabel(rawLabel);
   }, [modelOptions, selectedModelKey]);
+  const hasUserMessage = messages.some(
+    (message) => message.role === 'user' && message.content.trim(),
+  );
 
   useEffect(() => {
     const query = window.matchMedia('(max-width: 640px)');
@@ -1369,8 +1374,20 @@ function AiChatPage() {
   useEffect(() => {
     return () => {
       abortControllerRef.current?.abort();
+      window.clearTimeout(modelChangeNoticeTimerRef.current);
     };
   }, []);
+
+  function showModelChangedNotice(modelLabel) {
+    window.clearTimeout(modelChangeNoticeTimerRef.current);
+    setModelChangeNotice({
+      id: `${Date.now()}-${modelLabel}`,
+      text: `Model changed to ${modelLabel}`,
+    });
+    modelChangeNoticeTimerRef.current = window.setTimeout(() => {
+      setModelChangeNotice(null);
+    }, 1800);
+  }
 
   useEffect(() => {
     if (!isOptionsMenuOpen) {
@@ -2075,42 +2092,44 @@ function AiChatPage() {
             </div>
 
             <div className={styles.quickControls} ref={optionsMenuRef}>
-              <div className={styles.quickControlGroup}>
-                <button
-                  className={styles.quickControlButton}
-                  type="button"
-                  disabled={isStreaming || isLimitReached}
-                  onClick={() => {
-                    setIsOptionsMenuOpen((isOpen) =>
-                      optionsPanel === 'examples' ? !isOpen : true,
-                    );
-                    setOptionsPanel('examples');
-                  }}
-                  aria-haspopup="menu"
-                  aria-expanded={isOptionsMenuOpen && optionsPanel === 'examples'}
-                >
-                  Example questions
-                </button>
-
-                {isOptionsMenuOpen && optionsPanel === 'examples' ? (
-                  <div
-                    className={`${styles.optionsMenu} ${styles.optionsMenuWide} ${styles.quickMenu}`}
-                    role="menu"
+              {hasUserMessage ? (
+                <div className={styles.quickControlGroup}>
+                  <button
+                    className={`${styles.quickControlButton} ${styles.exampleQuestionsButton}`}
+                    type="button"
+                    disabled={isStreaming || isLimitReached}
+                    onClick={() => {
+                      setIsOptionsMenuOpen((isOpen) =>
+                        optionsPanel === 'examples' ? !isOpen : true,
+                      );
+                      setOptionsPanel('examples');
+                    }}
+                    aria-haspopup="menu"
+                    aria-expanded={isOptionsMenuOpen && optionsPanel === 'examples'}
                   >
-                    {EXAMPLE_QUESTIONS.map((question) => (
-                      <button
-                        key={question}
-                        type="button"
-                        role="menuitem"
-                        disabled={isStreaming || isLimitReached}
-                        onClick={() => sendMessage(question)}
-                      >
-                        {question}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
+                    Example questions
+                  </button>
+
+                  {isOptionsMenuOpen && optionsPanel === 'examples' ? (
+                    <div
+                      className={`${styles.optionsMenu} ${styles.optionsMenuWide} ${styles.quickMenu}`}
+                      role="menu"
+                    >
+                      {EXAMPLE_QUESTIONS.map((question) => (
+                        <button
+                          key={question}
+                          type="button"
+                          role="menuitem"
+                          disabled={isStreaming || isLimitReached}
+                          onClick={() => sendMessage(question)}
+                        >
+                          {question}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
 
               <div className={styles.quickControlGroup}>
                 <button
@@ -2142,6 +2161,7 @@ function AiChatPage() {
                             sendChatMetric('model_selected', {
                               modelKey: model.key,
                             });
+                            showModelChangedNotice(formatModelLabel(model.label));
                           }
                           setSelectedModelKey(model.key);
                           setIsOptionsMenuOpen(false);
@@ -2152,6 +2172,16 @@ function AiChatPage() {
                       </button>
                     ))}
                   </div>
+                ) : null}
+
+                {modelChangeNotice ? (
+                  <p
+                    className={styles.modelChangeNotice}
+                    key={modelChangeNotice.id}
+                    role="status"
+                  >
+                    {modelChangeNotice.text}
+                  </p>
                 ) : null}
               </div>
             </div>
