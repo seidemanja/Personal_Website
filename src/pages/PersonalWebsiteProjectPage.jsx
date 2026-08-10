@@ -141,13 +141,13 @@ function PersonalWebsiteProjectPage() {
               </a>
             </p>
             <p className={`${styles.intro} pd-intro`}>
-              A responsive personal portfolio site paired with a grounded AI
-              assistant that answers visitor questions about Josh’s background,
-              projects, research, publications, and technical experience. Built
-              by defining the requirements and the assistant’s grounding and
-              prompt logic, using ChatGPT and Claude to weigh architectural
-              options and iterate on design, and leveraging AI-assisted coding
-              to implement the server-side LLM integration and frontend.
+              Designed and built a responsive personal portfolio site paired
+              with a grounded AI assistant that answers visitor questions about
+              my background, projects, research, publications, and technical
+              experience. Defined the requirements and the assistant's grounding
+              and prompt logic, used ChatGPT and Claude to weigh architectural
+              options, and leveraged AI-assisted coding to implement the
+              server-side LLM integration and frontend.
             </p>
           </div>
         </section>
