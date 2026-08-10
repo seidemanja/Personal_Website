@@ -173,6 +173,10 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'auto',
+        manifest: {
+          background_color: '#ffffff',
+          theme_color: '#ffffff',
+        },
         workbox: {
           navigateFallback: null,
           globPatterns: ['**/*.{png,PNG,jpg,jpeg,svg,gif,webp}'],
