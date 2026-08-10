@@ -910,10 +910,12 @@ function createPdfDocument({ messages, modelLabel }) {
         userBubbleMaxWidth,
       );
       const bubbleHeight = textBlockHeight + bubblePaddingY * 2 - 3;
+
+      ensureSpace(bubbleHeight + 20);
+
       const bubbleX = marginX + contentWidth - bubbleWidth;
       const bubbleY = cursorY - bubbleHeight;
 
-      ensureSpace(bubbleHeight + 20);
       currentOps.push('q');
       currentOps.push(setFillColor('0.94'));
       currentOps.push(...roundedRectOps(bubbleX, bubbleY, bubbleWidth, bubbleHeight, 13));
