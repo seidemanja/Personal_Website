@@ -127,7 +127,7 @@ function DeloitteProductManagementPage() {
           </header>
 
           <p className={`${styles.sectionIntro} pd-section-intro`}>
-            Requests often arrive already framed as solutions. I took a step
+            Requests often arrived already framed as solutions. I took a step
             back to understand and validate the problems behind them, then
             tested potential solutions with customers using prototypes, scoped
             first releases that delivered value quickly, and launched in stages
