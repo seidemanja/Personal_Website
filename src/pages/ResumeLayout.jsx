@@ -71,6 +71,8 @@ function ResumeLayout({ children = null, isVisible = true }) {
           className={styles.downloadButton}
           href={RESUME_PDF_URL}
           download
+          target="_blank"
+          rel="noreferrer"
           aria-label="Download resume PDF"
           title="Download PDF"
         >
