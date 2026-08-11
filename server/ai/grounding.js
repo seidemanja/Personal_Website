@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
 const groundingDocumentPath = new URL(
-  '../knowledge/joshua_seideman_website_assistant_knowledge_bundle_v4.md',
+  '../knowledge/joshua_seideman_website_assistant_knowledge_bundle_v4_shortened.md',
   import.meta.url,
 );
 
