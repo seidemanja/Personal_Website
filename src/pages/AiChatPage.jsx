@@ -72,7 +72,12 @@ function isThinkingMessage(message) {
 }
 
 function formatModelLabel(label) {
-  return label.replace(/\bgpt\b/gi, 'GPT').replace(/^gpt/gi, 'GPT');
+  return label
+    .replace(/\bgpt\b/gi, 'GPT')
+    .replace(/^gpt/gi, 'GPT')
+    .replace(/\b(sol|terra)\b/gi, (name) =>
+      `${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`,
+    );
 }
 
 function readLastAcceptedAt() {
