@@ -75,8 +75,8 @@ function formatModelLabel(label) {
   return label
     .replace(/\bgpt\b/gi, 'GPT')
     .replace(/^gpt/gi, 'GPT')
-    .replace(/\b(sol|terra)\b/gi, (name) =>
-      `${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`,
+    .replace(/-(sol|terra)\b/gi, (_match, name) =>
+      ` ${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`,
     );
 }
 
