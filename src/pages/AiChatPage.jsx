@@ -15,6 +15,10 @@ import {
   sendChatMetric,
   trackAnalyticsEvent,
 } from '../analytics.js';
+import {
+  CHAT_MESSAGE_TOO_LONG_ERROR,
+  MAX_CHAT_MESSAGE_LENGTH,
+} from '../../shared/chatLimits.js';
 import styles from './AiChatPage.module.css';
 
 const WARMUP_INTERVAL_MS = 10 * 60 * 1000;
@@ -1182,6 +1186,7 @@ function AiChatPage() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [isLimitReached, setIsLimitReached] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [messageLengthError, setMessageLengthError] = useState('');
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState('');
@@ -1214,6 +1219,10 @@ function AiChatPage() {
   const hasUserMessage = messages.some(
     (message) => message.role === 'user' && message.content.trim(),
   );
+  const isInputTooLong = inputValue.length > MAX_CHAT_MESSAGE_LENGTH;
+  const visibleMessageLengthError = isInputTooLong
+    ? CHAT_MESSAGE_TOO_LONG_ERROR
+    : messageLengthError;
 
   useEffect(() => {
     const query = window.matchMedia('(max-width: 640px)');
@@ -1629,6 +1638,11 @@ function AiChatPage() {
   }
 
   async function sendMessage(rawInput) {
+    if (rawInput.length > MAX_CHAT_MESSAGE_LENGTH) {
+      setMessageLengthError(CHAT_MESSAGE_TOO_LONG_ERROR);
+      return;
+    }
+
     const trimmedInput = rawInput.trim();
 
     if (!trimmedInput || isStreaming || isLimitReached) {
@@ -1662,6 +1676,7 @@ function AiChatPage() {
     ]);
     setInputValue('');
     setErrorMessage('');
+    setMessageLengthError('');
     setIsOptionsMenuOpen(false);
     setOptionsPanel('main');
     setIsStreaming(true);
@@ -1703,6 +1718,23 @@ function AiChatPage() {
           setErrorMessage(CONVERSATION_LIMIT_MESSAGE);
           setMessages((currentMessages) =>
             currentMessages.filter((message) => message.id !== assistantMessage.id),
+          );
+          return;
+        }
+      }
+
+      if (response.status === 400) {
+        const payload = await response.json().catch(() => ({}));
+
+        if (payload.error === 'message_too_long') {
+          setInputValue(rawInput);
+          setMessageLengthError(CHAT_MESSAGE_TOO_LONG_ERROR);
+          setMessages((currentMessages) =>
+            currentMessages.filter(
+              (message) =>
+                message.id !== userMessage.id &&
+                message.id !== assistantMessage.id,
+            ),
           );
           return;
         }
@@ -1843,6 +1875,7 @@ function AiChatPage() {
     setMessages([]);
     setInputValue('');
     setErrorMessage('');
+    setMessageLengthError('');
     setIsLimitReached(false);
     setShowScrollButton(false);
     setIsAutoScrollEnabled(true);
@@ -2062,7 +2095,14 @@ function AiChatPage() {
             <div className={styles.inputShell}>
               <textarea
                 value={inputValue}
-                onChange={(event) => setInputValue(event.target.value)}
+                onChange={(event) => {
+                  const nextValue = event.target.value;
+                  setInputValue(nextValue);
+
+                  if (nextValue.length <= MAX_CHAT_MESSAGE_LENGTH) {
+                    setMessageLengthError('');
+                  }
+                }}
                 placeholder="Ask a question"
                 disabled={isStreaming || isLimitReached}
                 rows={1}
@@ -2079,7 +2119,10 @@ function AiChatPage() {
                   className={styles.sendButton}
                   type={isStreaming ? 'button' : 'submit'}
                   onClick={isStreaming ? stopStreaming : undefined}
-                  disabled={isLimitReached || (!isStreaming && !inputValue.trim())}
+                  disabled={
+                    isLimitReached ||
+                    (!isStreaming && (!inputValue.trim() || isInputTooLong))
+                  }
                   aria-label={isStreaming ? 'Stop response' : 'Send message'}
                 >
                   {isStreaming ? (
@@ -2090,6 +2133,12 @@ function AiChatPage() {
                 </button>
               </div>
             </div>
+
+            {visibleMessageLengthError ? (
+              <p className={styles.inputError} role="alert">
+                {visibleMessageLengthError}
+              </p>
+            ) : null}
 
             <div className={styles.quickControls} ref={optionsMenuRef}>
               {hasUserMessage ? (

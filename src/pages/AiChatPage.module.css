@@ -738,6 +738,13 @@
   border-color: rgba(0, 0, 0, 0.34);
 }
 
+.inputError {
+  margin: 6px 16px 0;
+  color: #8a3f36;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
 .form textarea:disabled {
   color: #8f8f8a;
 }
@@ -1067,6 +1074,11 @@
   .quickControls {
     margin: 0 4px 8px;
     padding: 0 4px;
+  }
+
+  .inputError {
+    margin: 0 4px 8px;
+    font-size: 0.86rem;
   }
 
   .quickControlButton {

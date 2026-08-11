@@ -2,6 +2,10 @@ import { checkAndTrackRequest, getSessionCookieValue, prepareSession } from '../
 import { resolveModel } from '../server/ai/modelConfig.js';
 import { streamOpenAIResponse } from '../server/ai/openaiResponses.js';
 import { createMetricsRecorder } from '../server/metrics/recorder.js';
+import {
+  CHAT_MESSAGE_TOO_LONG_SERVER_MESSAGE,
+  MAX_CHAT_MESSAGE_LENGTH,
+} from '../shared/chatLimits.js';
 
 function createServerDebugLogger() {
   if (process.env.CHAT_STREAM_DEBUG !== 'true') {
@@ -89,13 +93,30 @@ export default async function handler(request, response) {
     );
   }
 
+  const isWarmup = body?.type === 'warmup';
+
+  if (!isWarmup) {
+    const submittedMessage =
+      typeof body?.message === 'string'
+        ? body.message
+        : String(body?.message ?? '');
+
+    if (submittedMessage.length > MAX_CHAT_MESSAGE_LENGTH) {
+      return sendJson(response, 400, {
+        error: 'message_too_long',
+        message: CHAT_MESSAGE_TOO_LONG_SERVER_MESSAGE,
+        maxLength: MAX_CHAT_MESSAGE_LENGTH,
+        receivedLength: submittedMessage.length,
+      });
+    }
+  }
+
   if (!process.env.OPENAI_API_KEY) {
     return sendJson(response, 500, {
       error: 'OpenAI API key is not configured',
     });
   }
 
-  const isWarmup = body?.type === 'warmup';
   const resetSession = Boolean(body?.resetSession);
   const { id: sessionId, isNew } = prepareSession(request, { resetSession });
   const metrics = createMetricsRecorder(request, sessionId);
