@@ -79,6 +79,7 @@ export async function streamOpenAIResponse({
       instructions: staticPromptPrefix,
       input,
       stream: true,
+      reasoning: { effort: 'low' },
       max_output_tokens: isWarmup ? 16 : 900,
       prompt_cache_key: getPromptCacheKey(),
     }),
