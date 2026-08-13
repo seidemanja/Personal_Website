@@ -348,8 +348,8 @@ function ResumePage() {
               concurrent initiatives. Combines AI-assisted
             </span>
             <span className={styles.summaryLine}>
-              development with hands-on coding to accelerate prototyping and
-              resolve technical blockers. PMP-certified.
+              development with hands-on coding to accelerate prototyping. PhD
+              in neuroscience. PMP-certified.
             </span>
           </p>
         </header>

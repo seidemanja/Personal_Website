@@ -67,7 +67,7 @@ function DeloitteProductManagementPage() {
               including AI-powered products with LLM integration and semantic
               search. I manage product owners and project managers across
               concurrent initiatives. Certified Project Management Professional
-              (PMP).
+              <span className={styles.desktopCopy}> (PMP)</span>.
             </p>
           </div>
         </section>
