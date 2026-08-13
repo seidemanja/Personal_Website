@@ -6,6 +6,7 @@
 - Do not make unrelated improvements, refactors, copy edits, dependency changes, formatting changes, or visual adjustments.
 - Preserve all existing behavior and styling outside the explicitly requested scope.
 - Before modifying UI, layout, typography, responsive behavior, rendering, snapshots, or hydration, read and follow `format_content.txt`. Treat it as the project's design and rendering contract unless the user explicitly requests an exception.
+- The website resume lede must wrap on the same words as the lede in the most recently uploaded resume PDF. When a new resume PDF changes those line endings, update the website resume's fixed summary-line spans to match the new PDF.
 - Run the verification appropriate to the requested change, including `npm run build` before handoff for code changes.
 - Never modify, delete, stage, or commit `selected-work-twitter-final.png` or `selected-work-twitter-final-2.png` unless the user explicitly requests it.
 
