@@ -387,6 +387,17 @@
   }
 }
 
+@media (max-width: 720px) and (orientation: portrait) and (hover: none) and (pointer: coarse) {
+  .desktopResumeContent {
+    width: calc(100vw - 32px);
+    height: calc((100vw - 32px) * 5.224880383);
+  }
+
+  .viewer {
+    transform: scale(calc((100vw - 32px) / 836px));
+  }
+}
+
 @media (hover: none) and (pointer: coarse) {
   .desktopDownloadButton {
     display: none;
