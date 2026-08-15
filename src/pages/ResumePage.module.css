@@ -399,6 +399,12 @@
 }
 
 @media (hover: none) and (pointer: coarse) {
+  .downloadButton,
+  .downloadButton:hover,
+  .downloadButton:focus-visible {
+    box-shadow: none;
+  }
+
   .desktopDownloadButton {
     display: none;
   }
