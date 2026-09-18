@@ -34,7 +34,7 @@ const CHAT_RESPONSE_TIMEOUT_MS = 30 * 1000;
 const CHAT_STREAM_DEBUG = import.meta.env.VITE_CHAT_STREAM_DEBUG === 'true';
 const EXAMPLE_QUESTIONS = [
   'Give me a brief summary of Josh’s product experience.',
-  'What might a quick resume scan miss about Josh?',
+  'How does Josh take a product from problem to launch?',
   'How does Josh use AI to work more efficiently?',
 ];
 const useBrowserLayoutEffect =
