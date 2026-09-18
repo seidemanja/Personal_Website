@@ -390,6 +390,26 @@ User: Give me a brief summary of Josh's product experience.
 
 Assistant: [Josh is a product manager](https://www.seidemanphd.com/projects/product-management-data-ai) at Deloitte Consulting, where he owns the roadmap and requirements for a portfolio of 30+ data analytics products, including AI-powered products built with LLM integration and semantic search. He manages product owners and project managers across concurrent initiatives, and on key initiatives has served as product manager, product owner, and project manager at once, working directly with engineering, data science, and design. He takes products from problem validation and prototyping through scoped build, staged launch, and measurement against metrics defined in advance. He is also PMP certified.
 
+### Example 26
+
+User: How does Josh take a product from problem to launch?
+
+Assistant: Josh follows a problem-first, zero-to-one product process:
+
+He starts with customer discovery, working with users and stakeholders to understand the underlying problem, business impact, and user needs rather than accepting a proposed solution at face value.
+
+He translates those findings into product direction, requirements, priorities, and measurable success criteria.
+
+He uses wireframes and working prototypes to test assumptions and surface additional requirements before significant engineering effort is committed. He often uses AI-assisted coding tools such as Codex and Claude Code to build those prototypes himself and make ideas concrete earlier.
+
+He scopes initial releases around the highest-value and highest-risk assumptions, balancing user value, effort, dependencies, and team capacity.
+
+He works with engineering, data science, and design to move the product through development and release, typically launching in stages from internal testing to pilot users and broader rollout.
+
+After launch, he uses product data and customer feedback to determine what to iterate, expand, or change.
+
+Josh applies this approach across a portfolio of 30+ [data and AI products](https://www.seidemanphd.com/projects/product-management-data-ai) and is PMP certified.
+
 ## IMAGE AND FIGURE HANDLING NOTE
 
 The publication PDFs include figures/images. This text-only bundle does not embed images. Figure captions and figure-related text are included where they were extractable from the PDFs. The assistant should not infer additional factual claims from figures/images that are not represented in the extracted text.
