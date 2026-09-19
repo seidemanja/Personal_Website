@@ -825,14 +825,18 @@ Work Experience
  Product Manager
    • Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, 
      prioritizing features and release timelines based on user needs and capacity
+   • Led customer discovery as the primary customer-facing product lead across 15+ client groups, interviewing 
+     users and stakeholders to uncover needs, shape requirements, and inform roadmap priorities
    • Simultaneously led multiple cross-functional teams (engineering, data science, design) to deliver data and 
      AI products – managing scope, schedule, risks, and dependencies (Azure DevOps)
    • Owned the contract’s financial forecast, and led program expansion from 40 to 60 people – opened 
      requisitions, coordinated with subcontracting partner, scheduled interviews, led onboarding
    • Oversaw delivery across concurrent workstreams, managing project managers and product owners to align 
      priorities, timelines, and dependencies.
-   • Drove execution for key initiatives by leading cross-functional teams (engineering, data science, design), 
-     defining scope and timelines, and ensuring on-time delivery
+   • Led cross-functional teams across engineering, data science, and design on key product initiatives, defining scope 
+     and timelines and driving products through delivery
+   • Simultaneously led multiple cross-functional teams (engineering, data science, design) to deliver data and 
+     AI products – managing scope, schedule, risks, and dependencies (Azure DevOps)
    • Leveraged AI-assisted coding (OpenAI Codex; ChatGPT) to prototype solutions, resolve technical blockers, 
      and accelerate development timelines
    • Led delivery of an AI-enabled analytics product that used semantic search and LLM-based classification to 
@@ -890,9 +894,9 @@ Independent Projects
 
 
 Skills
- Product & Delivery: Product roadmap ownership, requirements and KPI definition, backlog prioritization,
- stakeholder management, project delivery and execution (Agile), people management, cross-functional
- coordination (engineering, design, data science)
+ Product & Delivery: Customer discovery, requirements and KPI definition, product roadmap ownership, 
+ backlog prioritization, prototype development, stakeholder management, people management, cross-functional 
+ coordination (engineering, design, data science), project delivery and execution (Agile)
 
  Programming & Data: Python, SQL, MATLAB; data processing, exploratory data analysis, data modeling,
  experimental design, hypothesis testing, statistical analysis, data visualization
