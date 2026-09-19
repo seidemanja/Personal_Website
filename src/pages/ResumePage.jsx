@@ -335,22 +335,13 @@ function ResumePage() {
             </a>
           </p>
           <p className={styles.resumeSummary}>
-            <span className={styles.summaryLine}>
-              Product Manager with 5+ years of experience driving
-              roadmaps, prioritization, and delivery across a portfolio
-            </span>
-            <span className={styles.summaryLine}>
-              of data analytics products, including AI-powered solutions with
-              LLM integration and semantic search.
-            </span>
-            <span className={styles.summaryLine}>
-              Manages project managers and product owners across concurrent
-              initiatives. Combines AI-assisted
-            </span>
-            <span className={styles.summaryLine}>
-              development with hands-on coding to accelerate prototyping. PhD
-              in neuroscience. PMP-certified.
-            </span>
+            Product Manager with 5+ years of experience driving customer
+            discovery, roadmaps, prioritization, and delivery across a portfolio
+            of data analytics products, including AI-powered solutions with LLM
+            integration and semantic search. Manages project managers and product
+            owners across concurrent initiatives. Combines AI-assisted development
+            with hands-on coding to accelerate prototyping. PhD in neuroscience.
+            PMP-certified.
           </p>
         </header>
 
