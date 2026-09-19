@@ -32,12 +32,7 @@ const workExperience = [
     dates: '09/2021 – Present',
     bullets: [
       'Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, prioritizing features and release timelines based on user needs and capacity',
-      'Oversaw delivery across concurrent workstreams, managing project managers and product owners to align priorities, timelines, and dependencies',
-      <>
-        Drove execution for key initiatives by leading cross-functional teams
-        (engineering, data science, design), defining scope and timelines, and
-        ensuring on-time delivery
-      </>,
+      'Led customer discovery as the primary customer-facing product lead across 15+ client groups, interviewing users and stakeholders to uncover needs, shape requirements, and inform roadmap priorities',
       'Leveraged AI-assisted coding (OpenAI Codex; ChatGPT) to prototype solutions, resolve technical blockers, and accelerate development timelines',
       <>
         Led delivery of an AI-enabled analytics product that used semantic
@@ -56,11 +51,8 @@ const workExperience = [
         that recommends scientific codes for grant applications, achieving over
         85% accuracy, recall, and precision and reducing manual curation effort
       </>,
-      <>
-        Led development of a data anomaly detection product, defining
-        requirements and guiding system design to monitor data quality and
-        surface KPIs through dashboard (Tableau, Power BI)
-      </>,
+      'Oversaw delivery across concurrent workstreams, managing project managers and product owners to align priorities, dependencies, and resource capacity',
+      'Led cross-functional teams across engineering, data science, and design on key initiatives, defining scope and timelines and driving products through delivery',
     ],
   },
   {
