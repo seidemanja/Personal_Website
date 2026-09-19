@@ -181,7 +181,7 @@ const skills = [
   {
     label: 'Product & Delivery',
     value:
-      'Product roadmap ownership, requirements and KPI definition, backlog prioritization, stakeholder management, project delivery and execution (Agile), people management, cross-functional coordination (engineering, design, data science)',
+      'Customer discovery, requirements and KPI definition, product roadmap ownership, backlog prioritization, prototype development, stakeholder management, people management, cross-functional coordination (engineering, design, data science), project delivery and execution (Agile)',
   },
   {
     label: 'Programming & Data',
