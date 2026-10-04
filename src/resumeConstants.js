@@ -1,2 +1,2 @@
 export const RESUME_PDF_URL =
-  '/pdfs/Joshua_Seideman_Resume_09192026.pdf';
+  '/pdfs/Joshua_Seideman_Resume_10042026.pdf';

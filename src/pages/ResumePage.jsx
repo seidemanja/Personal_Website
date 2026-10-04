@@ -33,6 +33,7 @@ const workExperience = [
     bullets: [
       'Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, prioritizing features and release timelines based on user needs and capacity',
       'Led customer discovery as the primary customer-facing product lead across 15+ client groups, interviewing users and stakeholders to uncover needs, shape requirements, and inform roadmap priorities',
+      'Defined and tracked product KPIs, adoption metrics, and success measures for AI-enabled products, using analytics to inform roadmap priorities and product decisions.',
       'Leveraged AI-assisted coding (OpenAI Codex; ChatGPT) to prototype solutions, resolve technical blockers, and accelerate development timelines',
       <>
         Led delivery of an AI-enabled analytics product that used semantic
@@ -52,7 +53,6 @@ const workExperience = [
         85% accuracy, recall, and precision and reducing manual curation effort
       </>,
       'Oversaw delivery across concurrent workstreams, managing project managers and product owners to align priorities, dependencies, and resource capacity',
-      'Led cross-functional teams across engineering, data science, and design on key initiatives, defining scope and timelines and driving products through delivery',
     ],
   },
   {
@@ -327,13 +327,22 @@ function ResumePage() {
             </a>
           </p>
           <p className={styles.resumeSummary}>
-            Product Manager with 5+ years of experience driving customer
-            discovery, roadmaps, prioritization, and delivery across a portfolio
-            of data analytics products, including AI-powered solutions with LLM
-            integration and semantic search. Manages project managers and product
-            owners across concurrent initiatives. Combines AI-assisted development
-            with hands-on coding to accelerate prototyping. PhD in neuroscience.
-            PMP-certified.
+            <span className={styles.summaryLine}>
+              Product Manager taking data and AI products from customer discovery
+              through requirements, prototyping,
+            </span>
+            <span className={styles.summaryLine}>
+              roadmap, delivery, and launch. Owns product direction across 30+
+              products, works directly with users across
+            </span>
+            <span className={styles.summaryLine}>
+              15+ client groups, and manages project managers and product owners
+              across concurrent initiatives. Combines
+            </span>
+            <span className={styles.summaryLine}>
+              AI-assisted development with hands-on coding for prototyping. PhD in
+              neuroscience. PMP-certified.
+            </span>
           </p>
         </header>
 
@@ -376,13 +385,11 @@ function ResumePage() {
               <p>
                 PhD, Neuroscience – Wake Forest University
               </p>
-              <p className={styles.date}>08/2014 – 07/2020</p>
             </div>
             <div className={styles.entryHeading}>
               <p>
                 BA, Psychology. BA, Biology – Boston University
               </p>
-              <p className={styles.date}>09/2006 – 05/2010</p>
             </div>
           </div>
         </Section>
