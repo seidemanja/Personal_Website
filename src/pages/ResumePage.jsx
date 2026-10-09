@@ -28,7 +28,7 @@ function NIHGrantLink({ children }) {
 const workExperience = [
   {
     organization: 'Deloitte Consulting',
-    role: 'Manager, Product Management',
+    role: 'Product Manager',
     dates: '09/2021 – Present',
     bullets: [
       'Owned product roadmap and drove product requirements for a portfolio of 30+ data analytics products, prioritizing features and release timelines based on user needs and capacity',
